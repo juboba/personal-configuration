@@ -25,7 +25,7 @@
 
 ;; Helm mode
 (require 'helm)
-(helm-mode 1)
+(helm-mode t)
 
 ;; Ag Silver Searcher
 (require 'ag)
@@ -60,6 +60,7 @@
 ;;;; KEYS
 
 (global-set-key "\C-xf" 'fiplr-find-file)
+(global-set-key "\C-x\C-f" 'helm-find-files)
 (global-set-key "\C-x\C-y" 'yas-expand-from-trigger-key)
 (global-set-key "\C-j" 'emmet-expand-line)
 (global-set-key "\C-x\C-b" 'ibuffer)
