@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "ag" "ag.el" (22266 37212 214478 716000))
-;;; Generated autoloads from ag.el
+;;;### (autoloads nil "ag" "../../../../../.emacs.d/elpa/ag-20160321.1606/ag.el"
+;;;;;;  "918ab22a9c57af808154371f765700af")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/ag-20160321.1606/ag.el
 
 (autoload 'ag "ag" "\
 Search using ag in a given DIRECTORY for a given search STRING,
@@ -111,6 +112,12 @@ Kill all `ag-mode' buffers.
 Kill all `ag-mode' buffers other than the current buffer.
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/ag-20160321.1606/ag-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/ag-20160321.1606/ag.el") (22358
+;;;;;;  5614 757052 501000))
 
 ;;;***
 

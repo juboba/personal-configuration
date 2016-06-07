@@ -21,13 +21,11 @@
 ;; Load configs
 (load-file "~/.emacs.d/evil-config.el")
 (load-file "~/.emacs.d/mu4e-config.el")
+(load-file "~/.emacs.d/package-install.el")
 
 ;; Helm mode
 (require 'helm)
 (helm-mode 1)
-
-(require 'helm-projectile)
-(helm-projectile-on)
 
 ;; Ag Silver Searcher
 (require 'ag)
