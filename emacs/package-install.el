@@ -16,12 +16,13 @@ Return a list of installed packages or nil for every skipped package."
 (or (file-exists-p package-user-dir)
     (package-refresh-contents))
 
-(ensure-package-installed 'evil 'evil-matchit 'evil-surround 'evil-tabs
+(ensure-package-installed 'evil 'evil-matchit 'evil-surround 'evil-tabs 'vimish-fold 
+                          'powerline 'powerline-evil
                           'magit 'magit-gitflow
                           'emmet-mode 'flycheck 'fiplr
                           'helm
-                          'js2-mode 'linum-relative 'powerline 'rainbow-delimiters
-                          'vimish-fold 'web-mode 'yasnippet 'ag)
+                          'js2-mode 'linum-relative 'rainbow-delimiters
+                          'web-mode 'yasnippet 'ag)
 
 ;; activate installed packages
 (package-initialize)

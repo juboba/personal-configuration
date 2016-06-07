@@ -19,9 +19,9 @@
     (set-face-attribute 'default nil :height 110))
 
 ;; Load configs
+(load-file "~/.emacs.d/package-install.el")
 (load-file "~/.emacs.d/evil-config.el")
 (load-file "~/.emacs.d/mu4e-config.el")
-(load-file "~/.emacs.d/package-install.el")
 
 ;; Helm mode
 (require 'helm)
