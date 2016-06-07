@@ -20,6 +20,7 @@
 
 ;; Load configs
 (load-file "~/.emacs.d/package-install.el")
+(load-file "~/.emacs.d/functions.el")
 (load-file "~/.emacs.d/evil-config.el")
 (load-file "~/.emacs.d/mu4e-config.el")
 
@@ -65,6 +66,8 @@
 (global-set-key "\C-j" 'emmet-expand-line)
 (global-set-key "\C-x\C-b" 'ibuffer)
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-c s") 'split-with-file)
+(global-set-key (kbd "C-c v") 'vsplit-with-file)
 
 ;; Show me the matching parenthesis
 (show-paren-mode t)
