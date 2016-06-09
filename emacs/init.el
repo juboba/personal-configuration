@@ -34,7 +34,7 @@
 ;; fiplr fuzzy find
 (require 'fiplr)
 
-(setq fiplr-ignored-globs '((directories (".git" ".svn" "node_modules" "bower_components" "jspm_packages"))
+(setq fiplr-ignored-globs '((directories (".git" ".svn" "node_modules" "bower_components" "jspm_packages" "-build"))
                             (files ("*.jpg" "*.png" "*.zip" "*~"))))
 
 
@@ -65,9 +65,11 @@
 (global-set-key "\C-x\C-y" 'yas-expand-from-trigger-key)
 (global-set-key "\C-j" 'emmet-expand-line)
 (global-set-key "\C-x\C-b" 'ibuffer)
+(global-set-key (kbd "C-x z") 'zoom-window-zoom)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-c s") 'split-with-file)
 (global-set-key (kbd "C-c v") 'vsplit-with-file)
+(global-set-key (kbd "C-c f") 'comint-dynamic-complete-filename)
 
 ;; Show me the matching parenthesis
 (show-paren-mode t)

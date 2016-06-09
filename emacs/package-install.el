@@ -22,7 +22,8 @@ Return a list of installed packages or nil for every skipped package."
                           'emmet-mode 'flycheck 'fiplr
                           'helm
                           'js2-mode 'linum-relative 'rainbow-delimiters
-                          'web-mode 'yasnippet 'ag)
+                          'web-mode 'yasnippet 'ag 'rainbow-mode
+                          'zoom-window)
 
 ;; activate installed packages
 (package-initialize)
