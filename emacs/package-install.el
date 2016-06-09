@@ -20,9 +20,9 @@ Return a list of installed packages or nil for every skipped package."
                           'powerline 'powerline-evil
                           'magit 'magit-gitflow
                           'emmet-mode 'flycheck 'fiplr
-                          'helm
+                          'helm 'auto-complete
                           'js2-mode 'linum-relative 'rainbow-delimiters
-                          'web-mode 'yasnippet 'ag)
+                          'web-mode 'yasnippet 'ag 'rainbow-mode)
 
 ;; activate installed packages
 (package-initialize)
