@@ -87,6 +87,10 @@
   (quote (("default"      
             ("Altima"
               (filename . "Work/altima"))
+            ("Helm"
+              (predicate string-match "Hmm" mode-name))
+            ("ERC"
+              (mode . erc-mode))
             ("Programming"
               (or
                 (mode . c-mode)
