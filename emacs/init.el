@@ -10,9 +10,6 @@
 
 (cd "~/Work/altima")
 
-;; Load theme
-(load-theme 'suscolors)
-
 ;; Set default font
 (when (member "Monaco" (font-family-list))
     (set-face-attribute 'default nil :font "Monaco")
@@ -210,3 +207,6 @@ scroll-step 1)
 (defadvice split-window (after move-point-to-new-window activate)
   "Moves the point to the newly created window after splitting."
   (other-window 1))
+
+;; Load theme
+(load-theme 'suscolors)
