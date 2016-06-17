@@ -16,13 +16,22 @@ Return a list of installed packages or nil for every skipped package."
 (or (file-exists-p package-user-dir)
     (package-refresh-contents))
 
+;; Vim
 (ensure-package-installed 'evil 'evil-matchit 'evil-surround 'evil-tabs 'vimish-fold 
-                          'powerline 'powerline-evil
-                          'magit 'magit-gitflow
-                          'emmet-mode 'flycheck 'fiplr
-                          'helm 'auto-complete
-                          'js2-mode 'linum-relative 'rainbow-delimiters
-                          'web-mode 'yasnippet 'ag 'rainbow-mode 'zoom-window)
+                          'powerline 'powerline-evil)
+
+;; Magit
+(ensure-package-installed 'magit 'magit-gitflow)
+
+;; Coding helpers
+(ensure-package-installed 'emmet-mode 'flycheck 'auto-complete 'js2-mode 'linum-relative
+                          'rainbow-delimiters
+                          'web-mode 'yasnippet 'rainbow-mode)
+;; Helpers
+(ensure-package-installed 'helm 'ag 'fiplr 'zoom-window)
+
+;; Themes
+(ensure-package-installed 'suscolors-theme)
 
 ;; activate installed packages
 (package-initialize)
