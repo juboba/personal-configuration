@@ -23,6 +23,7 @@
 (load-file "~/.emacs.d/functions.el")
 (load-file "~/.emacs.d/evil-config.el")
 (load-file "~/.emacs.d/mu4e-config.el")
+(load-file "~/.emacs.d/erc-config.el")
 
 ;; Helm mode
 (require 'helm)
@@ -52,6 +53,7 @@
 ;(add-hook 'php-mode-hook 'flymake-phpcs-load)
 (require 'flycheck)
 (global-flycheck-mode)
+(setq js2-mode-show-strict-warnings nil)
 
 ;; Yasnippet
 ;(add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-20150415.244/")
@@ -88,21 +90,21 @@
 (setq ibuffer-saved-filter-groups
   (quote (("default"      
             ("Altima"
-              (filename . "Work/altima"))
+                (filename . "Work/altima"))
             ("Helm"
-              (predicate string-match "Hmm" mode-name))
+                (predicate string-match "Hmm" mode-name))
             ("ERC"
-              (mode . erc-mode))
+                (mode . erc-mode))
             ("Programming"
-              (or
-                (mode . c-mode)
-                (mode . js2-mode)
-                (mode . web-mode)
-                (mode . css-mode)
-                (mode . python-mode)
-                (mode . emacs-lisp-mode)
-                ;; etc
-                ))))))
+                (or
+                    (mode . c-mode)
+                    (mode . js2-mode)
+                    (mode . web-mode)
+                    (mode . css-mode)
+                    (mode . python-mode)
+                    (mode . emacs-lisp-mode)
+                    ;; etc
+                    ))))))
 
 (add-hook 'ibuffer-mode-hook
   (lambda ()
