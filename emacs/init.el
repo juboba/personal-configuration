@@ -62,11 +62,12 @@
 
 ;;;; KEYS
 
-(global-set-key "\C-xf" 'fiplr-find-file)
-(global-set-key "\C-x\C-f" 'helm-find-files)
-(global-set-key "\C-x\C-y" 'yas-expand-from-trigger-key)
-(global-set-key "\C-j" 'emmet-expand-line)
-(global-set-key "\C-x\C-b" 'ibuffer)
+(global-set-key (kbd "C-x f") 'fiplr-find-file)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-y") 'yas-expand-from-trigger-key)
+(global-set-key (kbd "C-j") 'emmet-expand-line)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x z") 'zoom-window-zoom)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-c s") 'split-with-file)
