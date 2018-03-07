@@ -1,0 +1,27 @@
+session_name: Work-Cuisifeed
+windows:
+  - window_name: Misc
+    panes:
+      -
+  - window_name: Cuisifeed
+    layout: tiled
+    panes:
+      - shell_command:
+        - cd ~/Work/server-cuisifeed/
+        - ./run_mongo.sh
+      - shell_command:
+        - cd ~/Work/server-cuisifeed/
+        - grunt serve
+      - cd ~/Work/server-cuisifeed/
+
+session_name: Work-Gartenheim
+windows:
+  - window_name: Misc
+    panes:
+      -
+  - window_name: Gartenheim
+    panes:
+      - shell_command:
+        - cd ~/Work/gartenheim/
+        - docker-compose up
+      - cd ~/Work/gartenheim/

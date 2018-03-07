@@ -1,0 +1,7 @@
+session_name: Work-FlexIT
+windows:
+  - layout: tiled
+    panes:
+      - shell_command:
+        - cd ~/Work/flexit/Linde.SharePoint.FlexITReact
+        - clear && npm start

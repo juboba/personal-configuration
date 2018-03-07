@@ -26,7 +26,7 @@ floating_modifier $mod
 
 # start a terminal
 # tmux
-bindsym $mod+Return exec urxvt -e "tmux_unique.sh"
+bindsym $mod+Return exec urxvt -e "tmux"
 # No tmux
 bindsym $mod+Shift+Return exec urxvt 
 
@@ -82,13 +82,28 @@ set $ws9 "9: Firefox"
 #workspace $ws8   output DVI-I-1
 #workspace $ws9   output DVI-I-1
 
+#Colors
+set $background #2F343F
+set $active_bg #776BB5
+set $active_border #252A33
+set $active_text #dddddd
+set $inactive_bg #2F343F
+set $inactive_border #2F343F
+set $inactive_text #8A939D
+set $urgent_bg #77216f
+set $urgent_border #77216f
+set $urgent_text #ffffff
+
+
 #Window rules
 assign [title="^emacs"] $ws2
 assign [class="chromium"] $ws3
+assign [class="Opera"] $ws3
 assign [class="Clementine"] $ws6
-assign [class="Spotify"] $ws6
+assign [class="spotify"] $ws6
 assign [class="Pidgin"] $ws7
 assign [class="Telegram"] $ws7
+assign [class="Slack"] $ws7
 assign [class="Skype"] $ws7
 assign [class="Mumble"] $ws7
 assign [class="Steam"] $ws8
@@ -111,7 +126,8 @@ for_window [class="Steam" title="Chat"] floating enable
 bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+p exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$background" -bg "$background" -fg "$active_text" -hlbg "$background" -font "Monaco" -disable-history -levenshtein-sort
+bindsym $mod+space exec rofi -show run -disable-history -sort -levenshtein-sort
+bindsym $mod+Shift+space exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -144,16 +160,19 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+z focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
 
 # focus the child container
 bindsym $mod+d focus child
+
+# Sticky toggle
+#bindsym $mod+Shift+s sticky toggle
 
 workspace_auto_back_and_forth yes
 
@@ -206,39 +225,28 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $background #2F343F
-set $active_bg #776BB5
-set $active_border #252A33
-set $active_text #dddddd
-set $inactive_bg #2F343F
-set $inactive_border #2F343F
-set $inactive_text #8A939D
-set $urgent_bg #77216f
-set $urgent_border #77216f
-set $urgent_text #ffffff
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  status_command ~/.i3/statusbar.sh
+  status_command i3status #~/.i3/statusbar.sh
   position top
   colors {
-    separator #333333
-    background $background
-    statusline #aea79f
-    focused_workspace   $active_border      $active_bg      $active_text
-    active_workspace    $active_border      $active_bg      $active_text
-    inactive_workspace  $inactive_border    $inactive_bg    $inactive_text
-    urgent_workspace    $urgent_border      $urgent_bg      $urgent_text
+    separator #AAAAAA
+    background #1f2326
+    statusline #FFFFFF
+    focused_workspace #4F99D3 #4F99D3 #151718
+    active_workspace #DCCD69 #DCCD69 #151718
+    inactive_workspace #1f2326 #1f2326 #AAAAAA
+    urgent_workspace #CE4045 #CE4045 #FFFFFF
   }
 }
-exec --no-startup-id conky
+#exec --no-startup-id conky
 
-hide_edge_borders both
+#hide_edge_borders both
 
 # window colors             border              background      text                indicator
 
-client.focused              $active_border      $active_bg      $urgent_text      #ffffff
-client.focused_inactive     $active_border      $active_bg      $active_text        #ffffff
-client.unfocused            $inactive_border    $inactive_bg    $inactive_text      #ffffff
-client.urgent               $urgent_border      $urgent_bg      $urgent_text        #ffffff
+client.focused #4F99D3 #4F99D3 #151718 #9FCA56
+client.focused_inactive #9FCA56 #9FCA56 #151718 #A074C4
+client.unfocused #1f2326 #1f2326 #AAAAAA #A074C4
+client.urgent #CE4045 #CE4045 #FFFFFF #DCCD69

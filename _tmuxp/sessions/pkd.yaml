@@ -1,0 +1,7 @@
+session_name: Work-PKD
+windows:
+  - panes:
+      - shell_command:
+        - cd ~/Work/pkd/
+        - npm start
+      - cd ~/Work/pkd/
