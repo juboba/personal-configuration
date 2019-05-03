@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: JS#import
+# key: im
+# --
+import ${1} from '${2}'
