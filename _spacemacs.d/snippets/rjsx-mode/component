@@ -4,12 +4,15 @@
 # --
 /* Global imports */
 import React from 'react'
-import PropTypes from 'prop-types'
+import { } from 'prop-types'
 
 /* Local imports */
 
 /* Component definition */
-const $1 = (props) => {}
+const $1 = () => {
+  return (
+  )
+}
 
 /* PropTypes */
 $1.propTypes = {}
