@@ -60,7 +60,7 @@ myModMask = mod4Mask
 -- certain contrib modules.
 --
 myTerminal :: String
-myTerminal = "urxvt"
+myTerminal = "gnome-terminal"
 
 -- Width of the window border in pixels.
 myBorderWidth :: Dimension
@@ -92,7 +92,7 @@ myNormalBorderColor :: String
 myNormalBorderColor  = "#000000"
 
 myFocusedBorderColor :: String
-myFocusedBorderColor = "#f7fcf3"
+myFocusedBorderColor = "#93c247"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -148,7 +148,7 @@ myManageHook = composeAll
     , className =? "Chromium"                  --> (doShift $ myWorkspaces !! 2)
     , title     =? "Spotify"                   --> (doShift $ myWorkspaces !! 5)
     , className =? "TelegramDesktop"           --> (doShift $ myWorkspaces !! 6)
-    , className =? "Slack"                     --> (doShift $ myWorkspaces !! 6)
+    , className =? "Microsoft Teams - Preview" --> (doShift $ myWorkspaces !! 6)
     , className =? "Firefox"                   --> (doShift $ myWorkspaces !! 8)
     , className =? "XClock"                    --> doIgnore
     , stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR"                    --> doIgnore
@@ -203,11 +203,13 @@ windowTitleStyle = xmobarColor "DeepPink" "" . shorten 40
 
 main :: IO()
 main = do
+    _ <- spawnPipe "stalonetray"
+    _ <- spawnPipe "pasystray"
     xmproc <- spawnPipe "xmobar"
-    xmonad $ withUrgencyHook NoUrgencyHook def
+    xmonad $ docks $ withUrgencyHook NoUrgencyHook def
         { borderWidth        = myBorderWidth
         , focusedBorderColor = myFocusedBorderColor
-        , layoutHook         = smartBorders -- . avoidStruts
+        , layoutHook         = smartBorders . avoidStruts
           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
           $ myLayoutHook
         , logHook            = dynamicLogWithPP xmobarPP
