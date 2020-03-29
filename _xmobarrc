@@ -1,6 +1,6 @@
-Config { -- font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
-         alpha = 90
+Config { alpha = 90
        , font = "xft:Monaco:size=14,FontAwesome:size=14,Arial:size=10"
+        -- font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
        , bgColor = "#222"
        , fgColor = "#555"
        , position = TopW L  95
