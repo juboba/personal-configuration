@@ -3,3 +3,5 @@ _xmonad/xmonad.errors
 _xmonad/xmonad.hi
 _xmonad/xmonad.o
 _xmonad/xmonad.state
+
+_spacemacs.d/.spacemacs.env
