@@ -11,11 +11,13 @@ import Data.Monoid
 import XMonad.Actions.CycleWS
 -- import XMonad.Actions.CycleRecentWS
 -- import XMonad.Actions.FloatKeys
+import XMonad.Actions.UpdatePointer(updatePointer)
+
 import XMonad.Hooks.DynamicLog
 -- import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 -- import XMonad.Hooks.EwmhDesktops
--- import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.ManageHelpers
 -- import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 
@@ -25,7 +27,7 @@ import XMonad.Hooks.UrgencyHook
 -- import XMonad.Layout
 -- import XMonad.Layout.Accordion
 -- import XMonad.Layout.CenteredMaster
-import XMonad.Layout.Circle
+-- import XMonad.Layout.Circle
 -- import XMonad.Layout.Grid
 -- import XMonad.Layout.IM
 -- import XMonad.Layout.MosaicAlt
@@ -37,6 +39,8 @@ import XMonad.Layout.NoBorders
 -- import XMonad.Layout.Spiral
 -- import XMonad.Layout.Tabbed
 -- import XMonad.Layout.TwoPane
+import XMonad.Layout.Spacing
+import XMonad.Layout.LayoutModifier(ModifiedLayout)
 
 -- import XMonad.Config.Desktop
 
@@ -52,19 +56,18 @@ import XMonad.Util.EZConfig(additionalKeys)
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
 --
--- myModMask       = mod4Mask
-myModMask :: KeyMask
-myModMask = mod4Mask
+superKey :: KeyMask
+superKey = mod4Mask
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
 myTerminal :: String
-myTerminal = "gnome-terminal"
+myTerminal = "st"
 
 -- Width of the window border in pixels.
 myBorderWidth :: Dimension
-myBorderWidth   = 5
+myBorderWidth   = 1
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -92,7 +95,7 @@ myNormalBorderColor :: String
 myNormalBorderColor  = "#000000"
 
 myFocusedBorderColor :: String
-myFocusedBorderColor = "#93c247"
+myFocusedBorderColor = "#17729d"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -100,30 +103,41 @@ myFocusedBorderColor = "#93c247"
 -- myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 -- myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 --
-scrotCmd :: String
-scrotCmd = "sleep 2; scrot 'At_%Y_%m_%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/Screenshots'"
+
+goFull :: X ()
+goFull = do
+    sendMessage $ Toggle FULL
+    sendMessage ToggleStruts
+
 
 myKeys :: [((KeyMask, KeySym), X())]
 myKeys =
-    -- Screensaver
-    [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
     -- Toggle Fullscreen
-    , ((mod4Mask, xK_f), sendMessage $ Toggle FULL)
+    [ ((superKey, xK_f), goFull)
+    , ((superKey .|. shiftMask, xK_f), sendMessage ToggleStruts )
     -- Go to previous workspace
-    , ((mod4Mask, xK_Tab), toggleWS)
-    -- Windowshot
-    , ((mod4Mask .|. shiftMask, xK_s), spawn $ scrotCmd ++ " -s")
-    -- Screenshot
-    , ((mod4Mask, xK_s), spawn scrotCmd)
+    , ((superKey, xK_Tab), toggleWS)
     -- Cycle tiling modes
-    , ((mod4Mask, xK_0), sendMessage NextLayout)
-    -- Reverse cycle tiling modes
-    , ((mod4Mask .|. shiftMask, xK_0), sendMessage FirstLayout)
-    -- Launch rofi
-    , ((mod4Mask, xK_space), spawn "rofi -show run -disable-history -sort -levenshtein-sort")
-    -- , ((modm,               xK_F1     ), spawn $ XMonad.terminal conf)
+    -- , ((superKey, xK_0), sendMessage NextLayout)
+    -- Send current workspace to next screen
+    , ((superKey .|. shiftMask, xK_o), swapNextScreen)
+    -- Focus next screen
+    , ((superKey, xK_o), nextScreen)
     -- Focus urgent window
-    , ((mod4Mask             , xK_x      ), focusUrgent)
+    , ((superKey, xK_x), focusUrgent)
+
+    -- Invert screen colors
+    , ((superKey .|. shiftMask, xK_v), spawn "xcalib -i -a")
+    -- Screensaver
+    , ((superKey .|. shiftMask, xK_z), spawn "slock")
+    -- Copy Emoji
+    , ((superKey .|. shiftMask, xK_i), spawn $ "rofiemoji")
+    -- Launch rofi
+    , ((superKey, xK_p), spawn "rofi -show drun -modi drun,ssh -disable-history -sort -levenshtein-sort")
+    -- Toggle window transparency
+    , ((superKey, xK_r), spawn "transset 0.8 -t")
+    -- Launch Terminal
+    -- , ((modm,               xK_F1     ), spawn $ XMonad.terminal conf)
     ]
 
 ------------------------------------------------------------------------
@@ -143,10 +157,11 @@ myKeys =
 --
 myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll
-    [ className =? "Emacs"                     --> (doShift $ myWorkspaces !! 1)
+    [ isFullscreen --> doFullFloat
+    , className =? "Emacs"                     --> (doShift $ myWorkspaces !! 1)
     , className =? "Thunderbird"               --> (doShift $ myWorkspaces !! 7)
     , className =? "Chromium"                  --> (doShift $ myWorkspaces !! 2)
-    , title     =? "Spotify"                   --> (doShift $ myWorkspaces !! 5)
+    , title =? "Spotify Premium"               --> (doShift $ myWorkspaces !! 5)
     , className =? "TelegramDesktop"           --> (doShift $ myWorkspaces !! 6)
     , className =? "Microsoft Teams - Preview" --> (doShift $ myWorkspaces !! 6)
     , className =? "Firefox"                   --> (doShift $ myWorkspaces !! 8)
@@ -156,55 +171,58 @@ myManageHook = composeAll
     -- , className =? "Exe"                       --> doFloat
     -- , className =? "Gvim"                      --> viewShift "^ vim"
     -- , className =? "Gimp"                      --> doShift "8 grphx" <+> doFloat
-
+    , title =? "Picture-in-Picture"            --> doFloat -- Firefox videos
+    , title =? "Media viewer"                  --> doFloat -- Telegram media
+    , title =? "Microsoft Teams Notification"  --> doFloat -- Teams notifications
+    , className =? "Gsimplecal"                --> doFloat -- Calendar window
     , title     =? "Copying Files"             --> doFloat ]
     -- where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 ------------------------------------------------------------------------
 -- Layouts:
-basicLayout :: Tall a
-basicLayout = Tall nmaster delta ratio where
+mainLayout :: ModifiedLayout SmartSpacing Tall a
+mainLayout = smartSpacing 10 $ Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
     ratio   = 1/2
+
 -- tallLayout :: ModifiedLayout
-tallLayout       = named "\61659"     $ avoidStruts $ basicLayout -- 
-wideLayout       = named "\61785"     $ avoidStruts $ Mirror basicLayout -- 
-singleLayout     = named "\61640"   $ avoidStruts $ noBorders Full -- 
-circleLayout     = named "\61713"   $ Circle -- 
+tallLayout       = named "\61659"     $ avoidStruts $ mainLayout -- 
+wideLayout       = named "\61785"     $ avoidStruts $ Mirror mainLayout -- 
+-- singleLayout     = named "\61640"   $ avoidStruts $ noBorders Full -- 
+-- circleLayout     = named "\61713"   $ Circle -- 
 -- twoPaneLayout    = named "Two Pane" $ TwoPane (2/100) (1/2)
 -- mosaicLayout     = named "Mosaic"   $ MosaicAlt M.empty
 -- gridLayout       = named "Grid"     $ Grid
 -- spiralLayout     = named "Spiral"   $ spiral (1 % 1)
 
+-- myLayoutHook :: ModifiedLayout ??
 myLayoutHook = tallLayout
   ||| wideLayout
-  ||| singleLayout
+  -- ||| singleLayout
   -- ||| twoPaneLayout
-  ||| circleLayout
+  -- ||| circleLayout
   -- ||| mosaicLayout
   -- ||| gridLayout
   -- ||| spiralLayout
 
 currentWsStyle :: String -> String
-currentWsStyle = xmobarColor "DeepSkyBlue" ""
+currentWsStyle = xmobarColor "#ffc145" ""
 
 layoutIndicatorStyle :: String -> String
-layoutIndicatorStyle = wrap "  " "  " . xmobarColor "DarkOrange" ""
+layoutIndicatorStyle = wrap "" "" . xmobarColor "#006494" ""
 
 urgentWsIndicatorStyle :: String -> String
 urgentWsIndicatorStyle = xmobarColor "#red4" "" . xmobarStrip
 
 visibleWsStyle :: String -> String
-visibleWsStyle = xmobarColor "Red" "LightSkyBlue4"
+visibleWsStyle = xmobarColor "#ba8d33" "LightSkyBlue4"
 
 windowTitleStyle :: String -> String
-windowTitleStyle = xmobarColor "DeepPink" "" . shorten 40
+windowTitleStyle = xmobarColor "#de3c4b" "" . shorten 20
 
 main :: IO()
 main = do
-    _ <- spawnPipe "stalonetray"
-    _ <- spawnPipe "pasystray"
     xmproc <- spawnPipe "xmobar"
     xmonad $ docks $ withUrgencyHook NoUrgencyHook def
         { borderWidth        = myBorderWidth
@@ -216,14 +234,15 @@ main = do
                         { ppCurrent = currentWsStyle
                         , ppLayout  = layoutIndicatorStyle
                         , ppOutput  = hPutStrLn xmproc
-                        , ppSep     = ""
+                        , ppSep     = "  "
                         , ppTitle   = windowTitleStyle
                         , ppUrgent  = urgentWsIndicatorStyle
                         , ppVisible = visibleWsStyle
                         , ppWsSep   = "  "
                         }
+                        >> updatePointer (0.5, 0.5) (0, 0)
         , manageHook        = manageDocks <+> myManageHook <+> manageHook def
-        , modMask           = myModMask
+        , modMask           = superKey
         , normalBorderColor = myNormalBorderColor
         , terminal          = myTerminal
         , workspaces        = myWorkspaces
