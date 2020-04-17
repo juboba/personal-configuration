@@ -1,26 +1,29 @@
-Config { alpha = 90
+Config { alpha = 98
        , font = "xft:Monaco:size=14,FontAwesome:size=14,Arial:size=10"
         -- font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
-       , bgColor = "#222"
-       , fgColor = "#555"
-       , position = TopW L  95
+       , bgColor = "#1f1300"
+       , fgColor = "#ffffff"
+       , position = TopW L  100 -- 95
+       , lowerOnStart = True
        , commands = [ Run Weather "EGPF" ["-t"," <tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
                     -- , Run Cpu ["-p", "3", "-L","3","-H","50","--normal","green","--high","red"] 10
                     -- , Run Memory ["-t","Mem: <usedratio>%"] 10
                     -- , Run Swap [] 10
                     -- , Run Date "%a %b %_d %l:%M" "date" 10
                     , Run Com "date" ["+%a %d %b"] "date" 600
-                    , Run Com "date" ["+%H:%M:%S"] "time" 20
-                    , Run Com "nowPlaying.sh" [""] "nowPlaying" 30
-                    -- , Run MarqueePipeReader "/tmp/nowPlaying" (50, 5, "    ") "mpipe"
-                    , Run PipeReader "--:/tmp/volume" "volume"
+                    , Run Com "date" ["+%H %M %S"] "time" 20
+                    , Run CommandReader "sp-status" "nowPlaying"
+                    , Run Com "sp-icon" [] "nowPlayingIcon" 5
+                    -- , Run MarqueePipeReader "/tmp/nowPlaying" (50, 5, "    ") "now-playing"
+                    -- , Run PipeReader "--:/tmp/volume" "volume"
                     , Run Battery [
-                        "-t", "<acstatus>: <left>% (<timeleft>)",
+                        -- "-t", "<left>% <acstatus> [<timeleft>]",
+                        "-t", "<acstatus> <left>%",
                         "--",
                         -- "-c", "charge_full",
-                        "-O", "<fc=green></fc>",
+                        "-O", "<fc=#af9b46></fc>",
                         "-i", "",
-                        "-o", "<fc=pink></fc>",
+                        "-o", "<fc=#af9b46></fc>",
                         -- "--off-icon-pattern",
                         -- "",
                         "-h", "green",
@@ -32,5 +35,5 @@ Config { alpha = 90
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %StdinReader% } <action=`xterm -e 'cal -y | less'`><fc=#fff> %date%</fc></action> { <action=`volumeControl.sh mute > /tmp/volume`><fc=DarkTurquoise>%volume%</fc></action> <action=`controlify play`><fc=#bbb>%nowPlaying%</fc></action> | <fc=HotPink>%battery%</fc> | <fc=#ee9a00> %time%</fc>"
+       , template = " %StdinReader% } <action=`gsimplecal`><fc=#ffc145> %date%</fc></action> { <action=`sp play`><fc=#de3c4b>%nowPlaying% %nowPlayingIcon%</fc></action> | <fc=#af9b46>%battery%</fc> | <fc=#006494> %time%</fc> "
        }
