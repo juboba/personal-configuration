@@ -1,0 +1,11 @@
+#!/bin/sh
+while read file
+do
+  FILE_FULL_PATH="$(pwd)/$file"
+  case $1 in
+    "w")
+      feh --bg-fill "$FILE_FULL_PATH"
+      notify-send -i "$FILE_FULL_PATH" "Wallpaper changed"
+      ;;
+  esac
+done

@@ -1,0 +1,50 @@
+search high
+search docker
+search dock
+open_with mpv
+open_with file
+find F
+search feh
+search prp
+[1;3C[1;3C
+shell feh --bg-``` %s
+search down
+shell feh --bg-scale %s
+search rocky
+search photo
+search view
+search canada
+shell feh --bg-fill %s
+search wa
+shell yarn build
+shell nginx build 90998
+search we
+search range
+shell touch commands.py
+shell emacs %s
+delete
+search 
+search confi
+search ranger
+search config
+shell cd .config
+shell cd ~/.config
+shell 
+cd .config
+st
+search h
+cd .bin
+search smod
+open_with vim
+cd ~/.config/ranger
+
+mkdir unified-desktop
+tab_new 
+tab_open 
+search 4
+search pro
+search wl
+search wall
+search pic
+search wal
+search dow
