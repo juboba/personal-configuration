@@ -1,6 +1,9 @@
 # Set background:
 ~/.fehbg
 
+#Xmodmap
+xmodmap ~/.Xmodmap
+
 # Start key bindings
 xbindkeys
 
@@ -11,10 +14,10 @@ xsetroot -cursor_name left_ptr
 xset s 300
 
 # Start applications
-xcompmgr &   # Composite Manager
-dunst &         # Notification daemon
-stalonetray &   # Stand Alone Tray
-pasystray &     # Pulseaudio system tray icon
-nm-applet &     # Network-manager applet
-fusuma &        # Fusuma mouse gestures
+compton -f -i 0.85 &  # Composite Manager
+dunst &               # Notification daemon
+stalonetray &         # Stand Alone Tray
+pasystray &           # Pulseaudio system tray icon
+nm-applet &           # Network-manager applet
+fusuma &              # Fusuma mouse gestures
 
