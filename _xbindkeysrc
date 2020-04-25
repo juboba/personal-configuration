@@ -88,16 +88,16 @@
 "sp next"
   XF86AudioNext
 
-"brightness + eDP-1"
+"shine brightness-up"
   XF86MonBrightnessUp
 
-"brightness - eDP-1"
+"shine brightness-down"
   XF86MonBrightnessDown
 
-"brightness + eDP-1 --temp"
+"shine temp-up"
   Shift + XF86MonBrightnessUp
 
-"brightness - eDP-1 --temp"
+"shine temp-down"
   Shift + XF86MonBrightnessDown
 
 ##################################
