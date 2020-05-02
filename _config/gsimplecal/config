@@ -1,2 +1,6 @@
 mainwindow_yoffset = 25
 close_on_unfocus = 1
+show_timezones = 1
+clock_format = %a %d %b %H:%M
+clock_label = Chile
+clock_tz = :America/Santiago
