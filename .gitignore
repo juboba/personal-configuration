@@ -5,3 +5,4 @@ _xmonad/xmonad.o
 _xmonad/xmonad.state
 
 _spacemacs.d/.spacemacs.env
+*pyo
