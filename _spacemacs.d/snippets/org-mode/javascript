@@ -2,6 +2,6 @@
 # name: javascript source
 # key: js_
 # --
-#+begin_src js
+#+BEGIN_SRC js
 $0
-#+end_src
+#+END_SRC
