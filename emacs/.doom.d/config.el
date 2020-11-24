@@ -53,6 +53,7 @@
 ;; they are implemented.
 
 ;; (load-file "~/.doom.d/exwm.el")
+(load-file "~/.doom.d/org.el")
 (load-file "~/.doom.d/my-functions.el")
 (load-file "~/.doom.d/keymaps.el")
 (load-file "~/.doom.d/javascript.el")
@@ -63,11 +64,6 @@
 ;; (setq evil-undo-function 'undo-tree-undo)
 ;; (setq evil-redo-function 'undo-tree-redo)
 
-;; Hooks for programming modes
-(add-hook 'prog-mode-hook 'prettify-symbols-mode)
-(add-hook 'prog-mode-hook 'my/add-pretty-lambda)
-;; (add-hook 'prog-mode-hook 'undo-tree-mode)
-
 ;; My status bar
 ;; (display-battery-mode)
 ;; (display-time-mode)
@@ -75,7 +71,8 @@
 
 ;; My "screen saver"
 (require 'zone)
-(zone-when-idle 45)
+(setq zone-programs [zone-pgm-rat-race])
+(zone-when-idle 105)
 
 ;; Cursor style
 ;; (setq blink-cursor-interval 0.2)
@@ -86,7 +83,12 @@
 ;; Set my quick launch terminal
 (setq terminal-here-terminal-command (list "/home/juboba/.bin/terminal"))
 
-(setq zone-programs [zone-pgm-rat-race])
+;; Set indentation
+(my/set-office-code-style)
+
+;; Evil-matchit
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
 
 ;; (add-to-list 'display-buffer-alist '("^\\*Flycheck errors\\*$"))
 (defadvice! prompt-for-buffer (&rest _)
@@ -97,5 +99,17 @@
 ;; For quickly setting the fonr use:
 ;; (set-frame-font "Hasklug Nerd Font 13" nil t)
 
-;; Initial Hooks
+
+;; Disable cursor movement when exiting insert mode
+(setq evil-move-cursor-back nil)
+
+;; Hooks
 (add-hook 'after-init-hook #'global-emojify-mode)
+(add-hook 'after-change-major-mode-hook #'my/doom-modeline-conditional-buffer-encoding)
+(add-hook 'prog-mode-hook 'prettify-symbols-mode)
+(add-hook 'prog-mode-hook 'my/add-pretty-lambda)
+
+(require 'google-translate)
+(require 'google-translate-default-ui)
+(global-set-key "\C-ct" 'google-translate-at-point)
+(global-set-key "\C-cT" 'google-translate-query-translate)

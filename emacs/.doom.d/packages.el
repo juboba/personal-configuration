@@ -15,11 +15,9 @@
 (package! imenu-list)
 
 (package! emmet-mode)
+(package! google-translate)
+(package! evil-matchit)
 (package! indium)
-;; (package! rjsx-mode)
-;; (package! web-mode)
-;; (package! typescript-mode)
-;; (package! tide)
 (package! mu4e-alert)
 (package! js-doc)
 (package! emojify)
