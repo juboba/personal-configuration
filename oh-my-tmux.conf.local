@@ -158,7 +158,7 @@ tmux_conf_theme_right_separator_sub=''  #   PowerlineSymbols.otf font
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}  | #{username}#{root} | #{hostname} '
+tmux_conf_theme_status_right='#F #{prefix}#{pairing}  | #{username}#{root} | #{hostname} '
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
@@ -177,7 +177,7 @@ tmux_conf_theme_pairing_bg='none'
 tmux_conf_theme_pairing_attr='none'
 
 # prefix indicator
-tmux_conf_theme_prefix='⌨ '            # U+2328
+tmux_conf_theme_prefix='⌨️'            # U+2328
 tmux_conf_theme_prefix_fg='none'
 tmux_conf_theme_prefix_bg='none'
 tmux_conf_theme_prefix_attr='none'
@@ -239,7 +239,7 @@ tmux_conf_theme_clock_style='24'
 #   - false (default)
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=false
+tmux_conf_copy_to_os_clipboard=true
 
 
 # -- user customizations -------------------------------------------------------
@@ -253,8 +253,8 @@ tmux_conf_copy_to_os_clipboard=false
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
-set -g status-keys vi
-set -g mode-keys vi
+#set -g status-keys vi
+#set -g mode-keys vi
 
 # replace C-b by C-a instead of using both prefixes
 set -gu prefix2
@@ -276,4 +276,18 @@ bind-key -n C-S-right select-pane -R
 #set -g status-position top
 
 # Open root window
-bind-key '#' new-window "su -"
+bind-key '#' new-window "sudo su -"
+
+# Disable repeatable commands
+set -g repeat-time 0
+
+# Set L to bottom-line in copy mode
+#bind-key -T copy-mode-vi L send-keys -X bottom-line
+run -b 'tmux bind -T copy-mode-vi H send -X top-line 2> /dev/null || true'
+run -b 'tmux bind -T copy-mode-vi L send -X bottom-line 2> /dev/null || true'
+
+bind C confirm-before -p "send Ctrl-C to all shells in #S? (y/n)" \
+  "run \"tmux list-panes -s -F '##{session_name}:##{window_index}.##{pane_index}' \
+  | xargs -I PANE tmux send-keys -t PANE C-c\""
+
+bind Q confirm-before -p "kill-session #S? (y/n)" kill-session
