@@ -1,23 +1,16 @@
+# Welcome sound:
+mpv /usr/share/sounds/ubuntu/stereo/desktop-login.ogg &
+
 # Set background:
 ~/.fehbg
 
-#Xmodmap
-xmodmap ~/.Xmodmap
-
-# Start key bindings
-xbindkeys
-
-# Set cursor:
-xsetroot -cursor_name left_ptr
-
-# Set blank screen timeout (in seconds)
-xset s 300
-
 # Start applications
-compton -f -i 0.85 &  # Composite Manager
+compton -i 0.95 &  # Composite Manager
 dunst &               # Notification daemon
 stalonetray &         # Stand Alone Tray
-pasystray &           # Pulseaudio system tray icon
+#pasystray &           # Pulseaudio system tray icon
+volumeicon &
 nm-applet &           # Network-manager applet
 fusuma &              # Fusuma mouse gestures
-
+#xfce4-clipman &       # Clipboard manager
+terminal -e jmux &          # Launch a terminal with tmux, because why not?
