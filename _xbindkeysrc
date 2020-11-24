@@ -66,18 +66,21 @@
 #  Control + b:2 + Release
 
 # keycode 121 (keysym 0x1008ff12, XF86AudioMute
-"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+"vol mute"
   m:0x0 + c:121
   XF86AudioMute
 
-"pactl set-sink-volume @DEFAULT_SINK@ -2000"
+"vol down"
   XF86AudioLowerVolume
 
-"pactl set-sink-volume @DEFAULT_SINK@ +2000"
+"vol up"
   XF86AudioRaiseVolume
 
-"sleep 1; gnome-screenshot -a"
+"sleep 1; sshot"
   Print
+
+"sleep 1; sshot -t"
+  Shift + Print
 
 "sp play"
   XF86AudioPlay
