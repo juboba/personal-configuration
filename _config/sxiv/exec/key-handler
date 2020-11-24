@@ -1,9 +1,10 @@
 #!/bin/sh
 while read file
 do
-  FILE_FULL_PATH="$(pwd)/$file"
+  FILE_FULL_PATH="$(readlink -f $file)"
   case $1 in
     "w")
+      echo $FILE_FULL_PATH
       feh --bg-fill "$FILE_FULL_PATH"
       notify-send -i "$FILE_FULL_PATH" "Wallpaper changed"
       ;;
