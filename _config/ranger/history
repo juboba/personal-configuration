@@ -1,50 +1,50 @@
-shell cd ~/.config
-shell 
-st
-search h
-search smod
-open_with vim
-cd ~/.config/ranger
-mkdir unified-desktop
-tab_open 
-search 4
-search wl
-search wall
-search dow
+scout -ftsea ar
+scout -ftsea a
+scout -ftsea con
+set vcs_aware true
+rename Documents
+rename BladeRunner.gif
+rename 
+cd .config/ranger/
+search r
+scout -ftsea rc
+cd .local
+search fo
+scout -ftsea fo
 cd 
-search gsim
-search 
-
-search lear
-search rs
-search wal
-cd .vim/colors/
-tabnew
-tab_new 
-cd .config
-open_with lhlh
-search proj
-search docu
-search packet
-search inde
-search numer
-search Numer
-open_with 
-rename _index.js
-rename index.js
-search
-search controls
-search tmp
-search control
-search tm
-search down
-search tel
-search sprin
+mkdir genially-monorepo
+mkdir old
+rename old
+rename .env
+search dock
+[
+shell inkscape %3
+shell inkscape %f
+cd  .bash_it
+scout -ftsea doc
+scout -ftsea pi
+scout -ftsea scr
 search pro
-shell echo "$(pwd)/%s" >> ~/login
+scout -ftsea m
+scout -ftsea app
+rename node_modules
+cd .xmobar
+cd /
+open_with 
+cd .config
+search sx
+scout -ftsea pr
+scout -ftsea g
+scout -ftsea dow
+rename genially.png
+search proje
+shell vim %s
+shell vi %s
+search defla
+search .doom
+shell mpv %f
 delete
-cd .surf
-cd .bin
-search pic
-search sc
-search wa
+search java
+bulkrename 
+search .icons
+search xmobarrc
