@@ -67,7 +67,10 @@
   };
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.brlaser ]; #pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
+  };
 
   # Enable sound.
   sound.enable = true;
@@ -85,8 +88,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  gnupg ghc wget vim emacs
-  firefox
+    gnupg
+    ghc
+    wget
+    vim (emacsWithPackages (epkgs: [ epkgs.emacsql-sqlite ]))
+    firefox
+    home-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
