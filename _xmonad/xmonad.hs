@@ -144,6 +144,7 @@ myKeys =
     -- Send current workspace to next screen
     , ((superKey .|. shiftMask, xK_o), swapNextScreen)
     , ((superKey .|. shiftMask, xK_e), launchVim)
+    , ((superKey .|. shiftMask, xK_w), spawn "rofisxiv")
     -- Focus next screen
     , ((superKey, xK_o), nextScreen)
     , ((superKey, xK_s ), windows copyToAll) -- @@ Make focused window always visible
@@ -156,13 +157,13 @@ myKeys =
     -- Screensaver
     , ((superKey .|. shiftMask, xK_z), spawn "slock")
     -- Copy Emoji
-    , ((superKey .|. shiftMask, xK_i), spawn $ "rofiemoji")
+    , ((superKey .|. shiftMask, xK_i), spawn "rofiemoji")
     -- Launch color picker
-    , ((superKey .|. shiftMask, xK_y), spawn $ "pick-colour-picker")
+    , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
     -- Launch rofi
     , ((superKey, xK_p), spawn myLauncher)
     -- Toggle window transparency
-    , ((superKey, xK_r), spawn "transset 0.8 -t")
+    , ((superKey, xK_r), spawn "transset 0.8 -t -a")
     -- Toggle notifications
     , ((superKey .|. shiftMask, xK_n), spawn "notify-send \"DUNST_COMMAND_TOGGLE\"")
     -- Launch Terminal
@@ -190,6 +191,7 @@ myManageHook = composeAll
     [ isFullscreen --> doFullFloat
     , className =? "Emacs"                                                 --> (doShift $ myWorkspaces !! 1)
     , className =? "Thunderbird"                                           --> (doShift $ myWorkspaces !! 7)
+    -- , className =? "Xmessage"                                              --> doFloat
     , appName =? "chromium-browser (dev-profile)"                          --> (doShift $ myWorkspaces !! 2)
     , appName =? "chromium-browser"                                        --> (doShift $ myWorkspaces !! 3)
     , title =? "meet.google.com is sharing your screen."                   --> (doShift $ myWorkspaces !! 7)
