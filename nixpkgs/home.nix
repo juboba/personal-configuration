@@ -34,7 +34,7 @@ in with pkgs; {
   xsession.windowManager.xmonad = {
     enable = true;
     enableContribAndExtras = true;
-    config = ~/Repositories/Configs/xmonad.hs;
+    config = ./xmonad.hs;
   };
 
   xsession.initExtra = ''
