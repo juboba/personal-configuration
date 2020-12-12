@@ -127,7 +127,6 @@ in with pkgs; {
       # UI
       gsimplecal
       libnotify
-      rofi
       scrot
       slock
       stalonetray
@@ -197,6 +196,27 @@ in with pkgs; {
           ff = "only";
         };
       };
+    };
+
+    readline = {
+      enable = true;
+      bindings = {
+        "\\e[A" = "history-search-backward"; # arrow up
+        "\\e[B" = "history-search-forward"; # arrow down
+      };
+      extraConfig = ''
+        #set vi-ins-mode-string \1\e[48;5;33;1m\2 I \1\e[38;5;33;48;5m\2\1\e[0m\2
+        #set vi-cmd-mode-string \1\e[48;5;166;1m\2 N \1\e[38;5;166;48;5m\2\1\e[0m\2
+
+        set show-mode-in-prompt on
+        set vi-ins-mode-string \1\e[6 q\2
+        set vi-cmd-mode-string \1\e[2 q\2
+      '';
+    };
+
+    rofi = {
+      enable = true;
+      theme = "~/Repositories/Configs/rofi-themes/slate.rasi";
     };
 
     vim = {
