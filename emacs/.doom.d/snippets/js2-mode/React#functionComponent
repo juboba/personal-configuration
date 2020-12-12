@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: React#functionComponent
+# key: fc
+# --
+/* Global imports */
+import React from 'react';
+import { $2 } from 'prop-types';
+
+/* Local imports */
+
+/* Local utility functions */
+
+/* Component definition */
+const $1 = () => {
+  return (
+  )
+};
+
+/* PropTypes */
+$1.propTypes = {};
+
+$1.defaultProps = {};
+
+/* Local Styled Components */
+
+export default ${1:Component};

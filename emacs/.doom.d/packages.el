@@ -17,7 +17,7 @@
 (package! emmet-mode)
 (package! google-translate)
 (package! evil-matchit)
-(package! indium)
+;(package! indium)
 (package! mu4e-alert)
 (package! js-doc)
 (package! emojify)

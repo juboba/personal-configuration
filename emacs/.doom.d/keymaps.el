@@ -26,8 +26,4 @@
 (map! :leader :desc "Magit blame" "g b" 'magit-blame-addition)
 (map! :leader :desc "Magit switch to branch" "g B" 'magit-branch-checkout)
 
-;; Workspace quick switch
-(map! :leader "TAB TAB" '+workspace/other)
-(map! :leader "TAB `" '+workspace/display)
-
 (define-key evil-visual-state-map (kbd "s") 'evil-surround-region)
