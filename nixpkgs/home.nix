@@ -7,7 +7,7 @@ in with pkgs; {
 
   # Email configuration
   accounts.email = {
-    accounts.juboba = {
+    accounts.genially = {
       address = "juboba@genially.com";
       aliases = ["juboba@genial.ly"];
       flavor = "gmail.com";
@@ -17,12 +17,11 @@ in with pkgs; {
       };
       maildir.path = "~/Maildir";
       mu.enable = true;
-      name = "genially";
       offlineimap = {
         enable = true;
         extraConfig.account.autorefresh = 10;
       };
-      passwordCommand = "cat ~/.gmail_secret";
+      #passwordCommand = "/home/juboba/.bin/get_pass";
       primary = true;
       realName = "Julio Borja Barra";
     };
@@ -48,7 +47,7 @@ in with pkgs; {
     PATH=$(cat ~/sqlite_shell_path):$PATH
 
     # Welcome sound:
-    #mpv /usr/share/sounds/ubuntu/stereo/desktop-login.ogg &
+    # mplayer somesound.wav &
 
     # Set background:
     ~/.fehbg
@@ -115,10 +114,6 @@ in with pkgs; {
       tmux
       tmuxp
       zscroll
-
-      # Email
-      mu
-      offlineimap
 
       # Inutils
       fortune
@@ -198,6 +193,9 @@ in with pkgs; {
       };
     };
 
+    mu.enable = true;
+    offlineimap.enable = true;
+
     readline = {
       enable = true;
       bindings = {
@@ -256,10 +254,39 @@ in with pkgs; {
       settings = import ./dunst.nix;
     };
 
+    grobi = {
+      enable = true;
+      rules = [
+        {
+          name = "Solo";
+          outputs_disconnected = [ "DP-1" ];
+          configure_single = "eDP-1@1920x1080";
+          primary = true;
+          atomic = true;
+          execute_after = [
+            "${pkgs.xorg.xrandr}/bin/xrandr --dpi 96"
+            "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
+          ];
+        }
+        {
+          name = "Home";
+          outputs_connected = [ "DP-1" ];
+          configure_single = "DP-1";
+          primary = true;
+          atomic = true;
+          execute_after = [
+            "${pkgs.xorg.xrandr}/bin/xrandr --dpi 96"
+            "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
+          ];
+        }
+      ];
+    };
+
     picom = {
       enable = true;
       inactiveDim = "0.4";
       inactiveOpacity = "0.9";
+      blur = true;
     };
   };
 }

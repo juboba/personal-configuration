@@ -30,7 +30,7 @@
         # the top and down respectively.
         # The width can be negative.  In this case the actual width is the
         # screen width minus the width defined in within the geometry option.
-        geometry = "300x5-30+20";
+        geometry = "300x5-10+30";
 
         # Show how many messages are currently hidden (because of geometry).
         indicate_hidden = "yes";
@@ -65,7 +65,7 @@
         frame_width = 3;
 
         # Defines color of the frame around the notification window.
-        frame_color = "#000000";
+        frame_color = "#050401";
 
         # Define a color for the separator.
         # possible values are:
@@ -73,7 +73,7 @@
         #  * foreground: use the same color as the foreground;
         #  * frame: use the same color as the frame;
         #  * anything else will be interpreted as a X color.
-        separator_color = "#cccccc";
+        separator_color = "#303036";
 
         # Sort messages by urgency.
         sort = "yes";
@@ -181,10 +181,10 @@
         ### Misc/Advanced ###
 
         # dmenu path.
-        dmenu = "/usr/bin/dmenu -p dunst:";
+        dmenu = "/home/juboba/.nix-profile/bin/rofi -dmenu -display-run dunst:";
 
         # Browser for opening urls in context menu.
-        browser = "/usr/bin/sensible-browser";
+        browser = "/run/current-system/sw/bin/firefox";
 
         # Always run rule-defined scripts, even if the notification is suppressed
         always_run_script = true;
@@ -198,7 +198,7 @@
         # Print a notification on startup.
         # This is mainly for error detection, since dbus (re-)starts dunst
         # automatically after a crash.
-        startup_notification = false;
+        startup_notification = true;
 
         # Manage dunst's desire for talking
         # Can be one of the following values:
@@ -214,7 +214,7 @@
         # corners.
         # The radius will be automatically lowered if it exceeds half of the
         # notification height to avoid clipping text and/or icons.
-        corner_radius = 0;
+        corner_radius = 10;
 
         ### Legacy
 
@@ -278,17 +278,17 @@
     urgency_low = {
         # IMPORTANT: colors have to be defined in quotation marks.
         # Otherwise the "#" and following would be interpreted as a comment.
-        background = "#222222";
-        foreground = "#888888";
+        background = "#303036";
+        foreground = "#fffaff";
         timeout = 10;
         # Icon for notifications with low urgency, uncomment to enable
         #icon = /path/to/icon
     };
 
     urgency_normal = {
-        background = "#005bbf";
-        foreground = "#ffffff";
-        frame_color = "#222222";
+        background = "#050401";
+        foreground = "#fffaff";
+        frame_color = "#303036";
         frame_width = 1;
         timeout = 10;
         # Icon for notifications with normal urgency, uncomment to enable
@@ -296,9 +296,9 @@
     };
 
     urgency_critical = {
-        background = "#900000";
-        foreground = "#ffffff";
-        frame_color = "#ff0000";
+        background = "#fc5130";
+        foreground = "#fffaff";
+        frame_color = "#303036";
         timeout = 0;
         # Icon for notifications with critical urgency, uncomment to enable
         #icon = /path/to/icon
