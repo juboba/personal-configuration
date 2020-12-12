@@ -10,6 +10,10 @@
       ./hardware-configuration.nix
     ];
 
+  environment.variables = { EDITOR = "vim"; };
+
+  nixpkgs.config.allowUnfree = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -46,7 +50,8 @@
     autorun = true;
   
     displayManager.lightdm.enable = true;
-  
+    displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-wallpapers-20.jpg;
+
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
@@ -69,12 +74,19 @@
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = [ pkgs.brlaser ]; #pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
+    drivers = [ pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
   };
+
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+  };
 
   # Enable docker
   virtualisation.docker.enable = true;
@@ -82,7 +94,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.juboba = {
     isNormalUser = true;
-    extraGroups = [ "audio" "docker" "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "audio" "docker" "input" "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
