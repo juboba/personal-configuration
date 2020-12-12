@@ -74,7 +74,7 @@ myTerminal = "terminal"
 -- My application launcher
 --
 myLauncher :: String
-myLauncher = "rofi -show-icons -show drun -modi drun,ssh -disable-history -sort -levenshtein-sort"
+myLauncher = "rofi -show-icons -show drun -modi drun,ssh -disable-history -sort -levenshtein-sort -display-drun Run"
 
 -- showMe will spawn a little window with my face in it =)
 -- showMe :: X ()
@@ -115,7 +115,7 @@ myNormalBorderColor :: String
 myNormalBorderColor  = "#000000"
 
 myFocusedBorderColor :: String
-myFocusedBorderColor = "#e76c5e"
+myFocusedBorderColor = "#30bced"
 
 goFull :: X ()
 goFull = do
@@ -158,6 +158,8 @@ myKeys =
     , ((superKey .|. shiftMask, xK_z), spawn "slock")
     -- Copy Emoji
     , ((superKey .|. shiftMask, xK_i), spawn "rofiemoji")
+    -- Clipboard Menu
+    , ((superKey .|. shiftMask, xK_m), spawn "clipmenu")
     -- Launch color picker
     , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
     -- Launch rofi
@@ -256,19 +258,19 @@ myLayoutHook = onWorkspace (myWorkspaces !! 6) messagingLayout
   -- ||| spiralLayout
 
 currentWsStyle :: String -> String
-currentWsStyle = xmobarColor "#eab354" ""
+currentWsStyle = xmobarColor "#30bced" ""
 
 urgentWsIndicatorStyle :: String -> String
-urgentWsIndicatorStyle = xmobarColor "#de3c4b" ""
+urgentWsIndicatorStyle = xmobarColor "#fc5130" ""
 
 visibleWsStyle :: String -> String
-visibleWsStyle = xmobarColor "#ba8d33" "LightSkyBlue4"
+visibleWsStyle = xmobarColor "#20aaaa" "LightSkyBlue4"
 
 layoutIndicatorStyle :: String -> String
-layoutIndicatorStyle = wrap "" "" . xmobarColor "#5f787b" ""
+layoutIndicatorStyle = wrap "" "" . xmobarColor "#303036" ""
 
 windowTitleStyle :: String -> String
-windowTitleStyle = xmobarColor "#e7e4e3" "" . shorten 30 . xmobarStrip . wrap " " " "
+windowTitleStyle = xmobarColor "#fffaff" "" . shorten 30 . xmobarStrip . wrap " " " "
 
 main :: IO()
 main = do
