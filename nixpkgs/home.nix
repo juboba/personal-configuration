@@ -8,20 +8,19 @@ in with pkgs; {
   # Email configuration
   accounts.email = {
     accounts.genially = {
-      address = "juboba@genially.com";
-      aliases = ["juboba@genial.ly"];
+      address = "juboba@genial.ly";
+      aliases = ["juboba@genially.com"];
       flavor = "gmail.com";
       imap = {
         host = "imap.gmail.com";
         tls.enable = true;
       };
-      maildir.path = "~/Maildir";
       mu.enable = true;
       offlineimap = {
         enable = true;
         extraConfig.account.autorefresh = 10;
       };
-      #passwordCommand = "/home/juboba/.bin/get_pass";
+      passwordCommand = "get_pass gmail";
       primary = true;
       realName = "Julio Borja Barra";
     };
