@@ -52,9 +52,6 @@ in with pkgs; {
     # Set background:
     ~/.fehbg
 
-    # Start key bindings
-    xbindkeys
-
     # Disable touchscreen
     totouch --off
 
@@ -126,7 +123,6 @@ in with pkgs; {
       slock
       stalonetray
       volumeicon
-      xbindkeys
       xcalib
       xclip
       xdotool

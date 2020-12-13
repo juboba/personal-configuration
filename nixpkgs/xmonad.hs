@@ -54,6 +54,7 @@ import XMonad.Layout.LayoutModifier(ModifiedLayout)
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import Graphics.X11.ExtraTypes.XF86
 
 import qualified Data.Map        as M
 
@@ -162,6 +163,21 @@ myKeys =
     , ((superKey .|. shiftMask, xK_m), spawn "clipmenu")
     -- Launch color picker
     , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
+    -- Launch Screenshot
+    , ((0, xK_Print), spawn "sleep 1; sshot")
+    -- Launch Volatile Screenshot
+    , ((shiftMask, xK_Print), spawn "sleep 1; sshot -t")
+    -- Media keys
+    , ((0, xF86XK_AudioMute), spawn "vol mute")
+    , ((0, xF86XK_AudioRaiseVolume), spawn "vol up")
+    , ((0, xF86XK_AudioLowerVolume), spawn "vol down")
+    , ((0, xF86XK_AudioPlay), spawn "sp play")
+    , ((0, xF86XK_AudioPrev), spawn "sp prev")
+    , ((0, xF86XK_AudioNext), spawn "sp next")
+    , ((0, xF86XK_KbdBrightnessUp), spawn "shine brightness-up")
+    , ((0, xF86XK_KbdBrightnessDown), spawn "shine brightness-down")
+    , ((shiftMask, xF86XK_KbdBrightnessUp), spawn "shine temp-up")
+    , ((shiftMask, xF86XK_KbdBrightnessDown), spawn "shine temp-down")
     -- Launch rofi
     , ((superKey, xK_p), spawn myLauncher)
     -- Toggle window transparency
