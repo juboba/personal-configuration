@@ -1,8 +1,0 @@
-#transparent
-geometry 1x1+1050+3
-#geometry 1x1+500+1082
-
-background "#111b1e"
-icon_size 16
-kludges force_icons_size
-grow_gravity W

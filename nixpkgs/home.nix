@@ -27,8 +27,12 @@ in with pkgs; {
     certificatesFile = /etc/ssl/certs/ca-certificates.crt;
   };
 
+  xresources.properties = {
+    "*background" = "#303036";
+    "*foreground" = "#fffaff";
+  };
+
   xsession.enable = true;
-  #xsession.windowManager.command = "xmonad";
   xsession.windowManager.xmonad = {
     enable = true;
     enableContribAndExtras = true;
@@ -55,7 +59,6 @@ in with pkgs; {
     totouch --off
 
     # Start applications
-    stalonetray &          # Stand Alone Tray
     #pasystray &           # Pulseaudio system tray icon
     volumeicon &
     #nm-applet &           # Network-manager applet
@@ -70,17 +73,14 @@ in with pkgs; {
     # Xresources
     xrdb -merge .Xresouces
 
-    # Set cursor:
-    #xsetroot -cursor_name left_ptr
-
     # Set blank screen timeout (in seconds)
     xset s 300
   '';
 
   xsession.pointerCursor = {
     defaultCursor = "left_ptr";
-    name = "Vanilla-DMZ";
-    package = vanilla-dmz;
+    name = "Numix-Cursor";
+    package = numix-cursor-theme;
     size = 64;
   };
 
@@ -107,8 +107,6 @@ in with pkgs; {
       ispell
       ripgrep
       custom-st
-      tmux
-      tmuxp
       zscroll
 
       # Inutils
@@ -120,7 +118,6 @@ in with pkgs; {
       libnotify
       scrot
       slock
-      stalonetray
       volumeicon
       xcalib
       xclip
@@ -212,6 +209,14 @@ in with pkgs; {
       theme = "~/Repositories/Configs/rofi-themes/slate.rasi";
     };
 
+    tmux = {
+      enable = false;
+
+      tmuxp = {
+        enable = true;
+      };
+    };
+
     vim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-surround nerdtree ];
@@ -282,6 +287,19 @@ in with pkgs; {
       inactiveDim = "0.4";
       inactiveOpacity = "0.9";
       blur = true;
+    };
+
+    stalonetray = {
+      enable = true;
+      config = {
+        transparent = false;
+        geometry  = "1x1+1050+3";
+
+        background = "#111b1e";
+        icon_size = 16;
+        kludges = "force_icons_size";
+        grow_gravity = "W";
+      };
     };
   };
 }
