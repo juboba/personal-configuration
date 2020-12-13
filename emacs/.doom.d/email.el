@@ -1,15 +1,18 @@
 ;;; email.el -*- lexical-binding: t; -*-
 
 ;; Email config
-(setq
-      mu4e-maildir "~/Maildir"
-      mu4e-drafts-folder "/[Gmail].Borradores"
-      mu4e-sent-folder "/[Gmail].Enviados"
-      mu4e-trash-folder "/[Gmail].Papelera"
-      mu4e-compose-signature "
+;(setq mu4e-root-maildir "~/Maildir/genially")
+
+(set-email-account! "genial.ly"
+                    '((mu4e-drafts-folder . "/[Gmail].Borradores")
+                      (mu4e-sent-folder . "/[Gmail].Enviados")
+                      (mu4e-trash-folder . "/[Gmail].Papelera")
+                      ;;(smtpmail-smtp-user     . "juboba@genial.ly")
+                      (mu4e-compose-signature . "
 *Julio Borja Barra* · *Developer*
 
-[[~/Pictures/genially.png]]")
+[[~/Pictures/genially.png]]"))
+                      t)
 
 ;; (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
 
