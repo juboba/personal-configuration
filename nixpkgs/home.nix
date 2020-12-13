@@ -107,6 +107,8 @@ in with pkgs; {
       ispell
       ripgrep
       custom-st
+      tmux
+      tmuxp
       zscroll
 
       # Inutils
@@ -209,14 +211,6 @@ in with pkgs; {
       theme = "~/Repositories/Configs/rofi-themes/slate.rasi";
     };
 
-    tmux = {
-      enable = false;
-
-      tmuxp = {
-        enable = true;
-      };
-    };
-
     vim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-surround nerdtree ];
@@ -284,7 +278,7 @@ in with pkgs; {
 
     picom = {
       enable = true;
-      inactiveDim = "0.4";
+      inactiveDim = "0.2";
       inactiveOpacity = "0.9";
       blur = true;
     };
