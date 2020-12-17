@@ -104,9 +104,9 @@ myWorkspaces    = [ " \61728 " -- 
                   , " \61508 " -- 
                   , " \62038 " -- 
                   , " \62056 " -- 
-                  , " \61760 " -- 
-                  , " \61477 " -- ''
                   , " \61574 " -- 
+                  , " \61477 " -- ''
+                  , " \61760 " -- 
                   , " \61664 " -- 
                   , " \62057 " -- 
                   ]
@@ -214,8 +214,8 @@ myManageHook = composeAll
     , appName =? "chromium-browser"                                        --> (doShift $ myWorkspaces !! 3)
     , title =? "meet.google.com is sharing your screen."                   --> (doShift $ myWorkspaces !! 7)
     , className =? "Spotify"                                               --> (doShift $ myWorkspaces !! 5)
-    , className =? "TelegramDesktop"                                       --> (doShift $ myWorkspaces !! 6)
-    , className =? "Slack"                                                 --> (doShift $ myWorkspaces !! 6)
+    , className =? "TelegramDesktop"                                       --> (doShift $ myWorkspaces !! 4)
+    , className =? "Slack"                                                 --> (doShift $ myWorkspaces !! 4)
     , className =? "Firefox"                                               --> (doShift $ myWorkspaces !! 8)
     , stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore
     -- , resource  =? "desktop_window"                                     --> doIgnore
@@ -263,7 +263,7 @@ mosaicLayout     = named "Mosaic"   $ MosaicAlt M.empty
 -- spiralLayout     = named "Spiral"   $ spiral (6/7) -- (1 % 1)
 
 -- myLayoutHook :: ModifiedLayout ??
-myLayoutHook = onWorkspace (myWorkspaces !! 6) messagingLayout
+myLayoutHook = onWorkspace (myWorkspaces !! 4) messagingLayout
   tallLayout
   ||| wideLayout
   -- ||| singleLayout
