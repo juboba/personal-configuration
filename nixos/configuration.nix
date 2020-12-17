@@ -14,9 +14,16 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Boot config
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      timeout = 1;
+      efi.canTouchEfiVariables = true;
+    };
+
+    plymouth.enable = true;
+  };
 
   networking.hostName = "faraday"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -43,6 +50,8 @@
   # };
 
   services.cron.enable = true;
+
+  services.geoclue2.enable = true;
   
   # Configure keymap in X11
   services.xserver = {
@@ -78,7 +87,7 @@
   };
 
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  #services.avahi.nssmdns = true;
 
   # Enable sound.
   sound.enable = true;
