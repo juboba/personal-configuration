@@ -1,6 +1,3 @@
-scout -ftsea ar
-scout -ftsea a
-scout -ftsea con
 set vcs_aware true
 rename Documents
 rename BladeRunner.gif
@@ -48,3 +45,6 @@ search java
 bulkrename 
 search .icons
 search xmobarrc
+shells
+shell 
+shelsls

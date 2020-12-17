@@ -1,8 +1,9 @@
 { pkgs, ... }:
 
 let 
-  HOME_PATH=/home/juboba;
-  custom-st=import /home/juboba/.config/nixpkgs/custom-st;
+  HOME_PATH = /home/juboba;
+  custom-st = import ./custom-st;
+  oh-my-tmux-rev = "53d7ce831127b6f1b6f1600b53213cb3060b7e6d";
 in with pkgs; {
 
   # Email configuration
@@ -36,7 +37,7 @@ in with pkgs; {
   xsession.windowManager.xmonad = {
     enable = true;
     enableContribAndExtras = true;
-    config = ./xmonad.hs;
+    config = ./dotfiles/xmonad.hs;
   };
 
   xsession.initExtra = ''
@@ -59,11 +60,8 @@ in with pkgs; {
     totouch --off
 
     # Start applications
-    #pasystray &           # Pulseaudio system tray icon
     volumeicon &
-    #nm-applet &           # Network-manager applet
     fusuma &               # Fusuma mouse gestures
-    #xfce4-clipman &       # Clipboard manager
   '';
 
   xsession.profileExtra = ''
@@ -161,10 +159,50 @@ in with pkgs; {
       yarn
   ];
 
+  # Extra configs
+  home.file = {
+  # Oh-my-tmux configuration takes over my tmux.conf file
+    ".tmux.conf".text = builtins.readFile (fetchFromGitHub rec {
+      owner = "gpakosz";
+      repo = ".tmux";
+      rev = oh-my-tmux-rev;
+      sha256 = "12dsdxv7sy2fwlax5pwq2ahplmynlgb9y9j2cgwi0i45p0gphvhh";
+    } + "/.tmux-${oh-my-tmux-rev}/.tmux.conf");
+
+    # My oh-my-tmux config
+    ".tmux.conf.local".source = ./dotfiles/oh-my-tmux.conf.local;
+  };
+
+  xdg = {
+    enable = true;
+
+    configFile = {
+      "fusuma" = {
+        recursive = true;
+        source = ./dotfiles/xdg-configs/fusuma;
+      };
+
+      "gsimplecal" = {
+        recursive = true;
+        source = ./dotfiles/xdg-configs/gsimplecal;
+      };
+
+      "ranger" = {
+        recursive = true;
+        source = ./dotfiles/xdg-configs/ranger;
+      };
+
+      "sxiv" = {
+        recursive = true;
+        source = ./dotfiles/xdg-configs/sxiv;
+      };
+    };
+  };
+
   programs = with builtins; {
     bash = {
       enable = true;
-      initExtra = readFile ./bash-it.bashrc;
+      initExtra = readFile ./dotfiles/bash-it.bashrc;
     };
 
     bat.enable = true;
@@ -214,16 +252,23 @@ in with pkgs; {
     starship = {
       enable = true;
       enableBashIntegration = true;
+      settings = {
+        add_newline = false;
+        nix_shell = {
+          impure_msg = "i";
+          pure_msg = "p";
+        };
+      };
     };
 
     vim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-surround nerdtree ];
       settings = {
-        expandtab=true;
-        number=true;
-        relativenumber=true;
-        tabstop=2;
+        expandtab = true;
+        number = true;
+        relativenumber = true;
+        tabstop = 2;
       };
       extraConfig = ''
         set smarttab
@@ -245,7 +290,7 @@ in with pkgs; {
 
     dropbox = {
       enable = true;
-      path = /home/juboba/Documents/Org/Dropbox;
+      path = ~/Documents/Org/Dropbox;
     };
 
     dunst = {
@@ -280,6 +325,8 @@ in with pkgs; {
         }
       ];
     };
+
+    network-manager-applet.enable = true;
 
     picom = {
       enable = true;
