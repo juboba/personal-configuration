@@ -164,7 +164,7 @@ in with pkgs; {
   programs = with builtins; {
     bash = {
       enable = true;
-      initExtra = readFile ~/Repositories/Configs/bash-it.bashrc;
+      initExtra = readFile ./bash-it.bashrc;
     };
 
     bat.enable = true;
@@ -209,6 +209,11 @@ in with pkgs; {
     rofi = {
       enable = true;
       theme = "~/Repositories/Configs/rofi-themes/slate.rasi";
+    };
+
+    starship = {
+      enable = true;
+      enableBashIntegration = true;
     };
 
     vim = {
@@ -281,6 +286,26 @@ in with pkgs; {
       inactiveDim = "0.2";
       inactiveOpacity = "0.9";
       blur = true;
+    };
+
+    redshift = {
+      enable = true;
+      #provider = "geoclue2";
+
+      brightness = {
+        day = "1";
+        night = "1";
+      };
+
+      latitude = "36";
+      longitude = "-6";
+
+      temperature = {
+        day = 5500;
+        night = 3700;
+      };
+
+      tray = true;
     };
 
     stalonetray = {
