@@ -2,8 +2,8 @@
 
 let 
   HOME_PATH = /home/juboba;
-  custom-st = import ./custom-st;
   oh-my-tmux-rev = "53d7ce831127b6f1b6f1600b53213cb3060b7e6d";
+  packages = import ./packages.nix;
 in with pkgs; {
 
   # Email configuration
@@ -94,79 +94,25 @@ in with pkgs; {
   home.keyboard.layout="us";
   home.keyboard.variant = "altgr-intl";
 
-  home.packages = [
-      # Utils
-      bc
-      dragon-drop
-      feh
-      fusuma
-      fzy
-      imagemagick
-      ispell
-      ripgrep
-      custom-st
-      tmux
-      tmuxp
-      zscroll
-
-      # Inutils
-      fortune
-      lolcat
-
-      # UI
-      gsimplecal
-      libnotify
-      scrot
-      slock
-      volumeicon
-      xcalib
-      xclip
-      xdotool
-      xmobar
-      xorg.transset
-      xsel
-
-      # File System
-      nnn
-      ranger
-
-      # Media
-      mplayer
-      spotify
-      spotifywm
-      sxiv
-      texlive.combined.scheme-tetex
-      python27Packages.pygments
-      zathura
-
-      # Browser
-      chromium
-      surf
-
-      # Communication
-      slack
-      tdesktop
-
-      # Development
-      docker-compose
-      highlight
-      hugo
-      jq
-      nodejs-10_x
-      peek
-      pick-colour-picker
-      robo3t
-      yarn
-  ];
+  home.packages = packages pkgs;
 
   # Extra configs
   home.file = {
+    ".oh-my-bash".source = (fetchFromGitHub {
+      name = "oh-my-bash";
+      owner = "ohmybash";
+      repo = "oh-my-bash";
+      rev = "89e505415284619377df9d8dc73f033572e24621";
+      sha256 = "17fvbws0m4l3iss2xaxhqr19q8ix9p0p5hi74daghicb989jbhzi";
+    });
   # Oh-my-tmux configuration takes over my tmux.conf file
-    ".tmux.conf".text = builtins.readFile (fetchFromGitHub rec {
+    ".tmux.conf".text = builtins.readFile (fetchFromGitHub {
+      name = "oh-my-tmux";
       owner = "gpakosz";
       repo = ".tmux";
       rev = oh-my-tmux-rev;
       sha256 = "12dsdxv7sy2fwlax5pwq2ahplmynlgb9y9j2cgwi0i45p0gphvhh";
+      stripRoot = false;
     } + "/.tmux-${oh-my-tmux-rev}/.tmux.conf");
 
     # My oh-my-tmux config
@@ -202,7 +148,16 @@ in with pkgs; {
   programs = with builtins; {
     bash = {
       enable = true;
-      initExtra = readFile ./dotfiles/bash-it.bashrc;
+      initExtra = ''
+        set -o vi
+        fortune | lolcat
+      '';
+      historyIgnore = [ "ls" "cd" "exit" ];
+      shellOptions =  [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
+      sessionVariables = {
+        EDITOR = "vim";
+      };
+      shellAliases = import ./aliases;
     };
 
     bat.enable = true;
@@ -348,7 +303,7 @@ in with pkgs; {
       longitude = "-6";
 
       temperature = {
-        day = 5500;
+        day = 7700;
         night = 3700;
       };
 

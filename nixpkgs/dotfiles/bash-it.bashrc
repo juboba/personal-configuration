@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
-# This is already set in .xsession
-#export PATH=$HOME/.bin:$PATH
+echo "hello"
 
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -37,7 +35,7 @@ export IRC_CLIENT='irssi'
 export TODO="t"
 
 # Set this to false to turn off version control status checking within the prompt for all themes
-export SCM_CHECK=true
+export SCM_CHECK=false
 
 # Set Xterm/screen/Tmux title with only a short hostname.
 # Uncomment this (or set SHORT_HOSTNAME to something else),
@@ -66,5 +64,3 @@ export SCM_CHECK=true
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
-
-fortune | lolcat
