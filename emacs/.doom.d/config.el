@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-acario-dark)
+(setq doom-theme 'doom-henna)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -52,17 +52,12 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; (load-file "~/.doom.d/exwm.el")
-(load-file "~/.doom.d/org.el")
-(load-file "~/.doom.d/my-functions.el")
-(load-file "~/.doom.d/keymaps.el")
-(load-file "~/.doom.d/javascript.el")
-(load-file "~/.doom.d/email.el")
-
-;; Set Undo
-;; (setq evil-undo-system 'undo-tree)
-;; (setq evil-undo-function 'undo-tree-undo)
-;; (setq evil-redo-function 'undo-tree-redo)
+;; (load! "./exwm.el")
+(load! "./org.el")
+(load! "./my-functions.el")
+(load! "./keymaps.el")
+(load! "./javascript.el")
+(load! "./email.el")
 
 ;; My status bar
 ;; (display-battery-mode)

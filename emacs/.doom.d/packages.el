@@ -10,7 +10,6 @@
 ;(package! some-package)
 (package! ranger)
 (package! spotify)
-(package! undo-tree)
 (package! terminal-here)
 (package! imenu-list)
 
