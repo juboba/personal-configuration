@@ -96,7 +96,7 @@ tmux_conf_theme_status_attr='none'
 tmux_conf_theme_window_status_fg='#ffffff'              # light gray
 tmux_conf_theme_window_status_bg='#000000'              # dark gray
 tmux_conf_theme_window_status_attr='none'
-tmux_conf_theme_window_status_format='#I #W'
+tmux_conf_theme_window_status_format='#I) #W'
 #tmux_conf_theme_window_status_format='#{circled_window_index} #W'
 #tmux_conf_theme_window_status_format='#I #W#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}'
 
@@ -106,7 +106,7 @@ tmux_conf_theme_window_status_format='#I #W'
 tmux_conf_theme_window_status_current_fg='#000000'      # black
 tmux_conf_theme_window_status_current_bg='#ffffff'      # light blue
 tmux_conf_theme_window_status_current_attr='bold'
-tmux_conf_theme_window_status_current_format='#I #W'
+tmux_conf_theme_window_status_current_format='#I) #W'
 #tmux_conf_theme_window_status_current_format='#{circled_window_index} #W'
 #tmux_conf_theme_window_status_current_format='#I #W#{?window_zoomed_flag,🔍,}'
 
@@ -291,3 +291,6 @@ bind C confirm-before -p "send Ctrl-C to all shells in #S? (y/n)" \
   | xargs -I PANE tmux send-keys -t PANE C-c\""
 
 bind Q confirm-before -p "kill-session #S? (y/n)" kill-session
+
+set -g pane-border-status top
+set -g pane-border-format "[W:#{window_index}|P:#{pane_index}] #{?pane_title,#{pane_title},#{pane_current_command}}"
