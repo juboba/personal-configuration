@@ -1,1 +1,7 @@
-* Ma config
+* Personal Configuration
+
+This is my personal configuration. It's currently a mess in progress.
+
+*** TODO Create separate repository for my scripts (~/.bin)
+*** TODO Arrange ~/Scripts and move what's necessary to ~/.bin
+*** TODO Add more TODOs
