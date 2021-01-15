@@ -51,7 +51,7 @@
   gb = "git branch";
   gba = "git branch -a";
   # FROM https://stackoverflow.com/a/58623139/10362396
-  gbc = ''git for-each-ref --format = "%(authorname) %09 %(if)%(HEAD)%(then)*%(else)%(refname:short)%(end) %09 %(creatordate)" refs/remotes/ --sort = authorname DESC'';
+  gbc = ''git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(else)%(refname:short)%(end) %09 %(creatordate)" refs/remotes/ --sort=authorname DESC'';
   gbt = "git branch --track";
   gbm = "git branch -m";
   gbd = "git branch -d";
@@ -68,9 +68,9 @@
   gexport = "git archive --format zip --output";
   gdel = "git branch -D";
   gmu = "git fetch origin -v; git fetch upstream -v; git merge upstream/master";
-  gll = "git log --graph --pretty = oneline --abbrev-commit";
-  gg = "git log --graph --pretty = format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date = relative";
-  ggf = "git log --graph --date = short --pretty = format:'%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'";
+  gll = "git log --graph --pretty=oneline --abbrev-commit";
+  gg = "git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative";
+  ggf = "git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'";
   ggs = "gg --stat";
   gsh = "git show";
   gsl = "git shortlog -sn";

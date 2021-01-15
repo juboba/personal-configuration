@@ -1,4 +1,7 @@
-import ./git.nix // {
+import ./git.nix // 
+import ./docker.nix //
+import ./docker-compose.nix //
+{
   ag = ''ag --smart-case -U --pager="less -MIRFX"'';
   agrep = "alias | grep ";
   beep = "echo -e \"\a\"";
@@ -11,7 +14,10 @@ import ./git.nix // {
   ll = "ls -rtl";
   lla = "ls -rtla";
   mono = "cd ~/Projects/genially/mono";
+  c = "clear";
   o = "rifle";
+  n = "nnn";
+  r = "ranger";
   pgrep = "pgrep -a";
   suspend = "systemctl suspend";
   tb = "nc termbin.com 9999";
