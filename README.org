@@ -2,6 +2,23 @@
 
 This is my personal configuration. It's currently a mess in progress.
 
+** Home Manager
+I'm currently migrating all of my configurations to [[github:nix-community/home-manager][home-manager]] since it's
+easily reproduce-able and I can have everything in the same format and place.
+
 *** TODO Create separate repository for my scripts (~/.bin)
+This way I could install those scripts by writing a derivation with Nix.
 *** TODO Arrange ~/Scripts and move what's necessary to ~/.bin
-*** TODO Add more TODOs
+I also have lots of not-so-taken-care-of scripts that I use less frequently but
+are also worth having. So! I should clean them up, move what's necessary to
+~/.bin and remove what's not necessary anymore.
+*** TODO Check what the hell is going on with emacs and sqlite3
+This is not too important so I haven't done it, but in order to use `magit
+forge` I need to have `sqlite3` available for Emacs (in the `load-path`). I'm
+currently using a `PATH` directly pointing to a derivation in the `/store` so
+that Emacs picks it up, but I don't know if that's necessary anymore since I'm
+installing emacs with:
+
+#+begin_src nix
+    (emacsWithPackages (epkgs: [ epkgs.emacsql-sqlite ]))
+#+end_src
