@@ -1,26 +1,29 @@
 #!/usr/bin/env bash
-AMIXER_CMD="amixer -D pulse"
+AMIXER_SET_CMD="amixer sset Master"
+AMIXER_GET_CMD="amixer get Master"
 AMIXER_INC=5%
 REMOVE_BRACKETS="tr -d '[]%'"
 
-vol_up() {
-    read -r a b <<<$($AMIXER_CMD sset Master $AMIXER_INC+ | grep "^  Front Right" | cut -d' ' -f7,8 | $REMOVE_BRACKETS)
+run_command() {
+    echo "running..." $1 > /tmp/debug_log
+    read -r a b <<<$($1 | grep "^  Front Right" | cut -d' ' -f7,8 | $REMOVE_BRACKETS)
     echo $a $b
+}
+
+vol_up() {
+    run_command "$AMIXER_SET_CMD $AMIXER_INC+"
 }
 
 vol_down() {
-    read -r a b <<<$($AMIXER_CMD sset Master $AMIXER_INC- | grep "^  Front Right" | cut -d' ' -f7,8 | $REMOVE_BRACKETS)
-    echo $a $b
+    run_command "$AMIXER_SET_CMD $AMIXER_INC-"
 }
 
 vol_toggle() {
-    read -r a b <<<$($AMIXER_CMD sset Master toggle | grep "^  Front Right" | cut -d' ' -f7,8 | $REMOVE_BRACKETS)
-    echo $a $b
+    run_command "$AMIXER_SET_CMD toggle"
 }
 
 vol_getCurrent() {
-    read -r a b <<<$($AMIXER_CMD get Master | grep "^  Front Right" | cut -d' ' -f7,8 | $REMOVE_BRACKETS)
-    echo $a $b
+    run_command "$AMIXER_GET_CMD"
 }
 
 format_volume() {
