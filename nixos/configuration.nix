@@ -25,18 +25,19 @@
     plymouth.enable = true;
   };
 
-  networking.hostName = "faraday"; # Define your hostname.
-  networking.networkmanager.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.wlp2s0.useDHCP = true;
+  networking = {
+    hostName = "faraday"; # Define your hostname.
+    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
+    # Per-interface useDHCP will be mandatory in the future, so this generated config
+    # replicates the default behaviour.
+    useDHCP = false;
+    interfaces.wlp2s0.useDHCP = true;
+    networkmanager.enable = true;
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -49,45 +50,51 @@
   #   keyMap = "us";
   # };
 
-  services.cron.enable = true;
-
-  services.geoclue2.enable = true;
-  
-  # Configure keymap in X11
-  services.xserver = {
-    enable = true;
-    autorun = true;
-  
-    displayManager.lightdm.enable = true;
-    displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-wallpapers-20.jpg;
-
-    windowManager.xmonad = {
+  services = {
+    blueman.enable = true;
+    cron.enable = true;
+    geoclue2.enable = true;
+    
+    # Configure keymap in X11
+    xserver = {
       enable = true;
-      enableContribAndExtras = true;
+      autorun = true;
+    
+      displayManager.lightdm.enable = true;
+      displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-wallpapers-20.jpg;
+
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+      };
+    
+      # Keyboard
+      layout = "us";
+      xkbVariant = "altgr-intl";
+      xkbOptions = "caps:escape";
+    
+      # Enable touchpad support (enabled default in most desktopManager).
+      libinput = {
+        enable = true;
+        naturalScrolling = true;
+        tapping = true;
+        additionalOptions = ''MatchIsTouchpad "on"'';
+      };
     };
-  
-    # Keyboard
-    layout = "us";
-    xkbVariant = "altgr-intl";
-    xkbOptions = "caps:escape";
-  
-    # Enable touchpad support (enabled default in most desktopManager).
-    libinput = {
+
+    # Enable the OpenSSH daemon.
+    # openssh.enable = true;
+
+    # Enable CUPS to print documents.
+    printing = {
       enable = true;
-      naturalScrolling = true;
-      tapping = true;
-      additionalOptions = ''MatchIsTouchpad "on"'';
+      drivers = [ pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
     };
-  };
 
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
-  };
+    avahi.enable = true;
+    #avahi.nssmdns = true;
 
-  services.avahi.enable = true;
-  #services.avahi.nssmdns = true;
+  };
 
   # Enable sound.
   sound.enable = true;
@@ -103,7 +110,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.juboba = {
     isNormalUser = true;
-    extraGroups = [ "audio" "docker" "input" "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "audio" "docker" "input" "wheel" ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -124,11 +131,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
