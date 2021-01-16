@@ -98,14 +98,6 @@ in with pkgs; {
 
   # Extra configs
   home.file = {
-    ".bash_it".source = (fetchFromGitHub {
-      name = "bash-it";
-      owner = "Bash-it";
-      repo = "bash-it";
-      rev = "5aa2612ff19d5f65e10a0357e98937f1a26b2698";
-      sha256 = "15s21avr2dkiq6qalk8wx7paphvr97b8mk0zi3lkfzch5lhnvmww";
-    });
-
     ".scripts".source = (fetchFromGitHub {
       name = "scripts";
       owner = "juboba";
