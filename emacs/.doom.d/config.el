@@ -79,7 +79,7 @@
 ;; (blink-cursor-mode)
 
 ;; Set my quick launch terminal
-(setq terminal-here-terminal-command (list "/home/juboba/.bin/terminal"))
+(setq terminal-here-terminal-command (list "/home/juboba/.scripts/terminal"))
 
 ;; Set indentation
 (my/set-office-code-style)
