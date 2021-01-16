@@ -22,11 +22,64 @@ using Spacemacs. I fully recommend Spacemacs, but it has lots of things I don't 
 and felt more attracted to Doom Emacs since much more lightweight yet
 still powerful enough.
 
-*** TODO Arrange ~/Scripts and move what's necessary to ~scripts~
+
+** My Desktop
+*** My session applications
+   These are applications that run together with Xmonad to make up my
+   personalised Desktop Environment.
+
+   - fusuma:      Mouse gestures
+   - picom:       Compositioning for X11
+   - dunst:       Notification daemon
+   - stalonetray: Simple system tray
+   - nm-applet:   Network Manager applet for tray
+
+*** Applications
+   - Browser:              Firefox
+   - Work Browser:         Chromium
+   - Development Browser:  [[https://github.com/juboba/scripts/blob/master/devium][Devium]]
+   - Terminal:             st
+   - Terminal multiplexer: tmux
+   - PDF Viewer:           zathura
+   - File manager:         ranger
+
+*** Global Key mappings
+   | Key Chord           | Action                                                  |
+   |---------------------+---------------------------------------------------------|
+   | Super f             | Fullscreen                                              |
+   | Super Shift v       | Invert X11 colors                                       |
+   | Super r             | Toggle window transparency (80%)                        |
+   | Super Enter         | Promote window to main                                  |
+   | Super Shift Enter   | Run terminal                                            |
+   | Super p             | Run program                                             |
+   | Super j             | Next window                                             |
+   | Super k             | Previous window                                         |
+   | Super h             | Decrease main window size                               |
+   | Super l             | Increase main window size                               |
+   | Super o             | Focus other screen                                      |
+   | Super g             | Show all open windows                                   |
+   | Super Shift o       | Send workspace to other screen                          |
+   | Super Shift i       | Copy emoticon                                           |
+   | Super Shift e       | Open with Vim                                           |
+   | Super Shift w       | Open with Sxiv (to set wallpaper)                       |
+   | Super Shift y       | Open colorpicker                                        |
+   | Super Shift n       | Toggle notifications (dunst)                            |
+   | Print               | Take screenshot to ~/Pictures/Screenshots               |
+   | Shift Print         | Take screenshot to clipboard                            |
+   | Media keys          | Volume and Previous, Play/Pause and Next                |
+   | Brightness          | Control screen brightness level                         |
+   | Shift Brightness*   | Control screen temperature level                        |
+   | Control Space       | Close notification (dunst)                              |
+   | Control Shift Space | Close all notifications (dunst)                         |
+   | Control `           | Show previous notification (dunst)                      |
+   | Control Shift .     | Open context menu for opening URL, or running an action |
+
+** TODOs
+**** TODO Arrange ~/Scripts and move what's necessary to ~scripts~
 I also have lots of not-so-taken-care-of scripts that I use less frequently but
 are also worth having. So! I should clean them up, move what's necessary to
 ~/.bin and remove what's not necessary anymore.
-*** TODO Check what the hell is going on with emacs and sqlite3
+**** TODO Check what the hell is going on with emacs and sqlite3
 This is not too important so I haven't done it, but in order to use ~magit
 forge~ I need to have ~sqlite3~ available for Emacs (in the ~load-path~). I'm
 currently using a ~PATH~ directly pointing to a derivation in the ~/store~ so
