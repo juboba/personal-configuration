@@ -1,12 +1,8 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
     ];
 
@@ -14,7 +10,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # Boot config
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -25,7 +20,6 @@
     plymouth.enable = true;
   };
 
-  # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
   networking = {
@@ -55,7 +49,6 @@
     cron.enable = true;
     geoclue2.enable = true;
     
-    # Configure keymap in X11
     xserver = {
       enable = true;
       autorun = true;
@@ -68,12 +61,10 @@
         enableContribAndExtras = true;
       };
     
-      # Keyboard
       layout = "us";
       xkbVariant = "altgr-intl";
       xkbOptions = "caps:escape";
     
-      # Enable touchpad support (enabled default in most desktopManager).
       libinput = {
         enable = true;
         naturalScrolling = true;
@@ -85,7 +76,6 @@
     # Enable the OpenSSH daemon.
     # openssh.enable = true;
 
-    # Enable CUPS to print documents.
     printing = {
       enable = true;
       drivers = [ pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
@@ -96,7 +86,6 @@
 
   };
 
-  # Enable sound.
   sound.enable = true;
 
   hardware.pulseaudio = {
@@ -104,17 +93,13 @@
     package = pkgs.pulseaudioFull;
   };
 
-  # Enable docker
   virtualisation.docker.enable = true;
   
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.juboba = {
     isNormalUser = true;
     extraGroups = [ "audio" "docker" "input" "wheel" ];
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     gnupg
     ghc
