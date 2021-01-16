@@ -7,6 +7,7 @@
 (map! :leader :desc "emojis" "j e" 'emojify-mode)
 (map! :leader :desc "go to definition" "j d" 'evil-goto-definition)
 (map! :leader "t i" 'imenu-list-smart-toggle)
+(map! :leader :desc "Toggle aufo-fill" "t f" 'auto-fill-mode)
 (map! :leader :desc "Comment lines" "c l" 'evilnc-comment-or-uncomment-lines)
 (map! :leader :desc "Find Org file" "o o" 'my/find-file-in-org-directory)
 
