@@ -42,7 +42,7 @@ in with pkgs; {
 
   xsession.initExtra = ''
     # Set PATH
-    PATH=${builtins.toString HOME_PATH}/.bin:${builtins.toString HOME_PATH}/.emacs.d/bin:$PATH
+    PATH=${builtins.toString HOME_PATH}/.bin:${builtins.toString HOME_PATH}/.scripts:${builtins.toString HOME_PATH}/.emacs.d/bin:$PATH
 
     # This is just a nasty hack to get sqlite working for emacs
     # it just works in a `nix-shell` so I ran one and kept the PATH saved in
@@ -104,6 +104,14 @@ in with pkgs; {
       repo = "bash-it";
       rev = "5aa2612ff19d5f65e10a0357e98937f1a26b2698";
       sha256 = "15s21avr2dkiq6qalk8wx7paphvr97b8mk0zi3lkfzch5lhnvmww";
+    });
+
+    ".scripts".source = (fetchFromGitHub {
+      name = "scripts";
+      owner = "juboba";
+      repo = "scripts";
+      rev = "16fff37cf1f30d372a23f0a41d56de7dd4683a3d";
+      sha256 = "0z9pakdwyxgcm8fypwzg22nf4fkndzfazhfd9haxg82razng2070";
     });
 
   # Oh-my-tmux configuration takes over my tmux.conf file
