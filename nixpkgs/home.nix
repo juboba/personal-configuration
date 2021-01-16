@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let 
-  HOME_PATH = /home/juboba;
+  HOME_PATH = builtins.getEnv "HOME";
   oh-my-tmux-rev = "53d7ce831127b6f1b6f1600b53213cb3060b7e6d";
   packages = import ./packages.nix;
 in with pkgs; {
@@ -48,13 +48,13 @@ in with pkgs; {
     # it just works in a `nix-shell` so I ran one and kept the PATH saved in
     # this file here. Don't rely on it! since those files will be purged when I run
     # the garbage collector...
-    PATH=$(cat ~/sqlite_shell_path):$PATH
+    PATH=$(cat ${HOME_PATH}/sqlite_shell_path):$PATH
 
     # Welcome sound:
     # mpv somesound.wav &
 
     # Set background:
-    ~/.fehbg
+    ${HOME_PATH}/.fehbg
 
     # Disable touchscreen
     totouch --off
@@ -176,7 +176,7 @@ in with pkgs; {
       userName = "Julio Borja Barra";
       extraConfig = {
         core = {
-          excludesfile = "~/.gitignore";
+          excludesfile = "${HOME_PATH}/.gitignore";
         };
         github = {
           oauth-token = readFile ~/.oauth-token;
@@ -209,7 +209,7 @@ in with pkgs; {
 
     rofi = {
       enable = true;
-      theme = "~/Repositories/Configs/rofi-themes/slate.rasi";
+      theme = "${HOME_PATH}/Repositories/Configs/rofi-themes/slate.rasi";
     };
 
     starship = {
