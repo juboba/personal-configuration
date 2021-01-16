@@ -1,7 +1,0 @@
-session_name: Work-Cuisifeed
-windows:
-  - layout: tiled
-    panes:
-      - shell_command:
-        - cd ~/Work/server-cuisifeed/
-        - clear && docker-compose up

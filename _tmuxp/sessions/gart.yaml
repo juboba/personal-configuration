@@ -1,7 +1,0 @@
-session_name: Work-Gartenheim
-windows:
-  - panes:
-      - shell_command:
-        - cd ~/Work/gartenheim/
-        - docker-compose up
-      - cd ~/Work/gartenheim/
