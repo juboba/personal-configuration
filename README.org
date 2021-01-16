@@ -4,10 +4,23 @@ This is my personal configuration. It's currently a mess in progress.
 
 ** OS Config
 Since I use NixOS, my OS config is managed by [[./nixos/configuration.nix][configuration.nix]].
+
 ** User Config
 I'm currently migrating all of my configurations to [[./nixpkgs/home.nix][home.nix]] by using
 [[https://github.com/nix-community/home-manager][home-manager]] since it's easily reproduce-able and I can have everything in the
 same format and place.
+
+My config is mainly:
+- Packages to install
+- Shell aliases
+- Various dotfiles
+- Overlays to further customize packages
+
+** Editor Config
+I have two configuration directories under ~emacs~, but I'm no longer
+using Spacemacs. I fully recommend Spacemacs, but it has lots of things I don't use
+and felt more attracted to Doom Emacs since much more lightweight yet
+still powerful enough.
 
 *** TODO Arrange ~/Scripts and move what's necessary to ~scripts~
 I also have lots of not-so-taken-care-of scripts that I use less frequently but

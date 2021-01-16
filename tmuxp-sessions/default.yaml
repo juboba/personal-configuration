@@ -2,7 +2,7 @@ session_name: Personal
 windows:
   - window_name: one
     panes:
-      - shell_command_before: set_title $(fortune -n 40 -s) && clear
+      -
   - window_name: System Status
     layout: main-vertical
     panes:
