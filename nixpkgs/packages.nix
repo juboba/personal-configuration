@@ -5,14 +5,16 @@ let custom-st = import ./custom-st;
 in with pkgs; [
   # Utils
   bc
+  custom-st
   dragon-drop
   feh
   fusuma
   fzy
+  htop
   imagemagick
   ispell
+  nixfmt
   ripgrep
-  custom-st
   tmux
   tmuxp
   zscroll
@@ -39,24 +41,24 @@ in with pkgs; [
   ranger
 
   # Media
-  mplayer
+  mpv
+  pamix
+  python27Packages.pygments
   spotify
   spotifywm
   sxiv
-  texlive.combined.scheme-tetex
-  python27Packages.pygments
-  zathura
+  texlive.combined.scheme-full
 
   # Browser
   chromium
   surf
 
   # Communication
+  discord
   slack
   tdesktop
 
   # Development
-  docker-compose
   highlight
   hugo
   jq

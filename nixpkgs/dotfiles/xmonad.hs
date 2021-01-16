@@ -154,7 +154,7 @@ myKeys =
     , ((superKey, xK_x), focusUrgent)
 
     -- Invert screen colors
-    , ((superKey .|. shiftMask, xK_v), spawn "xcalib -i -a")
+    , ((superKey .|. shiftMask, xK_v), spawn "invert_colors")
     -- Screensaver
     , ((superKey .|. shiftMask, xK_z), spawn "slock")
     -- Copy Emoji
@@ -216,6 +216,7 @@ myManageHook = composeAll
     , className =? "Spotify"                                               --> (doShift $ myWorkspaces !! 5)
     , className =? "TelegramDesktop"                                       --> (doShift $ myWorkspaces !! 4)
     , className =? "Slack"                                                 --> (doShift $ myWorkspaces !! 4)
+    , className =? "discord"                                               --> (doShift $ myWorkspaces !! 4)
     , className =? "Firefox"                                               --> (doShift $ myWorkspaces !! 8)
     , stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore
     -- , resource  =? "desktop_window"                                     --> doIgnore
@@ -226,7 +227,8 @@ myManageHook = composeAll
     , className =? "Screen"                                                --> doFloat -- Screen share (with Screen.so)
     , title =? "Media viewer"                                              --> doFloat -- Telegram media
     , className =? "Gsimplecal"                                            --> doFloat -- Calendar window
-    , className =? ".pick-colour-picker-wrapped"                           --> doFloat -- Calendar window
+    , className =? ".pick-colour-picker-wrapped"                           --> doFloat -- Color picker
+    , appName =? "showmyself"                                              --> doFloat -- Show me
     , title     =? "Copying Files"                                         --> doFloat ]
     -- where viewShift = doF . liftM2 (.) W.greedyView W.shift
 

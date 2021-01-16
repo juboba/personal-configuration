@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-echo "hello"
-
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -61,6 +59,8 @@ export SCM_CHECK=false
 
 # Uncomment this to make Bash-it create alias reload.
 # export BASH_IT_RELOAD_LEGACY=1
+
+BASH_IT_CUSTOM=~/Repositories/Configs/nixpkgs/bash-it-custom
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh

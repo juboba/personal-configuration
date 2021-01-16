@@ -51,7 +51,7 @@ in with pkgs; {
     PATH=$(cat ~/sqlite_shell_path):$PATH
 
     # Welcome sound:
-    # mplayer somesound.wav &
+    # mpv somesound.wav &
 
     # Set background:
     ~/.fehbg
@@ -98,13 +98,14 @@ in with pkgs; {
 
   # Extra configs
   home.file = {
-    ".oh-my-bash".source = (fetchFromGitHub {
-      name = "oh-my-bash";
-      owner = "ohmybash";
-      repo = "oh-my-bash";
-      rev = "89e505415284619377df9d8dc73f033572e24621";
-      sha256 = "17fvbws0m4l3iss2xaxhqr19q8ix9p0p5hi74daghicb989jbhzi";
+    ".bash_it".source = (fetchFromGitHub {
+      name = "bash-it";
+      owner = "Bash-it";
+      repo = "bash-it";
+      rev = "5aa2612ff19d5f65e10a0357e98937f1a26b2698";
+      sha256 = "15s21avr2dkiq6qalk8wx7paphvr97b8mk0zi3lkfzch5lhnvmww";
     });
+
   # Oh-my-tmux configuration takes over my tmux.conf file
     ".tmux.conf".text = builtins.readFile (fetchFromGitHub {
       name = "oh-my-tmux";
@@ -142,13 +143,20 @@ in with pkgs; {
         recursive = true;
         source = ./dotfiles/xdg-configs/sxiv;
       };
+
+      "volumeicon" = {
+        recursive = true;
+        source = ./dotfiles/xdg-configs/volumeicon;
+      };
     };
   };
 
   programs = with builtins; {
     bash = {
       enable = true;
-      initExtra = ''
+      initExtra = 
+      (readFile ./dotfiles/functions.bash) +
+  ''
         set -o vi
         fortune | lolcat
       '';
@@ -238,15 +246,16 @@ in with pkgs; {
         colorscheme miramare
       '';
     };
+
+    zathura = {
+      enable = true;
+    };
   };
 
   services = {
-    clipmenu.enable = true;
+    blueman-applet.enable = true;
 
-    dropbox = {
-      enable = true;
-      path = ~/Documents/Org/Dropbox;
-    };
+    clipmenu.enable = true;
 
     dunst = {
       enable = true;
@@ -285,8 +294,8 @@ in with pkgs; {
 
     picom = {
       enable = true;
-      inactiveDim = "0.2";
-      inactiveOpacity = "0.9";
+      inactiveDim = "0.5";
+      #inactiveOpacity = "0.9";
       blur = true;
     };
 

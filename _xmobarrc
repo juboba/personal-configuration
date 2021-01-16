@@ -10,7 +10,7 @@ Config { alpha = 240
        -- , font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
        , font = "xft:Ubuntu:size=12,FontAwesome:size=10,Arial:size=10"
        , bgColor = "#000000"
-       , fgColor = "#fffaff"
+       , fgColor = "#7f7f7f"
        , position = TopW L 100
        , lowerOnStart = True
        , iconRoot = "/home/juboba/.xmobar"
@@ -32,7 +32,7 @@ Config { alpha = 240
                         "-t", "<acstatus> <left>%",
                         "--",
                         -- "-c", "charge_full",
-                        "-O", "<fc=#fffaff></fc>",
+                        "-O", "<fc=#303036></fc>",
                         "-i", "<fc=#fc5130></fc>",
                         "-o", "<fc=#30bced></fc>",
                         -- "--off-icon-pattern",
@@ -57,7 +57,7 @@ Config { alpha = 240
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader%} <fc=#fffaff> %time%</fc>  <action=`memrise -o`>%memrise%</action> { <action=`sp play`><fc=#fc5130>%nowPlaying% %nowPlayingIcon%</fc></action>  |  <action=`terminal -- gtop`>%multicpu% %memory%</action>  |  <fc=red>%batalert%</fc> %battery%  |  <action=`gsimplecal`><fc=#30bced> %date%</fc></action> "
+       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action>  <action=`memrise -o`>%memrise%</action> { <action=`sp play`>%nowPlaying% %nowPlayingIcon%</action>  |  <action=`terminal -- gtop`>%multicpu% %memory%</action>  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
        }
 
   -- <action=`memrise -o`>%memrise%</action> <action=`duolingo -o`>%duolingo%</action>

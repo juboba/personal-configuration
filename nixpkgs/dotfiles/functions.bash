@@ -1,4 +1,3 @@
-echo "hjello"
 #cf fuzzy cd =)
 cf () {
   DIR=`rg --files \
@@ -23,4 +22,8 @@ of () {
   FILE=$(rg --files | fzy)
   echo $FILE
   [ -n "$FILE" ] && rifle $FILE
+}
+
+set_title () {
+  PROMPT_COMMAND="echo -ne \"\033]0;$*\007\""
 }
