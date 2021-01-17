@@ -2,6 +2,8 @@
 
 let 
   HOME_PATH = builtins.getEnv "HOME";
+  SCRIPT_PATH = "${HOME_PATH}/.scripts";
+  BIN_PATH = "${HOME_PATH}/.bin";
   oh-my-tmux-rev = "53d7ce831127b6f1b6f1600b53213cb3060b7e6d";
   packages = import ./packages.nix;
 in with pkgs; {
@@ -42,13 +44,7 @@ in with pkgs; {
 
   xsession.initExtra = ''
     # Set PATH
-    PATH=${builtins.toString HOME_PATH}/.bin:${builtins.toString HOME_PATH}/.scripts:${builtins.toString HOME_PATH}/.emacs.d/bin:$PATH
-
-    # This is just a nasty hack to get sqlite working for emacs
-    # it just works in a `nix-shell` so I ran one and kept the PATH saved in
-    # this file here. Don't rely on it! since those files will be purged when I run
-    # the garbage collector...
-    PATH=$(cat ${HOME_PATH}/sqlite_shell_path):$PATH
+    PATH=${builtins.toString BIN_PATH}:${builtins.toString SCRIPT_PATH}:${builtins.toString HOME_PATH}/.emacs.d/bin:$PATH
 
     # Welcome sound:
     # mpv somesound.wav &
@@ -98,7 +94,7 @@ in with pkgs; {
 
   # Extra configs
   home.file = {
-    ".scripts".source = (fetchFromGitHub {
+    "${SCRIPT_PATH}".source = (fetchFromGitHub {
       name = "scripts";
       owner = "juboba";
       repo = "scripts";
