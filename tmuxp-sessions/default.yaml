@@ -8,4 +8,4 @@ windows:
     panes:
       - 
       - shell_command_before: set_title "htop, currently running processes" && clear
-        shell_command: htop
+        shell_command: nix-shell -p gotop --run gotop
