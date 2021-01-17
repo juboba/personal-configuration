@@ -300,7 +300,7 @@ in with pkgs; {
 
       brightness = {
         day = "1";
-        night = "1";
+        night = "0.8";
       };
 
       latitude = "36";
