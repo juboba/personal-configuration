@@ -24,6 +24,7 @@ Config { alpha = 240
                     -- , Run MarqueePipeReader "/tmp/now-playing-pipe" (30, 1, " - ") "nowPlaying"
                     , Run Com "now-playing" [] "nowPlaying" 2
                     , Run Com "batalert" [] "batalert" 100
+                    , Run Com "volume-control" [] "volume-control" 5
                     , Run Com "sp-icon" [] "nowPlayingIcon" 5
                     , Run Com "duolingo" ["-i"] "duolingo" 5
                     , Run Com "memrise" ["-i"] "memrise" 5
@@ -32,8 +33,8 @@ Config { alpha = 240
                         "-t", "<acstatus> <left>%",
                         "--",
                         -- "-c", "charge_full",
-                        "-O", "<fc=#303036></fc>",
-                        "-i", "<fc=#fc5130></fc>",
+                        "-O", "<fc=#fc5130></fc>",
+                        "-i", "<fc=#303036></fc>",
                         "-o", "<fc=#30bced></fc>",
                         -- "--off-icon-pattern",
                         -- "",
@@ -57,7 +58,7 @@ Config { alpha = 240
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action>  <action=`memrise -o`>%memrise%</action> { <action=`sp play`>%nowPlaying% %nowPlayingIcon%</action>  |  <action=`terminal -- gtop`>%multicpu% %memory%</action>  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
+       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action>  <action=`memrise -o`>%memrise%</action> { <action=`sp play`>%nowPlaying% %nowPlayingIcon%</action>  |  <action=`terminal -- gtop`>%multicpu% %memory%</action>  |  %volume-control%  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
        }
 
   -- <action=`memrise -o`>%memrise%</action> <action=`duolingo -o`>%duolingo%</action>
