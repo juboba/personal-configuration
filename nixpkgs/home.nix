@@ -98,8 +98,8 @@ in with pkgs; {
       name = "scripts";
       owner = "juboba";
       repo = "scripts";
-      rev = "16fff37cf1f30d372a23f0a41d56de7dd4683a3d";
-      sha256 = "0z9pakdwyxgcm8fypwzg22nf4fkndzfazhfd9haxg82razng2070";
+      rev = "33aa268d0b8dc3a8020478cc98e3955ae6cbac55";
+      sha256 = "0hjq0dmx6ljjbp023r9x7sa0lyi0mjligqw2g9c47pjawqhvqp5l";
     });
 
   # Oh-my-tmux configuration takes over my tmux.conf file
