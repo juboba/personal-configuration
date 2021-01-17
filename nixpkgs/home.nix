@@ -56,7 +56,6 @@ in with pkgs; {
     totouch --off
 
     # Start applications
-    volumeicon &
     fusuma &               # Fusuma mouse gestures
   '';
 
@@ -138,11 +137,6 @@ in with pkgs; {
       "sxiv" = {
         recursive = true;
         source = ./dotfiles/xdg-configs/sxiv;
-      };
-
-      "volumeicon" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/volumeicon;
       };
     };
   };

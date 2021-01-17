@@ -28,7 +28,6 @@ in with pkgs; [
   libnotify
   scrot
   slock
-  volumeicon
   xcalib
   xclip
   xdotool
