@@ -293,4 +293,4 @@ bind C confirm-before -p "send Ctrl-C to all shells in #S? (y/n)" \
 bind Q confirm-before -p "kill-session #S? (y/n)" kill-session
 
 set -g pane-border-status top
-set -g pane-border-format "[#{pane_index}] #{?pane_title,#{pane_title},#{pane_current_command}} "
+set -g pane-border-format "[#{pane_index}] #{pane_current_command} "
