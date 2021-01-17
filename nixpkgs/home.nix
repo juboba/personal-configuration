@@ -144,11 +144,15 @@ in with pkgs; {
   programs = with builtins; {
     bash = {
       enable = true;
-      initExtra = 
-      (readFile ./dotfiles/functions.bash) +
-  ''
+      initExtra = ''
+        [[ $- != *i* ]] && return
+
+        # Disable terminal suspension with Ctrl + s and Ctrl + q
+        stty -ixon -ixoff
+
+        # Greet with some fortune cookie | with lovely colors
         fortune | lolcat
-      '';
+      '' + (readFile ./dotfiles/functions.bash);
       historyIgnore = [ "ls" "cd" "exit" ];
       shellOptions =  [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
       sessionVariables = {
