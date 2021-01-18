@@ -13,20 +13,27 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/6ae4b4ad-9698-46ea-ad98-aa942a612437";
-      fsType = "ext4";
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/da6cb38c-abe9-496a-8a72-c3daa589ae65";
-      fsType = "ext4";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/20D7-D8C0";
+  fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-uuid/20D7-D8C0";
       fsType = "vfat";
     };
+
+    "/" = {
+      device = "/dev/disk/by-uuid/6ae4b4ad-9698-46ea-ad98-aa942a612437";
+      fsType = "ext4";
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-uuid/da6cb38c-abe9-496a-8a72-c3daa589ae65";
+      fsType = "ext4";
+    };
+
+    "/mnt/kinesis" = {
+      device = "/dev/disk/by-uuid/E8BC-3E91";
+      options = [ "noauto" "rw" "user" "exec" "umask=000" ];
+    };
+  };
 
   swapDevices = [ ];
 
