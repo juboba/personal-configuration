@@ -14,15 +14,19 @@ in with pkgs; {
       address = "juboba@genial.ly";
       aliases = ["juboba@genially.com"];
       flavor = "gmail.com";
+
       imap = {
         host = "imap.gmail.com";
         tls.enable = true;
       };
+
       mu.enable = true;
+
       offlineimap = {
         enable = true;
         extraConfig.account.autorefresh = 10;
       };
+
       passwordCommand = "get_pass gmail";
       primary = true;
       realName = "Julio Borja Barra";
@@ -35,11 +39,14 @@ in with pkgs; {
     "*foreground" = "#fffaff";
   };
 
-  xsession.enable = true;
-  xsession.windowManager.xmonad = {
+  xsession = {
     enable = true;
-    enableContribAndExtras = true;
-    config = ./dotfiles/xmonad.hs;
+
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = ./dotfiles/xmonad.hs;
+    };
   };
 
   xsession.initExtra = ''
@@ -181,10 +188,12 @@ in with pkgs; {
         core = {
           excludesfile = "${HOME_PATH}/.gitignore";
         };
+
         github = {
           oauth-token = readFile ~/.oauth-token;
           user = "juboba";
         };
+
         pull = {
           ff = "only";
         };
@@ -196,10 +205,12 @@ in with pkgs; {
 
     readline = {
       enable = true;
+
       bindings = {
         "\\e[A" = "history-search-backward"; # arrow up
         "\\e[B" = "history-search-forward"; # arrow down
       };
+
       extraConfig = ''
         set editing-mode vi
         set show-mode-in-prompt on
@@ -220,6 +231,7 @@ in with pkgs; {
     starship = {
       enable = true;
       enableBashIntegration = true;
+
       settings = {
         add_newline = false;
         nix_shell = {
@@ -232,12 +244,14 @@ in with pkgs; {
     vim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-surround nerdtree ];
+
       settings = {
         expandtab = true;
         number = true;
         relativenumber = true;
         tabstop = 2;
       };
+
       extraConfig = ''
         set smarttab
         set softtabstop=0
@@ -276,6 +290,7 @@ in with pkgs; {
           configure_single = "eDP-1@1920x1080";
           primary = true;
           atomic = true;
+
           execute_after = [
             "${pkgs.xorg.xrandr}/bin/xrandr --dpi 96"
             "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
@@ -287,6 +302,7 @@ in with pkgs; {
           configure_single = "DP-1";
           primary = true;
           atomic = true;
+
           execute_after = [
             "${pkgs.xorg.xrandr}/bin/xrandr --dpi 96"
             "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
@@ -326,6 +342,7 @@ in with pkgs; {
 
     stalonetray = {
       enable = true;
+
       config = {
         transparent = false;
         geometry  = "1x1+1050+3";
