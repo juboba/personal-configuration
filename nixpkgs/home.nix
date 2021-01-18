@@ -77,42 +77,52 @@ in with pkgs; {
     size = 64;
   };
 
-  home.stateVersion = "20.09";
+  home = {
+    stateVersion = "20.09";
 
-  home.username = "juboba";
-  home.homeDirectory = /home/juboba;
+    username = "juboba";
+    homeDirectory = /home/juboba;
 
-  home.sessionVariables = {
-    CM_LAUNCHER = "rofi";
-  };
+    sessionVariables = {
+      CM_LAUNCHER = "rofi";
+    };
 
-  home.keyboard.layout="us";
-  home.keyboard.variant = "altgr-intl";
+    keyboard.layout="us";
+    keyboard.variant = "altgr-intl";
 
-  home.packages = packages pkgs;
+    packages = packages pkgs;
 
-  # Extra configs
-  home.file = {
-    "${SCRIPT_PATH}".source = (fetchFromGitHub {
-      name = "scripts";
-      owner = "juboba";
-      repo = "scripts";
-      rev = "33aa268d0b8dc3a8020478cc98e3955ae6cbac55";
-      sha256 = "0hjq0dmx6ljjbp023r9x7sa0lyi0mjligqw2g9c47pjawqhvqp5l";
-    });
+    # Extra configs
+    file = {
+      ".config/rofi/themes".source = (fetchFromGitHub {
+        name = "rofi-themes";
+        owner = "davatorium";
+        repo = "rofi-themes";
+        rev = "bfdde8e7912ad50a468c721b29b448c1ec5fa5e3";
+        sha256 = "1k0nznqccc9y13x3pj6yd2j80nbnl3pyy8ihs91rf89gizb09w63";
+      });
 
-  # Oh-my-tmux configuration takes over my tmux.conf file
-    ".tmux.conf".text = builtins.readFile (fetchFromGitHub {
-      name = "oh-my-tmux";
-      owner = "gpakosz";
-      repo = ".tmux";
-      rev = oh-my-tmux-rev;
-      sha256 = "12dsdxv7sy2fwlax5pwq2ahplmynlgb9y9j2cgwi0i45p0gphvhh";
-      stripRoot = false;
-    } + "/.tmux-${oh-my-tmux-rev}/.tmux.conf");
+      "${SCRIPT_PATH}".source = (fetchFromGitHub {
+        name = "scripts";
+        owner = "juboba";
+        repo = "scripts";
+        rev = "33aa268d0b8dc3a8020478cc98e3955ae6cbac55";
+        sha256 = "0hjq0dmx6ljjbp023r9x7sa0lyi0mjligqw2g9c47pjawqhvqp5l";
+      });
 
-    # My oh-my-tmux config
-    ".tmux.conf.local".source = ./dotfiles/oh-my-tmux.conf.local;
+    # Oh-my-tmux configuration takes over my tmux.conf file
+      ".tmux.conf".text = builtins.readFile (fetchFromGitHub {
+        name = "oh-my-tmux";
+        owner = "gpakosz";
+        repo = ".tmux";
+        rev = oh-my-tmux-rev;
+        sha256 = "12dsdxv7sy2fwlax5pwq2ahplmynlgb9y9j2cgwi0i45p0gphvhh";
+        stripRoot = false;
+      } + "/.tmux-${oh-my-tmux-rev}/.tmux.conf");
+
+      # My oh-my-tmux config
+      ".tmux.conf.local".source = ./dotfiles/oh-my-tmux.conf.local;
+    };
   };
 
   xdg = {
@@ -204,7 +214,7 @@ in with pkgs; {
 
     rofi = {
       enable = true;
-      theme = "${HOME_PATH}/Repositories/Configs/rofi-themes/slate.rasi";
+      theme = "${HOME_PATH}/.config/rofi/themes/User\ Themes/sidetab.rasi";
     };
 
     starship = {
