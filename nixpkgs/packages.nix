@@ -8,6 +8,7 @@ in with pkgs; [
   custom-st
   dragon-drop
   feh
+  fd
   fusuma
   fzy
   htop
@@ -65,6 +66,7 @@ in with pkgs; [
   peek
   pick-colour-picker
   robo3t
+  shellcheck
   yarn
 ]
 
