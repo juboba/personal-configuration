@@ -29,7 +29,7 @@
       fsType = "ext4";
     };
 
-    "/mnt/kinesis" = {
+    "/media/kinesis" = {
       device = "/dev/disk/by-uuid/E8BC-3E91";
       options = [ "noauto" "rw" "user" "exec" "umask=000" ];
     };
