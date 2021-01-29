@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: styled components
+# key: sc
+# --
+import styled from 'styled-components';
+
+export const ${1:Component} = styled($2)({
+  $3;
+})
