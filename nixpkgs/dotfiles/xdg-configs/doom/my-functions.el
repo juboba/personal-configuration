@@ -14,7 +14,7 @@
           ;("lambda" . 955) ; λ
           ;("->" . 8594)    ; →
           ("=>" . 955)    ; 8658 ⇒
-          ("() =>" . 955)    ; 8658 ⇒
+          ;; ("() =>" . 955)    ; 8658 ⇒
           ;; ("map" . 8614)    ; ↦
           ;; (".map" . 8614)    ; ↦
           ;; ("pipe" . 10689)    ; ↳
@@ -63,10 +63,19 @@ If the error list is visible, hide it.  Otherwise, show it."
       (quit-window nil window)
     (flycheck-list-errors)))
 
-;; stolen from spacemacs :smile:
+;; stolen from spacemacs :rofl:
 (defun spacemacs/goto-flycheck-error-list ()
   "Open and go to the error list buffer."
   (interactive)
   (unless (get-buffer-window (get-buffer flycheck-error-list-buffer))
     (flycheck-list-errors)
     (switch-to-buffer-other-window flycheck-error-list-buffer)))
+
+(defun my/insert-coauthors ()
+  "Inserts the current branch's coauthors at the end of the commit message"
+  (interactive)
+  (insert "\n\nCo-authored by " (magit-get (concat (magit-get-current-branch) ".coauthors")))
+  (goto-char 0))
+
+(evil-set-register ?b
+   (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))

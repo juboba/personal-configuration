@@ -136,6 +136,11 @@ in with pkgs; {
     enable = true;
 
     configFile = {
+      "doom" = {
+        recursive = true;
+        source = ./dotfiles/xdg-configs/doom;
+      };
+
       "fusuma" = {
         recursive = true;
         source = ./dotfiles/xdg-configs/fusuma;

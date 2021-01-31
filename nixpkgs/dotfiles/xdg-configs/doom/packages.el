@@ -21,6 +21,7 @@
 (package! js-doc)
 (package! emojify)
 (package! rainbow-mode)
+(package! slack)
 
 (package! exwm
   :recipe (:host github :repo "ch11ng/exwm"))

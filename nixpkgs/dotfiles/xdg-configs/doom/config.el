@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-monokai-pro)
+(setq doom-theme 'doom-challenger-deep)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -82,7 +82,7 @@
 (setq terminal-here-terminal-command (list "/home/juboba/.scripts/terminal"))
 
 ;; Set indentation
-(my/set-office-code-style)
+;; (my/set-office-code-style)
 
 ;; Evil-matchit
 (require 'evil-matchit)
@@ -107,6 +107,7 @@
 (add-hook 'after-change-major-mode-hook #'my/doom-modeline-conditional-buffer-encoding)
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
 (add-hook 'prog-mode-hook 'my/add-pretty-lambda)
+;; (add-hook 'git-commit-setup-hook 'my/insert-coauthors)
 
 (require 'google-translate)
 (require 'google-translate-default-ui)

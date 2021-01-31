@@ -20,3 +20,6 @@
 (add-hook 'flycheck-mode-hook
           '(lambda ()
             (setq-local flycheck-javascript-eslint-executable "eslint_d")))
+
+(add-hook 'rjsx-mode-hook 'editorconfig-mode)
+(add-hook 'typescript-mode-hook 'editorconfig-mode)
