@@ -7,8 +7,10 @@ in with pkgs; [
   bc
   custom-st
   dragon-drop
+  exa
   feh
   fd
+  file
   fusuma
   fzy
   htop
@@ -65,6 +67,7 @@ in with pkgs; [
   nodejs-10_x
   peek
   pick-colour-picker
+  python3
   robo3t
   shellcheck
   yarn
