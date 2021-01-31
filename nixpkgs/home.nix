@@ -151,6 +151,11 @@ in with pkgs; {
         source = ./dotfiles/xdg-configs/gsimplecal;
       };
 
+      "nnn" = {
+        recursive = true;
+        source = ./dotfiles/xdg-configs/nnn;
+      };
+
       "ranger" = {
         recursive = true;
         source = ./dotfiles/xdg-configs/ranger;
