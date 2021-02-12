@@ -72,7 +72,7 @@
   gg = "git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative";
   ggf = "git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'";
   ggs = "gg --stat";
-  gsh = "git show";
+  gshw = "git show";
   gsl = "git shortlog -sn";
   gwc = "git whatchanged";
   gt = "git tag";

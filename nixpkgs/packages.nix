@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 let custom-st = import ./custom-st;
+    gitduck = (pkgs.callPackage ./gitduck {}).gitduck;
+    nodemon = (pkgs.callPackage ./nodemon {}).nodemon;
 
 in with pkgs; [
   # Utils
@@ -18,6 +20,8 @@ in with pkgs; [
   ispell
   nixfmt
   ripgrep
+  simplescreenrecorder
+  steam-run
   tmux
   tmuxp
   zscroll
@@ -61,10 +65,13 @@ in with pkgs; [
   tdesktop
 
   # Development
+  gitduck
   highlight
   hugo
   jq
-  nodejs-10_x
+  nodejs-14_x
+  nodemon
+  nodePackages.node2nix
   peek
   pick-colour-picker
   python3

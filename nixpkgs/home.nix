@@ -172,10 +172,17 @@ in with pkgs; {
     bash = {
       enable = true;
       initExtra = ''
-        [[ $- != *i* ]] && return
-
         # Disable terminal suspension with Ctrl + s and Ctrl + q
         stty -ixon -ixoff
+
+        # `cd` when quit ranger
+        source ~/.config/ranger/shell_automatic_cd.sh
+
+        # `cd` when quit nnn
+        #if [ -f ~/.config/nnn/plugins/quitcd.bash_zsh ]
+        #then
+          #source ~/.config/nnn/plugins/quitcd.bash_zsh
+        #fi
 
         # Greet with some fortune cookie | with lovely colors
         fortune | lolcat
@@ -221,21 +228,19 @@ in with pkgs; {
         "\\e[B" = "history-search-forward"; # arrow down
       };
 
-      extraConfig = ''
-        set editing-mode vi
-        set show-mode-in-prompt on
-
-        #set vi-ins-mode-string \1\e[48;5;33;1m\2 I \1\e[38;5;33;48;5m\2\1\e[0m\2
-        set vi-ins-mode-string \1\e[6 q\2
-
-        #set vi-cmd-mode-string \1\e[48;5;166;1m\2 N \1\e[38;5;166;48;5m\2\1\e[0m\2
-        set vi-cmd-mode-string \1\e[2 q\2
-      '';
+      variables = {
+        editing-mode = "vi";
+        show-mode-in-prompt = true;
+        vi-cmd-mode-string = "\\1\\e[48;5;166;1m\\2 N \\1\\e[38;5;166;48;5m\\2\\1\\e[0m\\2";
+        vi-ins-mode-string = "\\1\\e[48;5;33;1m\\2 I \\1\\e[38;5;33;48;5m\\2\\1\\e[0m\\2";
+        #set vi-ins-mode-string \1\e[6 q\2
+        #set vi-cmd-mode-string \1\e[2 q\2
+      };
     };
 
     rofi = {
       enable = true;
-      theme = "${HOME_PATH}/.config/rofi/themes/User\ Themes/sidetab.rasi";
+      theme = "${HOME_PATH}/.config/rofi/themes/User\ Themes/slate.rasi";
     };
 
     starship = {
@@ -253,7 +258,7 @@ in with pkgs; {
 
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-surround nerdtree ];
+      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-css-color vim-surround nerdtree ];
 
       settings = {
         expandtab = true;
@@ -324,10 +329,10 @@ in with pkgs; {
     network-manager-applet.enable = true;
 
     picom = {
-      enable = true;
-      inactiveDim = "0.5";
-      #inactiveOpacity = "0.9";
       blur = true;
+      enable = true;
+      #inactiveDim = "0.5";
+      #inactiveOpacity = "0.9";
     };
 
     redshift = {

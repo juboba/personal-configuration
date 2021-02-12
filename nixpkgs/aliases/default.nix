@@ -11,11 +11,10 @@ import ./docker-compose.nix //
   ec = "emacsclient";
   hm = "home-manager";
   hs = "hess";
-  l = "exa";
-  la = "exa -a";
-  ll = "exa -l --sort=created";
-  lla = "exa -la --sort=created";
   ls = "exa";
+  l = "exa";
+  ll = "exa -l --sort=created --group-directories-first";
+  la = "exa -a";
   mono = "cd ~/Projects/genially/mono";
   n = "nnn";
   o = "rifle";
@@ -26,4 +25,5 @@ import ./docker-compose.nix //
   toSpanish = "trans :es -brief";
   trim = "sed -e 's/^[ \t]*//'";
   vi = "vim";
+  gduck = "steam-run gitduck";
 }
