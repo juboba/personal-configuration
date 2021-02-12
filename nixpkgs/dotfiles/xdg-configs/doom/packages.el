@@ -22,6 +22,8 @@
 (package! emojify)
 (package! rainbow-mode)
 (package! slack)
+(package! darkroom)
+(package! focus)
 
 (package! exwm
   :recipe (:host github :repo "ch11ng/exwm"))

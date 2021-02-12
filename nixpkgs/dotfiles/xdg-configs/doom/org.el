@@ -2,6 +2,7 @@
 
 ;; Minted (syntax highlight)
 (require 'org)
+(setq org-agenda-start-on-weekday 1)
 (setq org-latex-listings 'minted
       org-latex-packages-alist '(("" "minted"))
       org-latex-pdf-process
