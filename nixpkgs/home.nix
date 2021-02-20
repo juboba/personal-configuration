@@ -31,6 +31,7 @@ in with pkgs; {
       primary = true;
       realName = "Julio Borja Barra";
     };
+
     certificatesFile = /etc/ssl/certs/ca-certificates.crt;
   };
 
@@ -101,6 +102,15 @@ in with pkgs; {
 
     # Extra configs
     file = {
+      ".bin/terminal" = {
+        executable = true;
+        text = ''
+          #!/bin/sh
+
+          alacritty $*
+          '';
+      };
+
       ".config/rofi/themes".source = (fetchFromGitHub {
         name = "rofi-themes";
         owner = "davatorium";
@@ -110,11 +120,11 @@ in with pkgs; {
       });
 
       "${SCRIPT_PATH}".source = (fetchFromGitHub {
-        name = "scripts";
+        name = "scripts-2";
         owner = "juboba";
         repo = "scripts";
-        rev = "33aa268d0b8dc3a8020478cc98e3955ae6cbac55";
-        sha256 = "0hjq0dmx6ljjbp023r9x7sa0lyi0mjligqw2g9c47pjawqhvqp5l";
+        rev = "2a57b9ff137df13d5ac8bf7593a4fcf141d4ac7a";
+        sha256 = "0jgbj7hysxm5w8bi0bccl54a4jw1hiidm3w548k430isrw8r2cpc";
       });
 
     # Oh-my-tmux configuration takes over my tmux.conf file
@@ -169,6 +179,15 @@ in with pkgs; {
   };
 
   programs = with builtins; {
+    alacritty = {
+      enable = true;
+      settings = {
+        font = {
+          size = 15;
+        };
+      };
+    };
+
     bash = {
       enable = true;
       initExtra = ''

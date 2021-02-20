@@ -12,16 +12,13 @@ cf () {
 
 #vf fuzzy vim open =)
 vf () {
-  FILE=$(rg --files | fzy)
-  echo $FILE
-  [ -n "$FILE" ] && vim $FILE
+  FILE=$(fzf)
+  [ -n "$FILE" ] && vim "$FILE"
 }
 
 #of fuzzy open =)
 of () {
-  FILE=$(rg --files | fzy)
-  echo $FILE
-  [ -n "$FILE" ] && rifle $FILE
+  rifle $(fzf)
 }
 
 set_title () {

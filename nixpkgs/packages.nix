@@ -7,13 +7,13 @@ let custom-st = import ./custom-st;
 in with pkgs; [
   # Utils
   bc
-  custom-st
   dragon-drop
   exa
   feh
   fd
   file
   fusuma
+  fzf
   fzy
   htop
   imagemagick
