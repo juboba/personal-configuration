@@ -369,4 +369,34 @@ in with pkgs; {
       };
     };
   };
+
+  systemd.user = {
+    services = {
+      syncmail = {
+        Unit = {
+          Description = "Sync email and index with mu";
+        };
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.offlineimap}/bin/offlineimap -o";
+          ExecStartPost = "${pkgs.mu}/bin/mu index";
+          SuccessExitStatus = "0 1";
+        };
+      };
+    };
+    timers = {
+      syncmail = {
+        Unit = {
+          Description = "Schedule syncing email and indexing with mu";
+        };
+        Timer = {
+          Unit = "syncmail.service";
+          OnCalendar = "*:0/15";
+        };
+        Install = {
+          WantedBy = [ "timers.target" ];
+        };
+      };
+    };
+};
 }
