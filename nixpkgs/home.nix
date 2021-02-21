@@ -48,42 +48,43 @@ in with pkgs; {
       enableContribAndExtras = true;
       config = ./dotfiles/xmonad.hs;
     };
-  };
 
-  xsession.initExtra = ''
-    # Set PATH
-    PATH=${builtins.toString BIN_PATH}:${builtins.toString SCRIPT_PATH}:${builtins.toString HOME_PATH}/.emacs.d/bin:$PATH
+    initExtra = ''
+      # Set PATH
+      PATH=${builtins.toString BIN_PATH}:${builtins.toString SCRIPT_PATH}:${builtins.toString HOME_PATH}/.emacs.d/bin:$PATH
 
-    # Welcome sound:
-    # mpv somesound.wav &
+      # Welcome sound:
+      # mpv somesound.wav &
 
-    # Set background:
-    ${HOME_PATH}/.fehbg
+      # Set background:
+      ${HOME_PATH}/.fehbg
 
-    # Disable touchscreen
-    totouch --off
+      # Disable touchscreen
+      totouch --off
 
-    # Start applications
-    fusuma &               # Fusuma mouse gestures
+      # Start applications
+      fusuma &               # Fusuma mouse gestures
   '';
 
-  xsession.profileExtra = ''
-    # Resolution
-    xrandr --output eDP-1 --mode 1920x1080
+    profileExtra = ''
+      # Resolution
+      xrandr --output eDP-1 --mode 1920x1080
 
-    # Xresources
-    xrdb -merge .Xresouces
+      # Xresources
+      xrdb -merge .Xresouces
 
-    # Set blank screen timeout (in seconds)
-    xset s 300
+      # Set blank screen timeout (in seconds)
+      xset s 300
   '';
 
-  xsession.pointerCursor = {
-    defaultCursor = "left_ptr";
-    name = "Numix-Cursor";
-    package = numix-cursor-theme;
-    size = 64;
+    pointerCursor = {
+      defaultCursor = "left_ptr";
+      name = "Numix-Cursor";
+      package = numix-cursor-theme;
+      size = 64;
+    };
   };
+
 
   home = {
     stateVersion = "20.09";
