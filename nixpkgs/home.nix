@@ -186,6 +186,10 @@ in with pkgs; {
         font = {
           size = 15;
         };
+
+        window = {
+          padding = { x = 10; y = 10; };
+        };
       };
     };
 
