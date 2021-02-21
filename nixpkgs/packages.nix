@@ -19,6 +19,7 @@ in with pkgs; [
   imagemagick
   ispell
   nixfmt
+  procs
   ripgrep
   simplescreenrecorder
   steam-run
