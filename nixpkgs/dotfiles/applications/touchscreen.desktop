@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Toggle Touchscreen
+TryExec=totouch
+Exec=totouch
+Terminal=false
+Type=Application
+Keywords=Toggles;settings;
+#Icon=gvim

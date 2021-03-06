@@ -103,6 +103,8 @@ in with pkgs; {
 
     # Extra configs
     file = {
+      ".local/share/applications".source = ./dotfiles/applications;
+
       ".bin/terminal" = {
         executable = true;
         text = ''
