@@ -1,7 +1,0 @@
-keycode 66 = Escape
-! Swap caps lock and escape
-clear Lock
-!keysym Escape = Caps_Lock
-!keysym Caps_Lock = Escape
-!add Lock = Caps_Lock
-!pointer = 1 2 3 5 4 7 6 8 9 10 11 12

@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
-let custom-st = import ./custom-st;
-    gitduck = (pkgs.callPackage ./gitduck {}).gitduck;
+let gitduck = (pkgs.callPackage ./gitduck {}).gitduck;
     nodemon = (pkgs.callPackage ./nodemon {}).nodemon;
+    eslint_d = (pkgs.callPackage ./eslint_d {}).eslint_d;
 
 in with pkgs; [
   # Utils
@@ -58,7 +58,7 @@ in with pkgs; [
 
   # Browser
   chromium
-  surf
+  qutebrowser
 
   # Communication
   discord
@@ -66,6 +66,7 @@ in with pkgs; [
   tdesktop
 
   # Development
+  eslint_d
   gitduck
   highlight
   hugo

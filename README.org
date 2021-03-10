@@ -28,11 +28,11 @@ still powerful enough.
    These are applications that run together with Xmonad to make up my
    personalised Desktop Environment.
 
-   - fusuma:      Mouse gestures
-   - picom:       Compositioning for X11
-   - dunst:       Notification daemon
-   - stalonetray: Simple system tray
-   - nm-applet:   Network Manager applet for tray
+   - Mouse gestures                  :fusuma
+   - Compositioning for X11          :picom
+   - Notification daemon             :dunst
+   - Simple system tray              :stalonetray
+   - Network Manager applet for tray :nm-applet
 
 *** Applications
    - Browser:              Firefox
