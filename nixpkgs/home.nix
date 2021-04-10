@@ -92,6 +92,14 @@ in with pkgs; {
 
     # Extra configs
     file = {
+      ".local/reveal.js".source = (fetchFromGitHub {
+        name = "revealjs";
+        owner = "hakimel";
+        repo = "reveal.js";
+        rev = "4.1.0";
+        sha256 = "10xhblbyw8mvak58d294hbxxnf5sq0akj6qldv7brgm6944zppm0";
+      });
+
       ".local/share/applications".source = ./dotfiles/applications;
 
       ".bin/terminal" = {

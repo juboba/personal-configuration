@@ -101,6 +101,9 @@
 ;; Disable cursor movement when exiting insert mode
 (setq evil-move-cursor-back nil)
 
+;; Revealjs root
+(setq org-reveal-root "file:///home/juboba/.local/reveal.js")
+(require 'ox-reveal)
 
 ;; Hooks
 (add-hook 'after-init-hook #'global-emojify-mode)
