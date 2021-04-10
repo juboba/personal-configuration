@@ -66,17 +66,6 @@ in with pkgs; {
       fusuma &               # Fusuma mouse gestures
   '';
 
-    profileExtra = ''
-      # Resolution
-      xrandr --output eDP-1 --mode 1920x1080
-
-      # Xresources
-      xrdb -merge .Xresouces
-
-      # Set blank screen timeout (in seconds)
-      xset s 300
-  '';
-
     pointerCursor = {
       defaultCursor = "left_ptr";
       name = "Numix-Cursor";
