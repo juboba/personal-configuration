@@ -212,6 +212,7 @@ myManageHook = composeAll
     -- , className =? "Xmessage"                                              --> doFloat
     , appName =? "chromium-browser (dev-profile)"                          --> (doShift $ myWorkspaces !! 2)
     , appName =? "chromium-browser"                                        --> (doShift $ myWorkspaces !! 3)
+    , appName =? "google-chrome"                                           --> (doShift $ myWorkspaces !! 3)
     , title =? "meet.google.com is sharing your screen."                   --> (doShift $ myWorkspaces !! 7)
     , className =? "Spotify"                                               --> (doShift $ myWorkspaces !! 5)
     , className =? "TelegramDesktop"                                       --> (doShift $ myWorkspaces !! 4)
