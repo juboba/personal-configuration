@@ -32,12 +32,8 @@
   gpuo = "git push --set-upstream origin";
   gpuoc = "git push --set-upstream origin $(git symbolic-ref --short HEAD)";
   gpom = "git push origin master";
-  gr = "git remote";
-  grv = "git remote -v";
-  gra = "git remote add";
-  grb = "git rebase";
-  grm = "git rebase master";
-  grmi = "git rebase master -i";
+  gr = "git restore";
+  grs = "git restore --staged";
   gd = "git diff";
   gds = "git diff --staged";
   gdt = "git difftool";

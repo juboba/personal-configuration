@@ -2,8 +2,6 @@ import ./git.nix //
 import ./docker.nix //
 import ./docker-compose.nix //
 {
-  ag = ''ag --smart-case -U --pager="less -MIRFX"'';
-  agrep = "alias | grep ";
   beep = "echo -e \"\a\"";
   c = "clear";
   cat = "bat";
@@ -12,17 +10,20 @@ import ./docker-compose.nix //
   hm = "home-manager";
   hs = "hess";
   ls = "exa";
-  l = "exa";
-  ll = "exa -l --sort=created --group-directories-first";
-  la = "exa -a";
-  mono = "cd ~/Projects/genially/mono";
-  n = "nnn";
+  l = "ls --sort=modified --group-directories-first";
+  ll = "l -l --git --color=always";
+  lla = "ll -a";
+  la = "l -a";
+  man = "man --pager=\"sh -c 'col -bx | bat -l man -p'\"";
   o = "rifle";
+  p="pwd | sed -e 's/^\\///' -e 's/\\// -> /g' | lolcat";
   pgrep = "pgrep -a";
   r = "ranger";
   suspend = "systemctl suspend";
   tb = "nc termbin.com 9999";
   toSpanish = "trans :es -brief";
+  tree = "l --tree --color=always";
+  gtree = "tree -l --git | less -r";
   trim = "sed -e 's/^[ \t]*//'";
   vi = "vim";
   gduck = "steam-run gitduck";
