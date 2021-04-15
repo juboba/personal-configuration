@@ -10,7 +10,18 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  /*
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
+           "experimental-features = nix-command flakes";
+  };
+  */
+
   boot = {
+    # https://en.wikipedia.org/wiki/Magic_SysRq_key
+    kernel.sysctl."kernel.sysrq" = 1;
+
     loader = {
       systemd-boot.enable = true;
       timeout = 1;
@@ -104,7 +115,7 @@
     gnupg
     ghc
     wget
-    vim (emacsWithPackages (epkgs: [ epkgs.emacsql-sqlite ]))
+    vim
     firefox
     home-manager
   ];
