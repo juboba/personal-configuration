@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+zscroll \
+-d 0.1 \
+-u \
+-l 30 \
+"now-playing"

@@ -2,10 +2,6 @@
 
 let 
   HOME_PATH = builtins.getEnv "HOME";
-  SCRIPT_PATH = "${HOME_PATH}/.scripts";
-  BIN_PATH = "${HOME_PATH}/.bin";
-  oh-my-tmux-rev = "53d7ce831127b6f1b6f1600b53213cb3060b7e6d";
-  packages = import ./packages.nix;
 in with pkgs; {
 
   # Email configuration
@@ -27,7 +23,7 @@ in with pkgs; {
         extraConfig.account.autorefresh = 10;
       };
 
-      passwordCommand = "get_pass gmail";
+      passwordCommand = "cat /home/juboba/.gmail_pass";
       primary = true;
       realName = "Julio Borja Barra";
     };
@@ -41,7 +37,7 @@ in with pkgs; {
   };
 
   xsession = {
-    enable = true;
+    enable = false;
 
     windowManager.xmonad = {
       enable = true;
@@ -50,9 +46,6 @@ in with pkgs; {
     };
 
     initExtra = ''
-      # Set PATH
-      PATH=${builtins.toString BIN_PATH}:${builtins.toString SCRIPT_PATH}:${builtins.toString HOME_PATH}/.emacs.d/bin:$PATH
-
       # Welcome sound:
       # mpv somesound.wav &
 
@@ -63,7 +56,7 @@ in with pkgs; {
       totouch --off
 
       # Start applications
-      fusuma &               # Fusuma mouse gestures
+      fusuma &
   '';
 
     pointerCursor = {
@@ -88,10 +81,17 @@ in with pkgs; {
     keyboard.layout="us";
     keyboard.variant = "altgr-intl";
 
-    packages = packages pkgs;
+    packages = (import ./packages.nix) pkgs;
 
     # Extra configs
     file = {
+      /*
+      ".emacs.d/init.el".text = ''
+            (load "default.el")
+      '';
+      */
+      ".bash_completion".text = builtins.readFile ./bash_completion/git.sh;
+
       ".local/reveal.js".source = (fetchFromGitHub {
         name = "revealjs";
         owner = "hakimel";
@@ -102,15 +102,6 @@ in with pkgs; {
 
       ".local/share/applications".source = ./dotfiles/applications;
 
-      ".bin/terminal" = {
-        executable = true;
-        text = ''
-          #!/bin/sh
-
-          alacritty $*
-          '';
-      };
-
       ".config/rofi/themes".source = (fetchFromGitHub {
         name = "rofi-themes";
         owner = "davatorium";
@@ -119,279 +110,23 @@ in with pkgs; {
         sha256 = "1k0nznqccc9y13x3pj6yd2j80nbnl3pyy8ihs91rf89gizb09w63";
       });
 
+      /*
       "${SCRIPT_PATH}".source = (fetchFromGitHub {
-        name = "scripts-2";
+        name = "scripts-4";
         owner = "juboba";
         repo = "scripts";
-        rev = "2a57b9ff137df13d5ac8bf7593a4fcf141d4ac7a";
-        sha256 = "0jgbj7hysxm5w8bi0bccl54a4jw1hiidm3w548k430isrw8r2cpc";
+        rev = "dba2beaf086038b832b7e1e92fd0b692ea4ff850";
+        sha256 = "173y333m2fg2pbff9x9v8spnld2j8lgpq4kzwy7nm7ric2qnbypg";
       });
+      */
 
-    # Oh-my-tmux configuration takes over my tmux.conf file
-      ".tmux.conf".text = builtins.readFile (fetchFromGitHub {
-        name = "oh-my-tmux";
-        owner = "gpakosz";
-        repo = ".tmux";
-        rev = oh-my-tmux-rev;
-        sha256 = "12dsdxv7sy2fwlax5pwq2ahplmynlgb9y9j2cgwi0i45p0gphvhh";
-        stripRoot = false;
-      } + "/.tmux-${oh-my-tmux-rev}/.tmux.conf");
-
-      # My oh-my-tmux config
-      ".tmux.conf.local".source = ./dotfiles/oh-my-tmux.conf.local;
+      ".tmux.conf".text = builtins.readFile ./dotfiles/tmux.conf;
     };
   };
 
-  xdg = {
-    enable = true;
-
-    configFile = {
-      "doom" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/doom;
-      };
-
-      "fusuma" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/fusuma;
-      };
-
-      "gsimplecal" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/gsimplecal;
-      };
-
-      "nnn" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/nnn;
-      };
-
-      "ranger" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/ranger;
-      };
-
-      "sxiv" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/sxiv;
-      };
-    };
-  };
-
-  programs = with builtins; {
-    alacritty = {
-      enable = true;
-      settings = {
-        font = {
-          size = 15;
-        };
-
-        window = {
-          padding = { x = 10; y = 10; };
-        };
-      };
-    };
-
-    bash = {
-      enable = true;
-      initExtra = ''
-        # Disable terminal suspension with Ctrl + s and Ctrl + q
-        stty -ixon -ixoff
-
-        # `cd` when quit ranger
-        source ~/.config/ranger/shell_automatic_cd.sh
-
-        # `cd` when quit nnn
-        #if [ -f ~/.config/nnn/plugins/quitcd.bash_zsh ]
-        #then
-          #source ~/.config/nnn/plugins/quitcd.bash_zsh
-        #fi
-
-        # Greet with some fortune cookie | with lovely colors
-        fortune | lolcat
-      '' + (readFile ./dotfiles/functions.bash);
-      historyIgnore = [ "ls" "cd" "exit" ];
-      shellOptions =  [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
-      sessionVariables = {
-        EDITOR = "vim";
-      };
-      shellAliases = import ./aliases;
-    };
-
-    bat.enable = true;
-
-    git = {
-      enable = true;
-      userEmail = "juboba@genial.ly";
-      userName = "Julio Borja Barra";
-      extraConfig = {
-        core = {
-          excludesfile = "${HOME_PATH}/.gitignore";
-        };
-
-        github = {
-          oauth-token = readFile ~/.oauth-token;
-          user = "juboba";
-        };
-
-        pull = {
-          ff = "only";
-        };
-      };
-    };
-
-    mu.enable = true;
-    offlineimap.enable = true;
-
-    readline = {
-      enable = true;
-
-      bindings = {
-        "\\e[A" = "history-search-backward"; # arrow up
-        "\\e[B" = "history-search-forward"; # arrow down
-      };
-
-      variables = {
-        editing-mode = "vi";
-        show-mode-in-prompt = true;
-        vi-cmd-mode-string = "\\1\\e[48;5;166;1m\\2 N \\1\\e[38;5;166;48;5m\\2\\1\\e[0m\\2";
-        vi-ins-mode-string = "\\1\\e[48;5;33;1m\\2 I \\1\\e[38;5;33;48;5m\\2\\1\\e[0m\\2";
-        #set vi-ins-mode-string \1\e[6 q\2
-        #set vi-cmd-mode-string \1\e[2 q\2
-      };
-    };
-
-    rofi = {
-      enable = true;
-      theme = "${HOME_PATH}/.config/rofi/themes/User\ Themes/slate.rasi";
-    };
-
-    starship = {
-      enable = true;
-      enableBashIntegration = true;
-
-      settings = {
-        add_newline = false;
-        nix_shell = {
-          impure_msg = "i";
-          pure_msg = "p";
-        };
-      };
-    };
-
-    vim = {
-      enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-css-color vim-surround nerdtree ];
-
-      settings = {
-        expandtab = true;
-        number = true;
-        relativenumber = true;
-        tabstop = 2;
-      };
-
-      extraConfig = ''
-        set smarttab
-        set softtabstop=0
-        set shiftwidth=2
-        set autoindent
-
-        "let g:miramare_enable_italic = 1
-        let g:miramare_disable_italic_comment = 1
-        let g:airline_theme='bubblegum'
-
-        colorscheme miramare
-      '';
-    };
-
-    zathura = {
-      enable = true;
-    };
-  };
-
-  services = {
-    blueman-applet.enable = true;
-
-    clipmenu.enable = true;
-
-    dunst = {
-      enable = true;
-      settings = import ./dunst.nix;
-    };
-
-    grobi = {
-      enable = true;
-      rules = [
-        {
-          name = "Solo";
-          outputs_disconnected = [ "DP-1" ];
-          configure_single = "eDP-1@1920x1080";
-          primary = true;
-          atomic = true;
-
-          execute_after = [
-            "${pkgs.xorg.xrandr}/bin/xrandr --dpi 96"
-            "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
-          ];
-        }
-        {
-          name = "Home";
-          outputs_connected = [ "DP-1" ];
-          configure_single = "DP-1";
-          primary = true;
-          atomic = true;
-
-          execute_after = [
-            "${pkgs.xorg.xrandr}/bin/xrandr --dpi 96"
-            "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
-          ];
-        }
-      ];
-    };
-
-    network-manager-applet.enable = true;
-
-    picom = {
-      blur = true;
-      enable = true;
-      #inactiveDim = "0.5";
-      #inactiveOpacity = "0.9";
-    };
-
-    redshift = {
-      enable = true;
-      #provider = "geoclue2";
-
-      brightness = {
-        day = "1";
-        night = "0.8";
-      };
-
-      latitude = "36";
-      longitude = "-6";
-
-      temperature = {
-        day = 7700;
-        night = 3700;
-      };
-
-      tray = true;
-    };
-
-    stalonetray = {
-      enable = true;
-
-      config = {
-        transparent = false;
-        geometry  = "1x1+1050+3";
-
-        background = "#111b1e";
-        icon_size = 16;
-        kludges = "force_icons_size";
-        grow_gravity = "W";
-      };
-    };
-  };
+  xdg = (import ./xdg.nix) { pkgs = pkgs; };
+  programs = (import ./programs.nix) { pkgs = pkgs; builtins = builtins; };
+  services = (import ./services.nix) {};
 
   systemd.user = {
     services = {
@@ -399,14 +134,16 @@ in with pkgs; {
         Unit = {
           Description = "Sync email and index with mu";
         };
+
         Service = {
           Type = "oneshot";
-          ExecStart = "${pkgs.offlineimap}/bin/offlineimap -o";
-          ExecStartPost = "${pkgs.mu}/bin/mu index";
+          ExecStart = "${pkgs.offlineimap}/bin/offlineimap -o && ${pkgs.mu}/bin/mu index";
+          #ExecStartPost = "${pkgs.mu}/bin/mu index";
           SuccessExitStatus = "0 1";
         };
       };
     };
+
     timers = {
       syncmail = {
         Unit = {
@@ -414,7 +151,7 @@ in with pkgs; {
         };
         Timer = {
           Unit = "syncmail.service";
-          OnCalendar = "*:0/15";
+          OnCalendar = "hourly";
         };
         Install = {
           WantedBy = [ "timers.target" ];

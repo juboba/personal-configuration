@@ -16,6 +16,8 @@ in with pkgs; [
   fzf
   fzy
   htop
+  juboba-bin
+  juboba-scripts
   imagemagick
   ispell
   nixfmt
@@ -58,6 +60,7 @@ in with pkgs; [
 
   # Browser
   chromium
+  google-chrome
   qutebrowser
 
   # Communication
@@ -66,12 +69,15 @@ in with pkgs; [
   tdesktop
 
   # Development
+  (emacsWithPackages (epkgs: [ epkgs.emacsql-sqlite ]))
+  #doom-emacs
   eslint_d
   gitduck
+  gsh
   highlight
   hugo
   jq
-  nodejs-14_x
+  nodejs-10_x
   nodemon
   nodePackages.node2nix
   peek

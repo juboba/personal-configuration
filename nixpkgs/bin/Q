@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SERVICE=$(echo -e "ramda\nrepl.it" | rofi -dmenu -p "URL")
+
+case $SERVICE in
+  "ramda") qutebrowser ramdajs.com/repl ;;
+  "repl.it") qutebrowser repl.it ;;
+  "") exit 0 ;;
+  *) qutebrowser $SERVICE
+esac
