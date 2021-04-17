@@ -84,10 +84,8 @@ in with builtins; {
       variables = {
         editing-mode = "vi";
         show-mode-in-prompt = true;
-        vi-cmd-mode-string = "\\1\\e[48;5;166;1m\\2 N \\1\\e[38;5;166;48;5m\\2\\1\\e[0m\\2";
-        vi-ins-mode-string = "\\1\\e[48;5;33;1m\\2 I \\1\\e[38;5;33;48;5m\\2\\1\\e[0m\\2";
-        #set vi-ins-mode-string \1\e[6 q\2
-        #set vi-cmd-mode-string \1\e[2 q\2
+        vi-cmd-mode-string = "\\1\\e[38;5;214m\\2 N \\1\\e[0m\\2";
+        vi-ins-mode-string = "\\1\\e[38;5;27m\\2 I \\1\\e[0m\\2";
       };
     };
 
