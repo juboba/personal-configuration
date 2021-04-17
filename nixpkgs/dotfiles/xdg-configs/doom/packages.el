@@ -24,6 +24,9 @@
 (package! slack)
 (package! darkroom)
 (package! focus)
+(package! nyan-mode)
+(package! csv-mode)
+(package! org-reveal)
 
 (package! exwm
   :recipe (:host github :repo "ch11ng/exwm"))

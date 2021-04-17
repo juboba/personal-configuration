@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-challenger-deep)
+(setq doom-theme 'doom-ayu-mirage)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -60,7 +60,7 @@
 (load! "./my-functions.el")
 (load! "./keymaps.el")
 (load! "./javascript.el")
-(load! "./email.el")
+;; (load! "./email.el")
 
 ;; My status bar
 ;; (display-battery-mode)
@@ -79,7 +79,7 @@
 ;; (blink-cursor-mode)
 
 ;; Set my quick launch terminal
-(setq terminal-here-terminal-command (list "/home/juboba/.scripts/terminal"))
+(setq terminal-here-terminal-command (list "terminal"))
 
 ;; Set indentation
 ;; (my/set-office-code-style)
@@ -93,13 +93,18 @@
   :after 'window-split (switch-to-buffer))
 
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "Hasklug Nerd Font 13"))
+(add-to-list 'default-frame-alist '(font . "Hasklug Nerd Font 10"))
 ;; For quickly setting the fonr use:
 ;; (set-frame-font "Hasklug Nerd Font 13" nil t)
 
 
 ;; Disable cursor movement when exiting insert mode
 (setq evil-move-cursor-back nil)
+
+;; File associations
+(push '("\\.mdx\\'" . markdown-mode) auto-mode-alist)
+;(push '("\\.tsx\\'" . rjsx-mode) auto-mode-alist)
+(push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
 
 ;; Revealjs root
 (setq org-reveal-root "file:///home/juboba/.local/reveal.js")
@@ -110,6 +115,7 @@
 (add-hook 'after-change-major-mode-hook #'my/doom-modeline-conditional-buffer-encoding)
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
 (add-hook 'prog-mode-hook 'my/add-pretty-lambda)
+(add-hook 'prog-mode-hook 'nyan-mode)
 ;; (add-hook 'git-commit-setup-hook 'my/insert-coauthors)
 
 (require 'google-translate)

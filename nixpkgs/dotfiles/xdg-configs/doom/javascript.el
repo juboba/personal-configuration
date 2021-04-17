@@ -1,9 +1,5 @@
 ;;; javascript.el -*- lexical-binding: t; -*-
 
-;; Use typescript-mode for tsx files
-(push '("\\.tsx\\'" . typescript-mode) auto-mode-alist)
-(push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
-
 (add-hook 'typescript-mode-hook 'prettify-symbols-mode)
 (add-hook 'typescript-mode-hook 'my/add-pretty-lambda)
 
