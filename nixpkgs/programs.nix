@@ -112,7 +112,7 @@ in with builtins; {
 
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-css-color vim-surround nerdtree ];
+      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-css-color ctrlp vim-gitgutter emmet-vim vim-one nerdtree vim-surround ];
 
       settings = {
         expandtab = true;
@@ -126,10 +126,7 @@ in with builtins; {
         set softtabstop=0
         set shiftwidth=2
         set autoindent
-
-        "let g:miramare_enable_italic = 1
-        let g:miramare_disable_italic_comment = 1
-        let g:airline_theme='violet'
+        set showcmd
 
         let b:ale_fixers = ['prettier', 'eslint']
         let g:ale_completion_enabled = 1
@@ -137,7 +134,8 @@ in with builtins; {
         set omnifunc=ale#completion#OmniFunc
         let g:ale_completion_autoimport = 1
 
-        colorscheme lucario
+        let g:airline_theme='fruit_punch'
+        colorscheme one
       '';
     };
 
