@@ -37,7 +37,7 @@ in with pkgs; {
   };
 
   xsession = {
-    enable = false;
+    enable = true;
 
     windowManager.xmonad = {
       enable = true;
@@ -101,6 +101,7 @@ in with pkgs; {
       });
 
       ".local/share/applications".source = ./dotfiles/applications;
+      ".local/share/fonts".source = ./fonts;
 
       ".config/rofi/themes".source = (fetchFromGitHub {
         name = "rofi-themes";
