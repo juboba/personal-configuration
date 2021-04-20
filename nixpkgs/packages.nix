@@ -73,6 +73,7 @@ in with pkgs; [
   #doom-emacs
   eslint_d
   gitduck
+  gotty
   gsh
   highlight
   hugo
@@ -80,6 +81,7 @@ in with pkgs; [
   nodejs-10_x
   nodemon
   nodePackages.node2nix
+  ngrok
   peek
   pick-colour-picker
   python3
