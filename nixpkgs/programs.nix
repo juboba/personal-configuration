@@ -112,7 +112,7 @@ in with builtins; {
 
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-css-color ctrlp vim-gitgutter emmet-vim vim-one nerdtree vim-surround ];
+      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-css-color ctrlp vim-devicons fugitive vim-gitgutter emmet-vim vim-one nerdtree vim-surround ];
 
       settings = {
         expandtab = true;
@@ -135,6 +135,7 @@ in with builtins; {
         let g:ale_completion_autoimport = 1
 
         let g:airline_theme='fruit_punch'
+        let g:airline_powerline_fonts = 1
         colorscheme one
       '';
     };
