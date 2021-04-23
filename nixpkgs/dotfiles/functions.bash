@@ -1,19 +1,24 @@
+#!/usr/bin/env bash
+
 #cf fuzzy cd =)
 cf () {
-  DIR=$(fd --type d | fzf)
-
-  [ -n "$DIR" ] && cd $DIR
+  DIR=$(cd "${1:-.}"; fd --type d | fzf)
+  [ -n "$DIR" ] && cd "${1:-.}/$DIR"
 }
 
 #vf fuzzy vim open =)
 vf () {
+  cd "${1:-.}"
   FILE=$(fzf)
   [ -n "$FILE" ] && vim "$FILE"
+  [ -n $1 ] && cd -
 }
 
 #of fuzzy open =)
 of () {
+  [ -n $1 ] && cd "${1:-.}";
   rifle $(fzf)
+  [ -n $1 ] && cd -
 }
 
 set_title () {
