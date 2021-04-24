@@ -140,6 +140,16 @@ in with builtins; {
       '';
     };
 
+    tmux = {
+      baseIndex = 1;
+      enable = true;
+      extraConfig = builtins.readFile ./dotfiles/tmux.conf;
+      historyLimit = 10000;
+      keyMode = "vi";
+      shortcut = "x";
+      terminal = "screen-256color";
+    };
+
     zathura = {
       enable = true;
     };
