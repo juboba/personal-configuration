@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 SERVICE=$(echo -e "ramda\nrepl.it" | rofi -dmenu -p "URL")
 

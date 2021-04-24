@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 MONO_REPO_PATH=/home/juboba/Projects/genially/mono/
 export SLACK_CLI_TOKEN
