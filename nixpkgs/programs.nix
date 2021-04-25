@@ -37,10 +37,17 @@ in with builtins; {
         fortune | lolcat
       '' + (readFile ./dotfiles/functions.bash);
       historyIgnore = [ "ls" "cd" "exit" ];
+
+      profileExtra = ''
+        setxkbmap -option caps:escape
+        if [ -e /home/juboba/.nix-profile/etc/profile.d/nix.sh ]; then . /home/juboba/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+        '';
       shellOptions =  [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
+
       sessionVariables = {
         EDITOR = "vim";
       };
+
       shellAliases = import ./aliases;
     };
 
@@ -61,13 +68,17 @@ in with builtins; {
         };
 
         pull = {
-          #ff = "only";
+          ff = "only";
         };
 
         ui = {
           color = false;
         };
       };
+    };
+
+    home-manager = {
+      enable = true;
     };
 
     mu.enable = true;
