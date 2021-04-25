@@ -111,17 +111,7 @@ in with pkgs; {
         sha256 = "1k0nznqccc9y13x3pj6yd2j80nbnl3pyy8ihs91rf89gizb09w63";
       });
 
-      /*
-      "${SCRIPT_PATH}".source = (fetchFromGitHub {
-        name = "scripts-4";
-        owner = "juboba";
-        repo = "scripts";
-        rev = "dba2beaf086038b832b7e1e92fd0b692ea4ff850";
-        sha256 = "173y333m2fg2pbff9x9v8spnld2j8lgpq4kzwy7nm7ric2qnbypg";
-      });
-      */
-
-      ".tmux.conf".text = builtins.readFile ./dotfiles/tmux.conf;
+      ".xmobarrc".text = builtins.readFile ./dotfiles/xmobarrc;
     };
   };
 
