@@ -1,7 +1,7 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
 Comment=Self destructing Chromium browser with predefined profile
-Exec=/home/juboba/.scripts/devium %f
+Exec=devium %f
 GenericName=Development Chromium
 Icon=devium
 Name=Devium
