@@ -21,6 +21,7 @@
 ;; Buffers and windows:
 (map! :leader "b D" 'kill-buffer-and-window)
 (map! :leader "w D" 'ace-delete-window)
+(map! :leader "w W" 'ace-window)
 
 ;; Magit
 (map! :leader :desc "Magit status" "g s" 'magit-status)

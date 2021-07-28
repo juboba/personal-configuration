@@ -9,7 +9,7 @@ cf () {
 #vf fuzzy vim open =)
 vf () {
   cd "${1:-.}"
-  FILE=$(fzf)
+  FILE=$(fzf -e --preview 'bat --color always {+1}')
   [ -n "$FILE" ] && vim "$FILE"
   [ -n $1 ] && cd -
 }
