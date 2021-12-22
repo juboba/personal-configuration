@@ -8,37 +8,37 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems = {
-    "/boot" = {
-      device = "/dev/disk/by-uuid/20D7-D8C0";
-      fsType = "vfat";
-    };
+    "/" =
+      { device = "/dev/disk/by-uuid/b57e3283-f164-4056-adaa-d748797b015a";
+        fsType = "ext4";
+      };
 
-    "/" = {
-      device = "/dev/disk/by-uuid/6ae4b4ad-9698-46ea-ad98-aa942a612437";
-      fsType = "ext4";
-    };
+    "/boot" =
+      { device = "/dev/disk/by-uuid/D1E0-6D89";
+        fsType = "vfat";
+      };
 
-    "/home" = {
-      device = "/dev/disk/by-uuid/da6cb38c-abe9-496a-8a72-c3daa589ae65";
-      fsType = "ext4";
-    };
+    "/home" =
+      { device = "/dev/disk/by-uuid/05e17de0-a2d8-401d-864f-39d51d73d1fe";
+        fsType = "ext4";
+      };
 
-    "/media/kinesis" = {
-      device = "/dev/disk/by-uuid/E8BC-3E91";
-      options = [ "noauto" "rw" "user" "exec" "umask=000" ];
-    };
+    "/media/kinesis" =
+      { device = "/dev/disk/by-uuid/E8BC-3E91";
+        fsType = "vfat";
+      };
   };
 
-  swapDevices = [ ];
+  #swapDevices =
+    #[ { device = "/dev/disk/by-uuid/5ff83a2a-7d4a-4498-b47a-797b208fbc64"; }
+    #];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;
 }

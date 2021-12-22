@@ -39,7 +39,8 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     useDHCP = false;
-    interfaces.wlp2s0.useDHCP = true;
+    interfaces.eno1.useDHCP = true;
+    interfaces.wlp1s0.useDHCP = true;
     networkmanager.enable = true;
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   };
@@ -65,7 +66,7 @@
       autorun = true;
     
       displayManager.lightdm.enable = true;
-      displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-wallpapers-20.jpg;
+      #displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-wallpapers-20.jpg;
 
       windowManager.xmonad = {
         enable = true;
@@ -128,6 +129,11 @@
     #enableSSHSupport = true;
   };
 
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -140,7 +146,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "21.11"; # Did you read the comment?
 
 }
 
