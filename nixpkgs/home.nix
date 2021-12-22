@@ -28,7 +28,7 @@ in with pkgs; {
       realName = "Julio Borja Barra";
     };
 
-    certificatesFile = /etc/ssl/certs/ca-certificates.crt;
+    certificatesFile = "/etc/ssl/certs/ca-certificates.crt";
   };
 
   xresources.properties = {
