@@ -1,26 +1,32 @@
 { ... }:
-
 {
     blueman-applet.enable = true;
 
     clipmenu.enable = true;
 
     dunst = {
-      enable = false;
+      enable = true;
       settings = import ./dunst.nix;
+    };
+
+    dropbox = {
+      enable = true;
+      path = "/home/juboba/Documents/Org/Dropbox";
     };
 
     flameshot.enable = true;
 
     grobi = {
       enable = true;
-      rules = [
+      rules = let LAPTOP_SCREEN = "eDP";
+      HOME_SCREEN = "HDMI-A-0";
+      in [
         {
           name = "Solo";
-          outputs_connected = [ "eDP-1" ];
+          outputs_connected = [ LAPTOP_SCREEN ];
           #outputs_disconnected = [ "DP-1" "DP-2" ];
-          outputs_disconnected = [ "DP-1" ];
-          configure_single = "eDP-1@1920x1080";
+          outputs_disconnected = [ HOME_SCREEN ];
+          configure_single = LAPTOP_SCREEN + "@1920x1080";
           primary = true;
           atomic = true;
 
@@ -30,9 +36,9 @@
         }
         {
           name = "Home";
-          outputs_connected = [ "DP-1" ];
-          #configure_column = [ "DP-1" "eDP-1@1920x1080" ];
-          configure_single = "DP-1";
+          outputs_connected = [ HOME_SCREEN ];
+          #configure_column = [ HOME_SCREEN HOME_SCREEN ++ "@1920x1080" ];
+          configure_single = HOME_SCREEN;
           primary = true;
           atomic = true;
 
@@ -73,7 +79,7 @@
     };
 
     stalonetray = {
-      enable = false;
+      enable = true;
 
       config = {
         transparent = false;

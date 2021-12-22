@@ -78,7 +78,7 @@ in with builtins; {
     };
 
     home-manager = {
-      enable = true;
+      enable = false;
     };
 
     mu.enable = true;

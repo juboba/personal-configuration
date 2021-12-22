@@ -164,7 +164,7 @@ myKeys =
     -- Launch color picker
     , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
     -- Launch Screenshot
-    , ((0, xK_Print), spawn "sleep 1; sshot")
+    , ((0, xK_Print), spawn "flameshot gui")
     -- Launch Volatile Screenshot
     , ((shiftMask, xK_Print), spawn "sleep 1; sshot -t")
     -- Media keys

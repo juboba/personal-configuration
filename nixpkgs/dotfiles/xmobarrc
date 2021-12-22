@@ -22,7 +22,7 @@ Config { alpha = 240
 -- FIXME: something's wrong when reading from my sp-status command... ?
                     -- , Run CommandReader "sp-status" "nowPlaying"
                     -- , Run MarqueePipeReader "/tmp/now-playing-pipe" (30, 1, " - ") "nowPlaying"
-                    --, Run Com "now-playing" [] "nowPlaying" 2
+                    , Run Com "now-playing" [] "nowPlaying" 2
                     , Run Com "batalert" [] "batalert" 100
                     , Run Com "volume-control" [] "volume-control" 5
                     , Run Com "sp-icon" [] "nowPlayingIcon" 5

@@ -27,6 +27,7 @@ in with pkgs; [
   steam-run
   tmux
   tmuxp
+  xournal
   zscroll
 
   # Inutils
