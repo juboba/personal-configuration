@@ -6,8 +6,15 @@ in with builtins; {
     alacritty = {
       enable = true;
       settings = {
+        colors = {
+          primary = {
+            background = "#000000";
+            foreground = "#dddddd";
+          };
+        };
+
         font = {
-          size = 10;
+          size = 15;
         };
 
         window = {
