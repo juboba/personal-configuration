@@ -1,0 +1,11 @@
+#!/bin/sh
+
+DEVICE=$(ls /dev/video{0,4} 2> /dev/null | rofi -dmenu -p "Select device")
+
+#mplayer -vf mirror tv:// -tv device=$DEVICE:width=320:height=240
+
+mpv av://v4l2:$DEVICE \
+  --profile=low-latency \
+  --untimed \
+  --x11-name=showmyself \
+  --geometry=320x240

@@ -78,8 +78,10 @@ in with pkgs; {
       CM_LAUNCHER = "rofi";
     };
 
-    keyboard.layout="us";
-    keyboard.variant = "altgr-intl";
+    keyboard = {
+      layout="us";
+      variant = "altgr-intl";
+    };
 
     packages = (import ./packages.nix) pkgs;
 

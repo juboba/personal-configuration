@@ -79,7 +79,6 @@ in with pkgs; [
   highlight
   hugo
   jq
-  nodejs-10_x
   nodemon
   nodePackages.node2nix
   ngrok
@@ -88,6 +87,5 @@ in with pkgs; [
   python3
   robo3t
   shellcheck
-  yarn
 ]
 

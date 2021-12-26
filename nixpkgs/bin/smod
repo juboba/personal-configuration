@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+LAPTOP_SCREEN=eDP-1-1
+HOME_SCREEN=DP-1-1
+WORK_SCREEN=DP-1-1
+RESOLUTION=1920x1080
+EXTERNAL_RESOLUTION=2560x1080
+
+MODE=$(echo -e "solo\ntop\nexternal\nmirror" | rofi -dmenu -p "Select Screen Mode")
+
+case $MODE in
+  solo)
+    notify-send "Screen mode" "setting LAPTOP_SCREEN ($LAPTOP_SCREEN) alone"
+
+    xrandr \
+    --output $LAPTOP_SCREEN --mode $RESOLUTION \
+    --output $HOME_SCREEN --off \
+    --output $WORK_SCREEN --off
+
+    xmonad --restart
+    ;;
+  top)
+    notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) on top of LAPTOP_SCREEN ($LAPTOP_SCREEN)"
+
+    xrandr \
+    --output $LAPTOP_SCREEN --mode $RESOLUTION \
+    --output $HOME_SCREEN --auto --above $LAPTOP_SCREEN
+
+    xmonad --restart
+    ;;
+  external)
+    notify-send "Screen mode" "setting LAPTOP_SCREEN ($LAPTOP_SCREEN) alone"
+
+    xrandr \
+    --output $HOME_SCREEN --auto \
+    --output $LAPTOP_SCREEN --off
+
+    xmonad --restart
+    ;;
+  mirror)
+    notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) mirroring LAPTOP_SCREEN ($LAPTOP_SCREEN)"
+
+    xrandr \
+    --output $HOME_SCREEN --auto \
+    --output $LAPTOP_SCREEN --mode $RESOLUTION
+
+    xmonad --restart
+    ;;
+esac
+
+# Restore background to prevent weird behaviour
+~/.fehbg
