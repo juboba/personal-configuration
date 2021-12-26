@@ -6,8 +6,6 @@
       ./hardware-configuration.nix
     ];
 
-  environment.variables = { EDITOR = "vim"; };
-
   nixpkgs.config.allowUnfree = true;
 
   /*
@@ -66,7 +64,7 @@
       autorun = true;
     
       displayManager.lightdm.enable = true;
-      #displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-wallpapers-20.jpg;
+      displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-space-fantasy-science-fiction-ci-2560x1080.jpg;
 
       windowManager.xmonad = {
         enable = true;
@@ -98,7 +96,13 @@
 
   };
 
-  sound.enable = true;
+  sound = {
+    enable = true;
+
+    mediaKeys = {
+      enable = true;
+    };
+  };
 
   hardware.pulseaudio = {
     enable = true;
@@ -116,7 +120,6 @@
     gnupg
     ghc
     wget
-    vim
     firefox
     home-manager
   ];
@@ -124,9 +127,13 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    #enableSSHSupport = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      #enableSSHSupport = true;
+    };
+
+    vim.defaultEditor = true;
   };
 
   # List services that you want to enable:
