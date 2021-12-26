@@ -87,5 +87,6 @@ in with pkgs; [
   python3
   robo3t
   shellcheck
+  yarn
 ]
 

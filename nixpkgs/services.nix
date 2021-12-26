@@ -52,19 +52,22 @@
     network-manager-applet.enable = true;
 
     picom = {
-      #blur = true;
-      enable = true;
       #inactiveDim = "0.5";
-      #inactiveOpacity = "0.9";
+      #inactiveOpacity = "0.7";
+      enable = true;
+      fade = true;
+      fadeDelta = 5;
+      shadow = true;
+      shadowOpacity = "0.9";
     };
 
     redshift = {
       enable = true;
       #provider = "geoclue2";
 
-      brightness = {
-        day = "1";
-        night = "0.8";
+      settings = {
+        redshift.brightness-day = 1;
+        redshift.brightness-night = 0.8;
       };
 
       latitude = "36";
