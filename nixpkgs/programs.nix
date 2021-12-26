@@ -26,6 +26,7 @@ in with builtins; {
     bash = {
       enable = true;
       initExtra = ''
+        PATH=~/.emacs.d/bin:$PATH
         # Disable terminal suspension with Ctrl + s and Ctrl + q
         stty -ixon -ixoff
 
@@ -154,7 +155,7 @@ in with builtins; {
 
         let g:airline_theme='fruit_punch'
         let g:airline_powerline_fonts = 1
-        colorscheme one
+        colorscheme default
       '';
     };
 

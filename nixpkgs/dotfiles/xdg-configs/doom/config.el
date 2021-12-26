@@ -68,9 +68,9 @@
 (spotify-enable-song-notifications)
 
 ;; My "screen saver"
-(require 'zone)
-(setq zone-programs [zone-pgm-rat-race])
-(zone-when-idle 105)
+;; (require 'zone)
+;; (setq zone-programs [zone-pgm-rat-race])
+;; (zone-when-idle 105)
 
 ;; Cursor style
 ;; (setq blink-cursor-interval 0.2)
@@ -80,9 +80,6 @@
 
 ;; Set my quick launch terminal
 (setq terminal-here-terminal-command (list "terminal"))
-
-;; Set indentation
-;; (my/set-office-code-style)
 
 ;; Evil-matchit
 (require 'evil-matchit)
@@ -94,7 +91,7 @@
 
 ;; Set default font
 (add-to-list 'default-frame-alist '(font . "Hasklug Nerd Font 10"))
-;; For quickly setting the fonr use:
+;; For quickly setting the font use:
 ;; (set-frame-font "Hasklug Nerd Font 13" nil t)
 
 
