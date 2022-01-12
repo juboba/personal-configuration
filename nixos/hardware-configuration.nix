@@ -32,6 +32,7 @@
     "/media/kinesis" =
       { device = "/dev/disk/by-uuid/E8BC-3E91";
         fsType = "vfat";
+        options = ["user" "rw" "noauto"] ;
       };
   };
 
