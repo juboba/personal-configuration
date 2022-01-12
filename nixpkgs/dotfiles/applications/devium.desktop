@@ -3,7 +3,7 @@
 Comment=Self destructing Chromium browser with predefined profile
 Exec=devium %f
 GenericName=Development Chromium
-Icon=devium
+Icon=chromium
 Name=Devium
 StartupWMClass=Devium
 Terminal=false

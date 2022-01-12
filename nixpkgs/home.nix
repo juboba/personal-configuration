@@ -23,7 +23,7 @@ in with pkgs; {
         extraConfig.account.autorefresh = 10;
       };
 
-      passwordCommand = "cat /home/juboba/.gmail_pass";
+      #passwordCommand = "get_pass gmail";
       primary = true;
       realName = "Julio Borja Barra";
     };
@@ -57,6 +57,7 @@ in with pkgs; {
 
       # Start applications
       fusuma &
+      conky -c ~/.conky/conky-simple/Simple/Simple
   '';
 
     pointerCursor = {

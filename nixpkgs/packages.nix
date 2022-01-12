@@ -3,11 +3,18 @@
 let gitduck = (pkgs.callPackage ./gitduck {}).gitduck;
     nodemon = (pkgs.callPackage ./nodemon {}).nodemon;
     eslint_d = (pkgs.callPackage ./eslint_d {}).eslint_d;
+    yarnWithNode10 = pkgs.yarn.overrideAttrs (oldAttrs: rec {
+      buildInputs = with pkgs; [
+        nodejs-10_x
+      ];
+});
 
 in with pkgs; [
   # Utils
   bc
+  conky
   dragon-drop
+  dunst
   exa
   feh
   fd
