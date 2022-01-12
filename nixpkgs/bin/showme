@@ -9,3 +9,5 @@ mpv av://v4l2:$DEVICE \
   --untimed \
   --x11-name=showmyself \
   --geometry=320x240
+
+[ $? -ne 0 ] && notify-send "Error" "Could not open device $DEVICE"
