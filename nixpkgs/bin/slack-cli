@@ -6,7 +6,7 @@ SLACK_CLI_TOKEN=$(get_pass slack)
 
 run_slack() {
   nix-shell \
-    --packages slack-cli jq fzy \
+    --packages slack-cli jq fzy rofi \
     --run "slack $* | jq .ok"
 }
 
@@ -15,11 +15,12 @@ clear_status() {
 }
 
 set_status() {
-  echo -e "setting slack status to:\n $1 $2"
-  run_slack "status" "edit" "\"$1\"" "\"$2\""
+  result=$(run_slack "status" "edit" "\"$1\"" "\"$2\"")
+  [ "$result" = "true" ] && notify-send "Slack status set to: $1 $2"
+  [ "$result" != "true" ] && notify-send -u critical "Slack status set failed"
 }
 
-SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nnow-playing\noff\nout\nto-school" | fzy)
+SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nnow-playing\noff\nout\nto-school" | rofi -dmenu -matching fuzzy -p 'Set Slack status to' -sort -levenshtein-sort)
 
 case $SELECTED in
   "branch") set_status "$(git -C $MONO_REPO_PATH branch --show-current)" ":git:" ;;

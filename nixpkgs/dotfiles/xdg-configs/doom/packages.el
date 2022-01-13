@@ -8,28 +8,50 @@
 
 ;; To install SOME-nACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
-(package! ranger)
 (package! spotify)
 (package! terminal-here)
 (package! imenu-list)
 
 (package! emmet-mode)
-(package! google-translate)
 (package! evil-matchit)
-;(package! indium)
 (package! mu4e-alert)
 (package! js-doc)
 (package! emojify)
 (package! rainbow-mode)
 (package! slack)
-(package! darkroom)
-(package! focus)
 (package! nyan-mode)
 (package! csv-mode)
 (package! org-reveal)
+(package! ox-gfm)
+(package! ox-hugo)
+(package! magit-section)
+(package! eyebrowse)
+(package! atomic-chrome)
+(package! golden-ratio)
+(package! sublimity)
+;;
+;; Themes
+(package! badwolf-theme)
+(package! nyx-theme)
 
-(package! exwm
-  :recipe (:host github :repo "ch11ng/exwm"))
+(unpin! org-roam)
+(package! websocket)
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+
+(package! kubernetes)
+(package! kubernetes-evil)
+
+
+;; (package! indium)
+;; (package! google-translate)
+;; (package! darkroom)
+;; (package! org-present)
+;; (package! mini-modeline)
+;; (package! smeargle)
+;; (package! magit-delta)
+
+;; (package! exwm
+;;   :recipe (:host github :repo "ch11ng/exwm"))
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

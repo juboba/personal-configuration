@@ -52,10 +52,27 @@ If the error list is visible, hide it.  Otherwise, show it."
     (switch-to-buffer-other-window flycheck-error-list-buffer)))
 
 (defun my/insert-coauthors ()
-  "Inserts the current branch's coauthors at the end of the commit message"
+  "Insert the current branch's coauthors at the end of the commit message."
   (interactive)
   (insert "\n\nCo-authored by " (magit-get (concat (magit-get-current-branch) ".coauthors")))
   (goto-char 0))
 
+(defun my/sort-words (reverse beg end)
+  "Sort words in region alphabetically, in REVERSE if negative.
+    Prefixed with negative \\[universal-argument], sorts in reverse.
+
+    The variable `sort-fold-case' determines whether alphabetic case
+    affects the sort order.
+
+    See `sort-regexp-fields'."
+      (interactive "*P\nr")
+      (sort-regexp-fields reverse "\\w+" "\\&" beg end))
+
+(defun my/home-manager-switch ()
+  "Switch to current home-manager configuration."
+  (interactive)
+  (shell-command "home-manager switch"))
+
 (evil-set-register ?b
    (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))
+

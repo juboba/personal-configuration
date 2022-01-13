@@ -2,25 +2,6 @@
 # name: Functional Component
 # key: fc
 # --
-/* FILE_STRUCTURE_HELPER
-
-Yay! A new file! a new adventure!
-
-So, just a quick reminder:
-
-These are the sections for a component:
-  - Global imports
-  - Local imports
-  - Local resources (utility functions, constants, etc)
-  - Component definition
-  - Proptypes
-  - Default export
-
-Please leave a space between each.
-
-Happy coding!
-*/
-
 import React from 'react';
 // import {} from 'prop-types';
 

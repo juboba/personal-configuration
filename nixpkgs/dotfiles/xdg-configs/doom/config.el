@@ -21,15 +21,17 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-font (font-spec :family "Hasklug Nerd Font" :size 18))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-ayu-mirage)
+(setq doom-theme 'nyx)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/Org/")
+(setq org-roam-directory "~/Documents/Org/Dropbox")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -60,7 +62,8 @@
 (load! "./my-functions.el")
 (load! "./keymaps.el")
 (load! "./javascript.el")
-;; (load! "./email.el")
+(load! "./macros.el")
+(load! "./email.el")
 
 ;; My status bar
 ;; (display-battery-mode)
@@ -69,7 +72,7 @@
 
 ;; My "screen saver"
 ;; (require 'zone)
-;; (setq zone-programs [zone-pgm-rat-race])
+;; (setq zone-programs [zone-pgm-martini-swan-dive])
 ;; (zone-when-idle 105)
 
 ;; Cursor style
@@ -98,6 +101,9 @@
 ;; Disable cursor movement when exiting insert mode
 (setq evil-move-cursor-back nil)
 
+;; Authinfo (forge)
+(setq auth-sources '("~/.authinfo"))
+
 ;; File associations
 (push '("\\.mdx\\'" . markdown-mode) auto-mode-alist)
 ;(push '("\\.tsx\\'" . rjsx-mode) auto-mode-alist)
@@ -105,7 +111,16 @@
 
 ;; Revealjs root
 (setq org-reveal-root "file:///home/juboba/.local/reveal.js")
+
 (require 'ox-reveal)
+(require 'ox-hugo)
+
+;; Doom's private directory
+(setq doom-private-dir "/home/juboba/Repositories/Configs/nixpkgs/dotfiles/xdg-configs/doom")
+
+;; Github Flavored Markdown export in Org
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
 
 ;; Hooks
 (add-hook 'after-init-hook #'global-emojify-mode)
@@ -113,9 +128,47 @@
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
 (add-hook 'prog-mode-hook 'my/add-pretty-lambda)
 (add-hook 'prog-mode-hook 'nyan-mode)
-;; (add-hook 'git-commit-setup-hook 'my/insert-coauthors)
+(add-hook 'rjsx-mode-hook 'lsp)
+(add-hook 'org-mode-hook 'auto-fill-mode)
 
-(require 'google-translate)
-(require 'google-translate-default-ui)
-(global-set-key "\C-ct" 'google-translate-at-point)
-(global-set-key "\C-cT" 'google-translate-query-translate)
+;; Path
+(add-to-list 'exec-path "/home/juboba/.config/nvm/versions/node/v10.24.1/bin")
+
+;; Magit
+;; (setq magit-git-global-arguments (delete "--literal-pathspecs" magit-git-global-arguments))
+(setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
+(setq magit-diff-refine-hunk 'all)
+
+;; Default browser
+(setq browse-url-browser-function 'eww-browse-url)
+
+;(require 'google-translate)
+;(require 'google-translate-default-ui)
+;(global-set-key "\C-ct" 'google-translate-at-point)
+;(global-set-key "\C-cT" 'google-translate-query-translate)
+
+;; Doom splash image
+(setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-private-dir))
+
+;; Org-roam
+(setq org-roam-graph-filetype "pdf")
+
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+
+(use-package! kubernetes)
+
+(use-package! kubernetes-evil
+  :after kubernetes)

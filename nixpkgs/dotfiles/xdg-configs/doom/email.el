@@ -4,17 +4,19 @@
 ;(setq mu4e-root-maildir "~/Maildir/genially")
 
 (set-email-account! "genial.ly"
-                    '((mu4e-drafts-folder . "/[Gmail].Borradores")
-                      (mu4e-sent-folder . "/[Gmail].Enviados")
-                      (mu4e-trash-folder . "/[Gmail].Papelera")
-                      ;;(smtpmail-smtp-user     . "juboba@genial.ly")
+                    '((mu4e-drafts-folder     . "/[Gmail].Borradores")
+                      (mu4e-sent-folder       . "/[Gmail].Enviados")
+                      (mu4e-trash-folder      . "/[Gmail].Papelera")
+                      (smtpmail-smtp-user     . "juboba@genial.ly")
                       (mu4e-compose-signature . "
 *Julio Borja Barra* · *Developer*
 
 [[~/Pictures/genially.png]]"))
-                      t)
+                    t)
 
 ;; (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+
+(setq +mu4e-backend 'offlineimap)
 
 ;; Set get mail command when mu4e starts
 (add-hook
