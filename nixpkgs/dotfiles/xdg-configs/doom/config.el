@@ -62,7 +62,6 @@
 (load! "./my-functions.el")
 (load! "./keymaps.el")
 (load! "./javascript.el")
-(load! "./macros.el")
 (load! "./email.el")
 
 ;; My status bar
