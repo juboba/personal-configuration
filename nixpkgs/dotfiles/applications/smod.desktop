@@ -4,5 +4,5 @@ Version=1.0
 Terminal=false
 Type=Application
 Name=Screen Mode
-Exec=/home/juboba/.scripts/smod
+Exec=smod
 Icon=screen
