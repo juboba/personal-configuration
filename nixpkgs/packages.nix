@@ -87,14 +87,15 @@ in with pkgs; [
   highlight
   hugo
   jq
-  nodemon
-  nodePackages.node2nix
   ngrok
+  nodePackages.node2nix
+  nodejs-10_x
+  nodemon
   peek
   pick-colour-picker
   python3
   robo3t
   shellcheck
-  yarn
+  yarnWithNode10
 ]
 
