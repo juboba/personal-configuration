@@ -176,10 +176,10 @@ myKeys =
     , ((0, xF86XK_AudioPlay), spawn "sp play")
     , ((0, xF86XK_AudioPrev), spawn "sp prev")
     , ((0, xF86XK_AudioNext), spawn "sp next")
-    , ((0, xF86XK_KbdBrightnessUp), spawn "shine brightness-up")
-    , ((0, xF86XK_KbdBrightnessDown), spawn "shine brightness-down")
-    , ((shiftMask, xF86XK_KbdBrightnessUp), spawn "shine temp-up")
-    , ((shiftMask, xF86XK_KbdBrightnessDown), spawn "shine temp-down")
+    , ((0, xF86XK_KbdBrightnessUp), spawn "brightnessctl s 10%+")
+    , ((0, xF86XK_KbdBrightnessDown), spawn "brightnessctl s 10%-")
+    -- , ((shiftMask, xF86XK_KbdBrightnessUp), spawn "shine temp-up")
+    -- , ((shiftMask, xF86XK_KbdBrightnessDown), spawn "shine temp-down")
     -- Launch rofi
     , ((superKey, xK_p), spawn myLauncher)
     -- Toggle window transparency

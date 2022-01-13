@@ -12,6 +12,7 @@ let gitduck = (pkgs.callPackage ./gitduck {}).gitduck;
 in with pkgs; [
   # Utils
   bc
+  brightnessctl
   conky
   dragon-drop
   dunst
