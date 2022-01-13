@@ -17,7 +17,7 @@ vf () {
 #of fuzzy open =)
 of () {
   [ -n $1 ] && cd "${1:-.}";
-  rifle $(fzf)
+  rifle "$(fzf)"
   [ -n $1 ] && cd -
 }
 
@@ -32,4 +32,8 @@ ag () {
   else
     alias | sed -e "s/alias \(.*\)='\(.*\)'/\1\t\2/" | bat --tabs 0
   fi
+}
+
+mkcd() {
+  mkdir "$1" && cd "$_"
 }

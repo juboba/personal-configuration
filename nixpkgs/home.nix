@@ -40,9 +40,9 @@ in with pkgs; {
     enable = true;
 
     windowManager.xmonad = {
+      config = ./dotfiles/xmonad.hs;
       enable = true;
       enableContribAndExtras = true;
-      config = ./dotfiles/xmonad.hs;
     };
 
     initExtra = ''
@@ -52,8 +52,6 @@ in with pkgs; {
       # Set background:
       ${HOME_PATH}/.fehbg
 
-      # Disable touchscreen
-      totouch --off
 
       # Start applications
       fusuma &
@@ -101,6 +99,14 @@ in with pkgs; {
         repo = "reveal.js";
         rev = "4.1.0";
         sha256 = "10xhblbyw8mvak58d294hbxxnf5sq0akj6qldv7brgm6944zppm0";
+      });
+
+      ".local/yeelight-shell-scripts".source = (fetchFromGitHub {
+        name = "yeelight-shell-scripts";
+        owner = "hphde";
+        repo = "yeelight-shell-scripts";
+        rev = "50d34fb884235f5614a8ba8163bcdfb3cdc4e536";
+        sha256 = "0yh6lgd341j7clz4h5xkmcj21iv68a0azamxc7arffydig6ah17f";
       });
 
       ".local/share/applications".source = ./dotfiles/applications;
