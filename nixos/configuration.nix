@@ -122,7 +122,6 @@
     gnupg
     ghc
     wget
-    firefox
     home-manager
   ];
 

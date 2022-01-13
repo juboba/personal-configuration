@@ -70,6 +70,7 @@ in with pkgs; [
 
   # Browser
   chromium
+  firefox
   google-chrome
   qutebrowser
 
