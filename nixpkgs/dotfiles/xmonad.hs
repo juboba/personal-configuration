@@ -163,6 +163,8 @@ myKeys =
     , ((superKey .|. shiftMask, xK_m), spawn "clipmenu")
     -- Launch color picker
     , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
+    -- Set slack status
+    , ((superKey .|. shiftMask, xK_l), spawn "slack-cli")
     -- Launch Screenshot
     , ((0, xK_Print), spawn "flameshot gui")
     -- Launch Volatile Screenshot
@@ -230,6 +232,7 @@ myManageHook = composeAll
     , className =? "Screen"                                                --> doFloat -- Screen share (with Screen.so)
     , title =? "Media viewer"                                              --> doFloat -- Telegram media
     , className =? "Gsimplecal"                                            --> doFloat -- Calendar window
+    , appName =? "plasmashell"                                             --> doIgnore -- Plasma stuff
     , className =? ".pick-colour-picker-wrapped"                           --> doFloat -- Color picker
     , appName =? "showmyself"                                              --> doFloat -- Show me
     , title     =? "Copying Files"                                         --> doFloat ]
@@ -258,7 +261,7 @@ wideLayout       = named "\61785"     $ avoidStruts $ Mirror mainLayout -- 
 messagingLayout  = named "\61659" $ smartSpacing 10 $ Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
-    ratio   = 3/4
+    ratio   = 4/5
 
 -- singleLayout     = named "\61640"   $ avoidStruts $ noBorders Full -- 
 -- circleLayout     = named "\61713"   $ Circle -- 
