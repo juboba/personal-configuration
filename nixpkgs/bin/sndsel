@@ -15,12 +15,12 @@ set_sink () {
 SINK=$(pacmd list-sinks \
   | grep -E 'index:|name:' \
   | paste -d " " - - \
-  | sed -e 's/.*index: \(\w\).*name:\(.*\)/\1 \2/' \
+  | sed -e 's/.*index: \(\w*\).*name:\(.*\)/\1 \2/' \
   | sed -e 's/\s*<alsa_output.\(.*\)-stereo>/ \1/' \
   | sed -e 's/usb-0b0e_Jabra_Link_380_3050750B112C-00.analog/Jabra/' \
   | sed -e 's/pci-0000_04_00.6.analog/Internal/' \
   | sed -e 's/pci-0000_04_00.1.hdmi/HDMI/' \
   | rofi -dmenu \
-  | sed -e 's/\(\w\).*/\1/')
+  | sed -e 's/\(\w*\).*/\1/')
 
 set_sink $SINK
