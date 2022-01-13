@@ -7,6 +7,7 @@ import ./docker-compose.nix //
   cat = "bat";
   clipit = "xclip -i -selection clipboard";
   ec = "emacsclient";
+  gcal = "gcalcli calw $(date -d \"$D\" \"+%d\") 2 --monday";
   hm = "home-manager";
   hs = "hess";
   ls = "exa";

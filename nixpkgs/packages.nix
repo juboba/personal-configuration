@@ -22,6 +22,7 @@ in with pkgs; [
   fusuma
   fzf
   fzy
+  gcalcli
   htop
   juboba-bin
   juboba-scripts

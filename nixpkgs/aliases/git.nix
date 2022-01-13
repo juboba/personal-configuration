@@ -50,21 +50,18 @@
   gbc = ''git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(else)%(refname:short)%(end) %09 %(creatordate)" refs/remotes/ --sort=authorname DESC'';
   gbt = "git branch --track";
   gbm = "git branch -m";
-  gbd = "git branch -d";
-  gbD = "git branch -D";
-  gcount = "git shortlog -sn";
+  gbd = "git branch -d $(git branch | fzf)";
+  gbdel = "git branch -D $(git branch | fzf)";
   gcp = "git cherry-pick";
   gcpx = "git cherry-pick -x";
   gco = "git checkout";
-  gcom = "git checkout master";
-  gcb = "git checkout -b";
   gcob = "git checkout -b";
-  gct = "git checkout --track";
+  gcot = "git checkout --track $(git branch --remote | fzf)";
   gcpd = "git checkout master; git pull; git branch -D";
   gexport = "git archive --format zip --output";
-  gdel = "git branch -D";
   gmu = "git fetch origin -v; git fetch upstream -v; git merge upstream/master";
   gll = "git log --graph --pretty=oneline --abbrev-commit";
+  gllo = "git log --graph --pretty=oneline --abbrev-commit HEAD..origin";
   gg = "git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative";
   ggf = "git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'";
   ggs = "gg --stat";
@@ -104,7 +101,7 @@
   gstpo = "git stash pop";
   gstp = "git stash pop";
   # Switch aliases - Requires git v2.23+
-  gsw = "git switch";
+  gsw = "git switch $(git branch | fzf)";
   gswm = "git switch master";
   gswc = "git switch --create";
   gswt = "git switch --track";
