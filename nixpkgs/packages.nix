@@ -7,12 +7,21 @@ let gitduck = (pkgs.callPackage ./gitduck {}).gitduck;
       buildInputs = with pkgs; [
         nodejs-10_x
       ];
-});
+    });
+
+    comma = with pkgs; callPackage (fetchFromGitHub {
+      name = "comma";
+      owner = "nix-community";
+      repo = "comma";
+      rev = "02e3e5545b0c62595a77f3d5de1223c536af0614";
+      sha256 = "0qgg632ky6bnwkf9kh1z4f12dilkmdy0xgpal26g2vv416di04jq";
+    }) {};
 
 in with pkgs; [
   # Utils
   bc
   brightnessctl
+  comma
   conky
   dragon-drop
   dunst
