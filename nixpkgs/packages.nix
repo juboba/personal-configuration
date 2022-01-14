@@ -2,7 +2,7 @@
 
 let gitduck = (pkgs.callPackage ./gitduck {}).gitduck;
     nodemon = (pkgs.callPackage ./nodemon {}).nodemon;
-    eslint_d = (pkgs.callPackage ./eslint_d {}).eslint_d;
+    typescript-language-server = (pkgs.callPackage ./typescript-language-server {}).typescript-language-server;
     yarnWithNode10 = pkgs.yarn.overrideAttrs (oldAttrs: rec {
       buildInputs = with pkgs; [
         nodejs-10_x
@@ -91,7 +91,6 @@ in with pkgs; [
   # Development
   (emacsWithPackages (epkgs: [ epkgs.emacsql-sqlite ]))
   #doom-emacs
-  eslint_d
   gitduck
   gotty
   gsh
@@ -107,6 +106,7 @@ in with pkgs; [
   python3
   robo3t
   shellcheck
+  typescript-language-server
   yarnWithNode10
 ]
 
