@@ -43,6 +43,8 @@
 (package! kubernetes)
 (package! kubernetes-evil)
 
+(package! tree-sitter)
+(package! tree-sitter-langs)
 
 ;; (package! indium)
 ;; (package! google-translate)
