@@ -32,6 +32,8 @@
 ;;
 ;; Themes
 (package! badwolf-theme)
+(package! humanoid-themes)
+(package! kaolin-themes)
 (package! nyx-theme)
 
 (unpin! org-roam)
