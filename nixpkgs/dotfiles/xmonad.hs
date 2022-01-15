@@ -294,7 +294,7 @@ layoutIndicatorStyle :: String -> String
 layoutIndicatorStyle = wrap "" "" . xmobarColor "#303036" ""
 
 windowTitleStyle :: String -> String
-windowTitleStyle = xmobarColor "#fffaff" "" . shorten 30 . xmobarStrip . wrap " " " "
+windowTitleStyle = xmobarColor "#444444" "" . shorten 30 . xmobarStrip . wrap " " " "
 
 main :: IO()
 main = do
