@@ -176,8 +176,8 @@ myKeys =
     , ((0, xF86XK_AudioPlay), spawn "sp play")
     , ((0, xF86XK_AudioPrev), spawn "sp prev")
     , ((0, xF86XK_AudioNext), spawn "sp next")
-    , ((0, xF86XK_KbdBrightnessUp), spawn "brightnessctl s 10%+")
-    , ((0, xF86XK_KbdBrightnessDown), spawn "brightnessctl s 10%-")
+    , ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl s 10%+")
+    , ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl s 10%-")
     -- , ((shiftMask, xF86XK_KbdBrightnessUp), spawn "shine temp-up")
     -- , ((shiftMask, xF86XK_KbdBrightnessDown), spawn "shine temp-down")
     -- Launch rofi
