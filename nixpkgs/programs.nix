@@ -66,10 +66,6 @@ in with builtins; {
       userEmail = "juboba@genial.ly";
       userName = "Julio Borja Barra";
       extraConfig = {
-        core = {
-          excludesfile = "${HOME_PATH}/.gitignore";
-        };
-
         github = {
           oauth-token = readFile ~/.oauth-token;
           user = "juboba";
@@ -83,6 +79,14 @@ in with builtins; {
           color = false;
         };
       };
+
+      ignores = [
+        ".dir-locals.el"
+        ".projectile"
+        "TAGS"
+        ".tern-project"
+        "tsserver.log"
+      ];
     };
 
     home-manager = {
