@@ -135,7 +135,20 @@ in with builtins; {
 
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-css-color ctrlp vim-devicons fugitive vim-gitgutter emmet-vim vim-one nerdtree vim-surround ];
+      plugins = with pkgs.vimPlugins; [
+        ale
+        ctrlp
+        emmet-vim
+        fugitive
+        nerdtree
+        vim-airline
+        vim-airline-themes
+        vim-css-color
+        vim-devicons
+        vim-gitgutter
+        vim-one
+        vim-surround
+      ];
 
       settings = {
         expandtab = true;
