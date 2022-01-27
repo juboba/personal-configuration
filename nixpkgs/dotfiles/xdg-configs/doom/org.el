@@ -1,4 +1,4 @@
-;;; ../Repositories/Configs/emacs/.doom.d/org.el -*- lexical-binding: t; -*-
+;;; org.el -*- lexical-binding: t; -*-
 
 ;; Minted (syntax highlight)
 (require 'org)
