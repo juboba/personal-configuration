@@ -71,13 +71,13 @@ in with builtins; {
           user = "juboba";
         };
 
-        pull = {
-          ff = "only";
-        };
+        init.defaultBranch = "main";
 
-        ui = {
-          color = false;
-        };
+        merge.conflictstyle = "diff3";
+
+        pull.ff = "only";
+
+        ui.color = false;
       };
 
       ignores = [
@@ -86,6 +86,8 @@ in with builtins; {
         "TAGS"
         ".tern-project"
         "tsserver.log"
+        "ti-.*.log"
+        ".log"
       ];
     };
 
@@ -172,7 +174,7 @@ in with builtins; {
 
         let g:airline_theme='fruit_punch'
         let g:airline_powerline_fonts = 1
-        colorscheme default
+        colorscheme delek
       '';
     };
 
