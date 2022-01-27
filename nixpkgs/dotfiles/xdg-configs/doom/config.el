@@ -117,6 +117,10 @@
 ;; Doom's private directory
 (setq doom-private-dir "/home/juboba/Repositories/Configs/nixpkgs/dotfiles/xdg-configs/doom")
 
+
+;; Set branch name max length
+(setq doom-modeline-vcs-max-length 40)
+
 ;; Github Flavored Markdown export in Org
 (eval-after-load "org"
   '(require 'ox-gfm nil t))
