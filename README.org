@@ -16,13 +16,6 @@ My config is mainly:
 - Various dotfiles
 - Overlays to further customize packages
 
-** Editor Config
-I have two configuration directories under ~emacs~, but I'm no longer
-using Spacemacs. I fully recommend Spacemacs, but it has lots of things I don't use
-and felt more attracted to Doom Emacs since much more lightweight yet
-still powerful enough.
-
-
 ** My Desktop
 *** My session applications
    These are applications that run together with Xmonad to make up my
@@ -69,23 +62,5 @@ still powerful enough.
    | Media keys          | Volume and Previous, Play/Pause and Next                |
    | Brightness          | Control screen brightness level                         |
    | Shift Brightness*   | Control screen temperature level                        |
-   | Control Space       | Close notification (dunst)                              |
-   | Control Shift Space | Close all notifications (dunst)                         |
-   | Control `           | Show previous notification (dunst)                      |
-   | Control Shift .     | Open context menu for opening URL, or running an action |
-
-** TODOs
-**** TODO Arrange ~/Scripts and move what's necessary to ~scripts~
-I also have lots of not-so-taken-care-of scripts that I use less frequently but
-are also worth having. So! I should clean them up, move what's necessary to
-~/.bin and remove what's not necessary anymore.
-**** TODO Check what the hell is going on with emacs and sqlite3
-This is not too important so I haven't done it, but in order to use ~magit
-forge~ I need to have ~sqlite3~ available for Emacs (in the ~load-path~). I'm
-currently using a ~PATH~ directly pointing to a derivation in the ~/store~ so
-that Emacs picks it up, but I don't know if that's necessary anymore since I'm
-installing emacs with:
-
-#+begin_src nix
-    (emacsWithPackages (epkgs: [ epkgs.emacsql-sqlite ]))
-#+end_src
+   | Super `             | Close notification (dunst)                              |
+   | Super Shift`        | Show previous notification (dunst)                      |
