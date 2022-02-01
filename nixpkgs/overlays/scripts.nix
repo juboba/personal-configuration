@@ -5,7 +5,7 @@ self: super: {
     src = fetchGit {
       name = "scripts";
       url = "https://github.com/juboba/scripts.git";
-      rev = "b66d4f9a4a34859d8600bed2b53ca6fa0be631e1";
+      rev = "fc1e450f13b17dc788f7e524b160985283fa6518";
     };
 
     dontPatchShebangs = true;
