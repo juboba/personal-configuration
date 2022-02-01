@@ -115,7 +115,7 @@
 (require 'ox-hugo)
 
 ;; Doom's private directory
-(setq doom-private-dir "/home/juboba/Repositories/personal-configuration/nixpkgs/dotfiles/xdg-configs/doom")
+(setq doom-private-dir "/home/juboba/repositories/personal-configuration/nixpkgs/dotfiles/xdg-configs/doom")
 
 
 ;; Set branch name max length

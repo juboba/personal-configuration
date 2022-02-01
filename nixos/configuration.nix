@@ -64,7 +64,7 @@
       autorun = true;
     
       displayManager.lightdm.enable = true;
-      displayManager.lightdm.background = /home/juboba/Pictures/Wallpapers/galaxy-space-fantasy-science-fiction-ci-2560x1080.jpg;
+      displayManager.lightdm.background = /home/juboba/pictures/wallpapers/2560x1080/galaxy-space-fantasy-science-fiction-ci-2560x1080.jpg;
 
       windowManager.xmonad = {
         enable = true;

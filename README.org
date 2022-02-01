@@ -62,5 +62,5 @@ My config is mainly:
    | Media keys          | Volume and Previous, Play/Pause and Next                |
    | Brightness          | Control screen brightness level                         |
    | Shift Brightness*   | Control screen temperature level                        |
-   | Super `             | Close notification (dunst)                              |
+   | Super `             | Close all notifications (dunst)                         |
    | Super Shift`        | Show previous notification (dunst)                      |

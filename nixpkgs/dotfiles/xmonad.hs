@@ -186,7 +186,7 @@ myKeys =
     , ((superKey, xK_r), spawn "transset 0.8 -t -a")
     -- Notifications
     , ((superKey .|. shiftMask, xK_n), spawn "dunstctl set-paused toggle")
-    , ((superKey, xK_grave), spawn "dunstctl close")
+    , ((superKey, xK_grave), spawn "dunstctl close-all")
     , ((superKey .|. shiftMask, xK_grave), spawn "dunstctl history-pop")
     -- Launch Terminal
     -- , ((modm,               xK_F1     ), spawn $ XMonad.terminal conf)
