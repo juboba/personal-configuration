@@ -82,16 +82,16 @@
     };
 
     stalonetray = {
-      enable = true;
+      enable = false;
 
       config = {
         transparent = false;
-        geometry  = "1x1+1050+3";
+        geometry  = "6x1-0+0";
 
-        background = "#111b1e";
-        icon_size = 16;
+        background = "#000000";
+        icon_size = 22;
         kludges = "force_icons_size";
-        grow_gravity = "W";
+        grow_gravity = "E";
       };
     };
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MONO_REPO_PATH=/home/juboba/Projects/genially/mono/
+MONO_REPO_PATH=/home/juboba/projects/genially/mono/
 export SLACK_CLI_TOKEN
 SLACK_CLI_TOKEN=$(get_pass slack)
 

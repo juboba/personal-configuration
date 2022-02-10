@@ -55,7 +55,10 @@ in with pkgs; {
 
       # Start applications
       fusuma &
+
       conky -c ~/.conky/conky-simple/Simple/Simple
+
+      trayer --height 30 --width 6 --edge top --align right --tint 0x00000000 --transparent true --alpha 0 &
   '';
 
     pointerCursor = {

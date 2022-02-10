@@ -11,7 +11,7 @@ Config { alpha = 240
        , font = "xft:Ubuntu:size=16,FontAwesome:size=14,Arial:size=10"
        , bgColor = "#000000"
        , fgColor = "#7f7f7f"
-       , position = TopW L 100
+       , position = TopW L 94
        , lowerOnStart = True
        , iconRoot = "/home/juboba/.xmobar"
        , commands = [ Run Weather "EGPF" ["-t"," <tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
