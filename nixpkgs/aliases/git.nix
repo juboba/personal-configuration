@@ -20,10 +20,9 @@
   gss = "git status -s";
   gsu = "git submodule update --init --recursive";
   gl = "git pull";
-  gpl = "git pull";
   glum = "git pull origin master";
-  gpr = "git pull --rebase";
-  gpp = "git pull && git push";
+  glr = "git pull --rebase";
+  glp = "git pull && git push";
   gup = "git fetch && git rebase";
   gp = "git push";
   gpd = "git push --delete";
@@ -57,7 +56,6 @@
   gco = "git checkout";
   gcob = "git checkout -b";
   gcot = "git checkout --track $(git branch --remote | fzf)";
-  gcpd = "git checkout master; git pull; git branch -D";
   gexport = "git archive --format zip --output";
   gmu = "git fetch origin -v; git fetch origin -v; git merge origin/master";
   gll = "git log --graph --pretty=oneline --abbrev-commit";
