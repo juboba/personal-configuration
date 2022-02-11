@@ -21,10 +21,6 @@ of () {
   [ -n $1 ] && cd -
 }
 
-set_title () {
-  PROMPT_COMMAND="echo -ne \"\033]0;$*\007\""
-}
-
 ag () {
   if [ -n "$1" ]
   then
