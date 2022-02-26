@@ -1,0 +1,21 @@
+#/bin/sh
+# @author: juboba@gmail.com
+# This is jmux. My script to automatically attach to my tmux sessions
+
+type tmux > /dev/null 2>&1 || (echo "Dependency not found: 'tmux'" && exit 1)
+type fzy > /dev/null 2>&1 || (echo "Dependency not found: 'fzy'" && exit 1)
+
+if [ -z "$(tmux ls 2> /dev/null)" ]; then
+  tmux
+else
+
+  SESSION_NAME=$(echo -e "$(tmux ls 2> /dev/null)\n[new]" | cut -d: -f1 | fzy)
+
+  if [ -n "$SESSION_NAME" ]; then
+    if [ "$SESSION_NAME" = "[new]" ]; then
+      tmux
+    else
+      tmux a -t "$SESSION_NAME"
+    fi
+  fi
+fi
