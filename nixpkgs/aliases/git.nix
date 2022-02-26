@@ -13,6 +13,7 @@
   gpristine = "git reset --hard && git clean -dfx";
   gclean = "git clean -fd";
   gm = "git merge";
+  gmo = "git merge $(git branch --remote | fzf)";
   gmv = "git mv";
   g = "git";
   get = "git";
