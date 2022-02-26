@@ -29,7 +29,7 @@
 (package! atomic-chrome)
 (package! golden-ratio)
 (package! sublimity)
-;;
+
 ;; Themes
 (package! badwolf-theme)
 (package! humanoid-themes)
