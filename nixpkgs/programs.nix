@@ -143,6 +143,7 @@ in with builtins; {
       enable = true;
       plugins = with pkgs.vimPlugins; [
         ale
+        awesome-vim-colorschemes
         ctrlp
         emmet-vim
         fugitive
@@ -152,6 +153,7 @@ in with builtins; {
         vim-css-color
         vim-devicons
         vim-gitgutter
+        vim-jsx-pretty
         vim-one
         vim-surround
       ];
@@ -178,7 +180,7 @@ in with builtins; {
 
         let g:airline_theme='fruit_punch'
         let g:airline_powerline_fonts = 1
-        colorscheme delek
+        colorscheme OceanicNext
       '';
     };
 
