@@ -70,7 +70,7 @@ superKey = mod4Mask
 -- certain contrib modules.
 --
 myTerminal :: String
-myTerminal = "terminal"
+myTerminal = "terminal jmux"
 
 -- My application launcher
 --
