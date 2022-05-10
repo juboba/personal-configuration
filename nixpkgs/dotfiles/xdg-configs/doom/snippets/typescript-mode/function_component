@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Functional Component
+# key: fc
+# --
+import React from 'react';
+
+const ${1:`(file-name-sans-extension (buffer-name))`} = () => {
+  return ($2);
+};
+
+$1.propTypes = {};
+
+export default $1;
