@@ -35,7 +35,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; (add-hook prog-mode-hook)
 ;; (setq truncate-lines nil)
@@ -133,9 +133,6 @@
 (add-hook 'prog-mode-hook 'nyan-mode)
 (add-hook 'rjsx-mode-hook 'lsp)
 (add-hook 'org-mode-hook 'auto-fill-mode)
-
-;; Path
-(add-to-list 'exec-path "/home/juboba/.config/nvm/versions/node/v10.24.1/bin")
 
 ;; Magit
 ;; (setq magit-git-global-arguments (delete "--literal-pathspecs" magit-git-global-arguments))

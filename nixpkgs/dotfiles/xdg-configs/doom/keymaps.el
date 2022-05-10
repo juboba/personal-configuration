@@ -25,6 +25,8 @@
 (map! :leader "w W" 'ace-swap-window)
 (map! :leader "w w" 'ace-window)
 (map! :leader "w m" 'doom/window-maximize-buffer)
+(map! :leader "w f" 'projectile-find-file-other-window)
+(map! :leader "w F" 'find-file-other-window)
 
 ;; Magit
 (map! :leader :desc "Magit status" "g s" 'magit-status)
