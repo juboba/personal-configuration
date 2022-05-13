@@ -132,6 +132,11 @@ in with builtins; {
         line_break = {
           disabled = true;
         };
+
+        aws = {
+          disabled = true;
+        };
+
         nix_shell = {
           impure_msg = "i";
           pure_msg = "p";
