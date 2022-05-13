@@ -31,7 +31,7 @@ import XMonad.Layout.PerWorkspace
 -- import XMonad.Layout.ResizableTile
 -- import XMonad.Layout.StackTile
 -- import XMonad.Layout
--- import XMonad.Layout.Accordion
+import XMonad.Layout.Accordion
 -- import XMonad.Layout.CenteredMaster
 -- import XMonad.Layout.Circle
 -- import XMonad.Layout.Grid
@@ -274,6 +274,8 @@ mosaicLayout     = named "Mosaic"   $ MosaicAlt M.empty
 myLayoutHook = onWorkspace (myWorkspaces !! 4) messagingLayout
   tallLayout
   ||| wideLayout
+  ||| Mirror Accordion
+  ||| Accordion
   -- ||| singleLayout
   -- ||| twoPaneLayout
   -- ||| circleLayout
