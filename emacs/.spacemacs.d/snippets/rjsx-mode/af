@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: JS#import
-# key: af
-# --
-const ${1} = () => ${2}
