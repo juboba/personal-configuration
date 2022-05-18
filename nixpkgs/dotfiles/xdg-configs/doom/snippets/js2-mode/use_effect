@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: use Effect
+# key: ue
+# --
+useEffect(() => {
+ $1
+}, [$2]);
