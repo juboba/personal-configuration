@@ -50,10 +50,11 @@ import XMonad.Layout.LayoutModifier(ModifiedLayout)
 
 -- import XMonad.Config.Desktop
 
--- import qualified XMonad.StackSet as W
+import qualified XMonad.StackSet as W
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.NamedScratchpad
 import Graphics.X11.ExtraTypes.XF86
 
 import qualified Data.Map        as M
@@ -70,7 +71,7 @@ superKey = mod4Mask
 -- certain contrib modules.
 --
 myTerminal :: String
-myTerminal = "terminal jmux"
+myTerminal = "alacritty"
 
 -- My application launcher
 --
@@ -89,6 +90,10 @@ launchVim = spawn "rofivim"
 -- Width of the window border in pixels.
 myBorderWidth :: Dimension
 myBorderWidth   = 2
+
+-- scratchPads
+scratchpads :: [NamedScratchpad]
+scratchpads = [ NS "terminal" "alacritty --class scratch-term -e jmux" (appName =? "scratch-term") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4)) ]
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -138,7 +143,7 @@ myKeys =
     , ((superKey, xK_Right), moveTo Next NonEmptyWS)
     , ((superKey .|. shiftMask, xK_f), sendMessage ToggleStruts )
     -- Go to previous workspace
-    , ((superKey, xK_Tab), toggleWS)
+    , ((superKey, xK_Tab), toggleWS' ["NSP"])
     , ((superKey, xK_g), goToSelected defaultGSConfig)
     -- Cycle tiling modes
     -- , ((superKey, xK_0), sendMessage NextLayout)
@@ -165,6 +170,8 @@ myKeys =
     , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
     -- Set slack status
     , ((superKey .|. shiftMask, xK_l), spawn "slack-cli")
+    -- Set slack status
+    , ((superKey .|. shiftMask, xK_t), namedScratchpadAction scratchpads "terminal")
     -- Launch Screenshot
     , ((0, xK_Print), spawn "flameshot gui")
     -- Launch Volatile Screenshot
@@ -266,20 +273,22 @@ messagingLayout  = named "\61659" $ smartSpacing 10 $ Tall nmaster delta ratio w
 -- singleLayout     = named "\61640"   $ avoidStruts $ noBorders Full -- 
 -- circleLayout     = named "\61713"   $ Circle -- 
 -- twoPaneLayout    = named "Two Pane" $ TwoPane (2/100) (1/2)
-mosaicLayout     = named "Mosaic"   $ MosaicAlt M.empty
+-- mosaicLayout     = named "Mosaic"   $ MosaicAlt M.empty
 -- gridLayout       = named "Grid"     $ Grid
 -- spiralLayout     = named "Spiral"   $ spiral (6/7) -- (1 % 1)
+accordionLayout  = named "A" $ avoidStruts $ smartSpacing 10 $ Accordion
+verticalAccordionLayout  = named "VA" $ avoidStruts $ smartSpacing 10 $Mirror Accordion
 
 -- myLayoutHook :: ModifiedLayout ??
 myLayoutHook = onWorkspace (myWorkspaces !! 4) messagingLayout
   tallLayout
   ||| wideLayout
-  ||| Mirror Accordion
-  ||| Accordion
+  ||| accordionLayout
+  ||| verticalAccordionLayout
   -- ||| singleLayout
   -- ||| twoPaneLayout
   -- ||| circleLayout
-  ||| mosaicLayout
+  -- ||| mosaicLayout
   -- ||| gridLayout
   -- ||| spiralLayout
 
@@ -307,11 +316,13 @@ main = do
         , layoutHook         = smartBorders . avoidStruts
           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
           $ myLayoutHook
-        , logHook            = dynamicLogWithPP xmobarPP
+        , logHook            = dynamicLogWithPP xmobarPP 
                         { ppCurrent = currentWsStyle
                         , ppLayout  = layoutIndicatorStyle
                         , ppOutput  = hPutStrLn xmproc
                         , ppSep     = "  "
+                        , ppSort = fmap (.namedScratchpadFilterOutWorkspace)
+                                           $ ppSort defaultPP
                         , ppTitle   = windowTitleStyle
                         , ppUrgent  = urgentWsIndicatorStyle
                         , ppVisible = visibleWsStyle
@@ -321,6 +332,7 @@ main = do
         , manageHook        = manageDocks
                               <+> insertPosition Master Newer
                               <+> myManageHook
+                              <+> namedScratchpadManageHook scratchpads
                               <+> manageHook def
         , modMask           = superKey
         , normalBorderColor = myNormalBorderColor
