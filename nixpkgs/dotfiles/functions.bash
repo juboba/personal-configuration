@@ -2,22 +2,31 @@
 
 #cf fuzzy cd =)
 cf () {
-  DIR=$(cd "${1:-.}"; fd --type d | fzf)
+  DIR=$(cd "${1:-.}"; fd --type d | fzf --prompt "Go to dir: ")
   [ -n "$DIR" ] && cd "${1:-.}/$DIR"
 }
 
 #vf fuzzy vim open =)
 vf () {
   cd "${1:-.}"
-  FILE=$(fzf -e --preview 'bat --color always {+1}')
+  FILE=$(fzf -e --preview 'bat --color always {+1}' --prompt "Open with Vim: ")
   [ -n "$FILE" ] && vim "$FILE"
+  [ -n $1 ] && cd -
+}
+
+#ef fuzzy emacs client open =)
+ef () {
+  cd "${1:-.}"
+  FILE=$(fzf -e --preview 'bat --color always {+1}' --prompt "Open in Emacs: ")
+  [ -n "$FILE" ] && emacsclient "$FILE"
   [ -n $1 ] && cd -
 }
 
 #of fuzzy open =)
 of () {
   [ -n $1 ] && cd "${1:-.}";
-  rifle "$(fzf)"
+  FILE=$(fzf -e  --prompt "Open: ")
+  [ -n "$FILE" ] && rifle "$FILE"
   [ -n $1 ] && cd -
 }
 
