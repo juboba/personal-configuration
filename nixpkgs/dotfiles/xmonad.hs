@@ -169,7 +169,7 @@ myKeys =
     -- Launch color picker
     , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
     -- Set slack status
-    , ((superKey .|. shiftMask, xK_l), spawn "slack-cli")
+    , ((superKey .|. shiftMask, xK_l), spawn "slack-do")
     -- Set slack status
     , ((superKey .|. shiftMask, xK_t), namedScratchpadAction scratchpads "terminal")
     -- Launch Screenshot
