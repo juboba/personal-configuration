@@ -125,6 +125,17 @@ in with pkgs; {
 
   systemd.user = {
     services = {
+      myConky = {
+        Unit = {
+          Description = "A conky service";
+        };
+
+        Service = {
+          Type="forking";
+          ExecStart="${pkgs.conky}/bin/conky -d -c /home/juboba/.conky/conky-simple/Simple/Simple";
+        };
+      };
+
       syncmail = {
         Unit = {
           Description = "Sync email and index with mu";
