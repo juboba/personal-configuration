@@ -25,6 +25,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 -- import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.FadeInactive
 
 -- import XMonad.Layout.Renamed
 import XMonad.Layout.PerWorkspace
@@ -55,6 +56,7 @@ import qualified XMonad.StackSet as W
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.SpawnOnce
 import Graphics.X11.ExtraTypes.XF86
 
 import qualified Data.Map        as M
@@ -95,6 +97,11 @@ myBorderWidth   = 2
 scratchpads :: [NamedScratchpad]
 scratchpads = [ NS "terminal" "alacritty --class scratch-term -e jmux" (appName =? "scratch-term") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4)) ]
 
+
+xmobarEscape = concatMap doubleLts
+  where doubleLts '<' = "<<"
+        doubleLts x   = [x]
+
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
 -- workspace name. The number of workspaces is determined by the length
@@ -105,16 +112,18 @@ scratchpads = [ NS "terminal" "alacritty --class scratch-term -e jmux" (appName 
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
 myWorkspaces :: [String]
-myWorkspaces    = [ " \61728 " -- 
+myWorkspaces = clickable . (map xmobarEscape) $ [ " \61728 " -- 
                   , " \61508 " -- 
                   , " \62038 " -- 
                   , " \62056 " -- 
                   , " \61574 " -- 
                   , " \61477 " -- ''
-                  , " \61760 " -- 
                   , " \61664 " -- 
+                  , " \61760 " -- 
                   , " \62057 " -- 
                   ]
+               where clickable w = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>"
+                                     | (i,ws) <- zip [1..9] w, let n = i ]
 
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor :: String
@@ -139,9 +148,9 @@ myKeys :: [((KeyMask, KeySym), X())]
 myKeys =
     -- Toggle Fullscreen
     [ ((superKey, xK_f), goFull)
+    , ((superKey .|. shiftMask, xK_f), sendMessage ToggleStruts )
     , ((superKey, xK_Left), moveTo Prev NonEmptyWS)
     , ((superKey, xK_Right), moveTo Next NonEmptyWS)
-    , ((superKey .|. shiftMask, xK_f), sendMessage ToggleStruts )
     -- Go to previous workspace
     , ((superKey, xK_Tab), toggleWS' ["NSP"])
     , ((superKey, xK_g), goToSelected defaultGSConfig)
@@ -218,18 +227,18 @@ myKeys =
 myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll
     [ isFullscreen --> doFullFloat
-    , className =? "Emacs"                                                 --> (doShift $ myWorkspaces !! 1)
-    , className =? "Thunderbird"                                           --> (doShift $ myWorkspaces !! 7)
+    , className =? "Emacs"                                                 --> (takeTo 1)
+    , className =? "Thunderbird"                                           --> (takeTo 7)
     -- , className =? "Xmessage"                                              --> doFloat
-    , appName =? "chromium-browser (dev-profile)"                          --> (doShift $ myWorkspaces !! 2)
-    , appName =? "chromium-browser"                                        --> (doShift $ myWorkspaces !! 3)
-    , appName =? "google-chrome"                                           --> (doShift $ myWorkspaces !! 3)
-    , title =? "meet.google.com is sharing your screen."                   --> (doShift $ myWorkspaces !! 7)
-    , className =? "Spotify"                                               --> (doShift $ myWorkspaces !! 5)
-    , className =? "TelegramDesktop"                                       --> (doShift $ myWorkspaces !! 4)
-    , className =? "Slack"                                                 --> (doShift $ myWorkspaces !! 4)
-    , className =? "discord"                                               --> (doShift $ myWorkspaces !! 4)
-    , className =? "Firefox"                                               --> (doShift $ myWorkspaces !! 8)
+    , appName =? "chromium-browser (dev-profile)"                          --> (takeTo 2)
+    , appName =? "chromium-browser"                                        --> (takeTo 3)
+    , appName =? "google-chrome"                                           --> (takeTo 3)
+    , title =? "meet.google.com is sharing your screen."                   --> (takeTo 7)
+    , className =? "Spotify"                                               --> (takeTo 5)
+    , className =? "TelegramDesktop"                                       --> (takeTo 4)
+    , className =? "Slack"                                                 --> (takeTo 4)
+    , className =? "discord"                                               --> (takeTo 4)
+    , className =? "Firefox"                                               --> (takeTo 8)
     , stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore
     -- , resource  =? "desktop_window"                                     --> doIgnore
     -- , className =? "Exe"                                                --> doFloat
@@ -243,29 +252,35 @@ myManageHook = composeAll
     , className =? ".pick-colour-picker-wrapped"                           --> doFloat -- Color picker
     , appName =? "showmyself"                                              --> doFloat -- Show me
     , title     =? "Copying Files"                                         --> doFloat ]
+    where takeTo n = doShift $ myWorkspaces !! n
     -- where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 ------------------------------------------------------------------------
 -- Startup:
 myStartupHook :: X ()
-myStartupHook = do
-  -- _ <- let count = show  wsContainingCopies
-  --  in spawn ("notify-send " ++ count)
-  return ()
+myStartupHook =
+  (spawnOnce "fusuma") <+>
+  (spawnOnce "trayer --height 30 --width 6 --edge top --align right --tint 0x00000000 --transparent true --alpha 0")
+-- do
+--   _ <- let count = show  wsContainingCopies
+--    in spawn ("notify-send " ++ count)
+--   return ()
 
 ------------------------------------------------------------------------
+addGap = smartSpacing 10
+
 -- Layouts:
 mainLayout :: ModifiedLayout SmartSpacing Tall a
-mainLayout = smartSpacing 10 $ Tall nmaster delta ratio where
+mainLayout = addGap $ Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
-    ratio   = 1/2
+    ratio   = 3/4
 
 -- tallLayout :: ModifiedLayout
 tallLayout       = named "\61659"     $ avoidStruts $ mainLayout -- 
 wideLayout       = named "\61785"     $ avoidStruts $ Mirror mainLayout -- 
 
-messagingLayout  = named "\61659" $ smartSpacing 10 $ Tall nmaster delta ratio where
+messagingLayout  = named "\61659" $ addGap $ Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
     ratio   = 4/5
@@ -276,8 +291,8 @@ messagingLayout  = named "\61659" $ smartSpacing 10 $ Tall nmaster delta ratio w
 -- mosaicLayout     = named "Mosaic"   $ MosaicAlt M.empty
 -- gridLayout       = named "Grid"     $ Grid
 -- spiralLayout     = named "Spiral"   $ spiral (6/7) -- (1 % 1)
-accordionLayout  = named "A" $ avoidStruts $ smartSpacing 10 $ Accordion
-verticalAccordionLayout  = named "VA" $ avoidStruts $ smartSpacing 10 $Mirror Accordion
+accordionLayout  = named "A" $ avoidStruts $ addGap $ Accordion
+verticalAccordionLayout  = named "VA" $ avoidStruts $ addGap $Mirror Accordion
 
 -- myLayoutHook :: ModifiedLayout ??
 myLayoutHook = onWorkspace (myWorkspaces !! 4) messagingLayout
@@ -316,7 +331,7 @@ main = do
         , layoutHook         = smartBorders . avoidStruts
           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
           $ myLayoutHook
-        , logHook            = dynamicLogWithPP xmobarPP 
+        , logHook = fadeInactiveLogHook 0.8 <+> dynamicLogWithPP xmobarPP
                         { ppCurrent = currentWsStyle
                         , ppLayout  = layoutIndicatorStyle
                         , ppOutput  = hPutStrLn xmproc
