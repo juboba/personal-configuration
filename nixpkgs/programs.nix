@@ -65,6 +65,12 @@ in with builtins; {
 
     bat.enable = true;
 
+    emacs = {
+      enable = true;
+      extraPackages = epkgs: [ epkgs.emacsql-sqlite ] ;
+      #package =
+    };
+
     git = {
       enable = true;
       userEmail = "juboba@genial.ly";

@@ -23,7 +23,7 @@ in with pkgs; [
   brightnessctl
   comma
   conky
-  dragon-drop
+  xdragon
   dunst
   exa
   feh
@@ -43,8 +43,6 @@ in with pkgs; [
   ripgrep
   simplescreenrecorder
   steam-run
-  tmux
-  tmuxp
   xournal
   zscroll
 
