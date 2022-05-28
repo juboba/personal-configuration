@@ -20,21 +20,50 @@ set_status() {
   [ "$result" != "true" ] && notify-send -u critical "Slack status set failed"
 }
 
-SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nnow-playing\noff\nout\nto-school" | rofi -dmenu -matching fuzzy -p 'Set Slack status to' -sort -levenshtein-sort)
+set_active() {
+  run_slack "presence" "active"
+}
+
+set_away() {
+  run_slack "presence" "away"
+}
+
+SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nmeeting\nnow-playing\noff\nout\nto-school" | rofi -dmenu -matching fuzzy -p 'Set Slack status to' -sort -levenshtein-sort)
 
 case $SELECTED in
-  "branch") set_status "$(git -C $MONO_REPO_PATH branch --show-current)" ":git-branch:" ;;
-  "breakfast") set_status "Desayunando" ":croissant:" ;;
-  "child") set_status "A cargo del :child:" ":child:" ;;
-  "fortune") set_status "$(fortune -n 20 -s)" ":fortune_cookie:" ;;
-  "from-school") set_status "Recogiendo al :child: en el :school:" ":school:" ;;
-  "lunch") set_status "Almuerzo" ":stew:" ;;
-  "meeting") set_status "Reunido" ":red_circle:" ;;
+  "branch")
+    set_active
+    set_status "$(git -C $MONO_REPO_PATH branch --show-current)" ":git-branch:" ;;
+  "meeting")
+    set_active
+    set_status "Reunido" ":red_circle:" ;;
+  "fortune")
+    set_active
+    set_status "$(fortune -n 20 -s)" ":fortune_cookie:" ;;
+
+  "breakfast")
+    set_away
+    set_status "Desayunando" ":croissant:" ;;
+  "child")
+    set_away
+    set_status "A cargo del :child:" ":child:" ;;
+  "from-school")
+    set_away
+    set_status "Recogiendo al :child: en el :school:" ":school:" ;;
+  "lunch")
+    set_away
+    set_status "Almuerzo" ":stew:" ;;
   "now-playing") set_status "$(now-playing)" ":headphones:" ;;
-  "off") set_status "Fuera por hoy" ":wave:" ;;
-  "out") set_status "Volveré" ":away:" ;;
-  "to-school") set_status "Preparando al :child: para el :school:" ":school:" ;;
+  "off")
+    set_away
+    set_status "Fuera por hoy" ":wave:" ;;
+  "out")
+    set_away
+    set_status "Volveré" ":away:" ;;
+  "to-school")
+    set_away
+    set_status "Preparando al :child: para el :school:" ":school:" ;;
   # more cases...
   "") clear_status ;;
-  *) echo "Options: branch | breakfast | child | fortune | from-school | lunch | now-playing | off | out | to-school" ;;
+  *) echo "Options: branch | breakfast | child | fortune | from-school | meeting | lunch | now-playing | off | out | to-school" ;;
 esac
