@@ -88,13 +88,9 @@
 (global-evil-matchit-mode 1)
 
 ;; (add-to-list 'display-buffer-alist '("^\\*Flycheck errors\\*$"))
+
 (defadvice! prompt-for-buffer (&rest _)
   :after 'window-split (switch-to-buffer))
-
-;; Set default font
-(add-to-list 'default-frame-alist '(font . "Hasklug Nerd Font 10"))
-;; For quickly setting the font use:
-;; (set-frame-font "Hasklug Nerd Font 13" nil t)
 
 
 ;; Disable cursor movement when exiting insert mode
