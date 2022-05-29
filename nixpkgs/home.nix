@@ -132,7 +132,7 @@ in with pkgs; {
 
         Service = {
           Type="forking";
-          ExecStart="${pkgs.conky}/bin/conky -d -c /home/juboba/.conky/conky-simple/Simple/Simple";
+          ExecStart="${pkgs.conky}/bin/conky -d -c ${./dotfiles/xdg-configs/conky/config}";
         };
       };
 
