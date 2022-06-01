@@ -1,0 +1,4 @@
+;;; macros.el -*- lexical-binding: t; -*-
+
+;; (fset 'mymacro
+;;    (kmacro-lambda-form [?o ?c ?o ?n ?s ?t ?  ?h ?o ?l ?a ?  ?= ?  ?1 ?\; escape ?^] 0 "%d"))

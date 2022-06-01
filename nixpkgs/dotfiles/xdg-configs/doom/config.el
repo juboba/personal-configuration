@@ -63,6 +63,7 @@
 (load! "./keymaps.el")
 (load! "./javascript.el")
 (load! "./email.el")
+(load! "./macros.el")
 
 ;; My status bar
 ;; (display-battery-mode)
