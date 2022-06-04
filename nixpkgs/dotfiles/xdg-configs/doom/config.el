@@ -26,7 +26,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'kaolin-ocean)
+(setq doom-theme 'kaolin-valley-dark)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -146,6 +146,7 @@
 
 ;; Doom splash image
 (setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-private-dir))
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 ;; Org-roam
 (setq org-roam-graph-filetype "pdf")
@@ -175,3 +176,11 @@
   (require 'tree-sitter-langs)
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+
+;; Jsonian
+;; To enable jsonian to work with flycheck
+(after! (jsonian flycheck) (jsonian-enable-flycheck))
+
+;; To diasable so-long mode overrides
+(after! (jsonian so-long) (jsonian-no-so-long-mode))

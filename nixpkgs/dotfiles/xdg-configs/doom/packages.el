@@ -46,6 +46,10 @@
 (package! tree-sitter)
 (package! tree-sitter-langs)
 
+(package! json-mode :disable t)
+(package! jsonian
+  :recipe (:host github :repo "iwahbe/jsonian"))
+
 ;; (package! indium)
 ;; (package! google-translate)
 ;; (package! darkroom)
