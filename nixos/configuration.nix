@@ -8,14 +8,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  /*
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-           "experimental-features = nix-command flakes";
-  };
-  */
-
   boot = {
     # https://en.wikipedia.org/wiki/Magic_SysRq_key
     kernel.sysctl."kernel.sysrq" = 1;
@@ -32,14 +24,17 @@
   time.timeZone = "Europe/Madrid";
 
   networking = {
+
     hostName = "faraday"; # Define your hostname.
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
-    useDHCP = false;
     interfaces.eno1.useDHCP = true;
     interfaces.wlp1s0.useDHCP = true;
+
     networkmanager.enable = true;
+
+    useDHCP = false;
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Configure network proxy if necessary
@@ -57,6 +52,7 @@
   services = {
     blueman.enable = true;
     cron.enable = true;
+
     geoclue2.enable = true;
     
     xserver = {
@@ -64,7 +60,7 @@
       autorun = true;
     
       displayManager.lightdm.enable = true;
-      displayManager.lightdm.background = /home/juboba/pictures/wallpapers/2560x1080/galaxy-space-fantasy-science-fiction-ci-2560x1080.jpg;
+      #displayManager.lightdm.background = ./lightdm-background.jpg;
 
       windowManager.xmonad = {
         enable = true;
@@ -87,6 +83,14 @@
 
     # Enable the OpenSSH daemon.
     # openssh.enable = true;
+
+    openvpn.servers = {
+      genially = {
+        autoStart = false;
+        config = ''config /home/juboba/.config/vpn/juboba@genial.ly.developers.ovpn'';
+        updateResolvConf = true;
+      };
+    };
 
     printing = {
       enable = true;
@@ -111,11 +115,23 @@
     package = pkgs.pulseaudioFull;
   };
 
-  virtualisation.docker.enable = true;
+
+  virtualisation = {
+    docker.enable = true;
+
+    virtualbox.host = {
+      enable = true;
+      enableExtensionPack = true;
+    };
+  };
   
-  users.users.juboba = {
-    isNormalUser = true;
-    extraGroups = [ "audio" "docker" "input" "wheel" ];
+  users = {
+    extraGroups.vboxusers.members = ["juboba"];
+
+    users.juboba = {
+      isNormalUser = true;
+      extraGroups = [ "audio" "docker" "input" "wheel" ];
+    };
   };
 
   environment.systemPackages = with pkgs; [
