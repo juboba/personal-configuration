@@ -119,15 +119,19 @@ in with pkgs; {
     };
   };
 
-  xdg = (import ./xdg.nix) { pkgs = pkgs; };
-  programs = (import ./programs.nix) { pkgs = pkgs; builtins = builtins; };
+  xdg = (import ./xdg.nix) { inherit pkgs; };
+  programs = (import ./programs.nix) { inherit pkgs builtins; };
   services = (import ./services.nix) {};
 
   systemd.user = {
     services = {
-      myConky = {
+      conky = {
         Unit = {
           Description = "A conky service";
+        };
+
+        Install = {
+          WantedBy = ["default.target"];
         };
 
         Service = {
