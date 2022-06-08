@@ -29,17 +29,11 @@
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
+    useDHCP = false;
     interfaces.eno1.useDHCP = true;
     interfaces.wlp1s0.useDHCP = true;
 
     networkmanager.enable = true;
-
-    useDHCP = false;
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    # Configure network proxy if necessary
-    # proxy.default = "http://user:password@proxy:port/";
-    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
 
   # Select internationalisation properties.
@@ -80,9 +74,6 @@
         };
       };
     };
-
-    # Enable the OpenSSH daemon.
-    # openssh.enable = true;
 
     openvpn.servers = {
       genially = {
@@ -143,26 +134,13 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
   programs = {
     gnupg.agent = {
       enable = true;
-      #enableSSHSupport = true;
     };
 
     vim.defaultEditor = true;
   };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
