@@ -42,3 +42,7 @@ ag () {
 mkcd() {
   mkdir "$1" && cd "$_"
 }
+
+gitLinesForAuthor() {
+  git log --author="$1" --pretty=tformat: --numstat | awk -F" " '{ added += $1; removed += $2 } END { print "added: ",  added, "removed:", removed }'
+}
