@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+ACTIVE=$(systemctl is-active openvpn-genially.service)
+
+start_service() {
+  qsudo systemctl start openvpn-genially.service
+}
+
+stop_service() {
+  qsudo systemctl stop openvpn-genially.service
+}
+
+if [ "$1" = "t" ]; then
+  if [ "$ACTIVE" = "active" ]; then
+    stop_service
+  else
+    start_service
+  fi
+fi
+
+if [ "$ACTIVE" = "active" ]; then
+  STATUS=""
+else
+  STATUS="O"
+fi
+
+echo $STATUS

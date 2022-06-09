@@ -5,7 +5,7 @@
 -- #fc5130
 -- #050401
 
-Config { alpha = 240
+Config { alpha = 220
        -- , font = "xft:Monaco:size=14,FontAwesome:size=14,Arial:size=10"
        -- , font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
        , font = "xft:Ubuntu:size=16,FontAwesome:size=14,Arial:size=10"
@@ -22,8 +22,8 @@ Config { alpha = 240
 -- FIXME: something's wrong when reading from my sp-status command... ?
                     -- , Run CommandReader "sp-status" "nowPlaying"
                     -- , Run MarqueePipeReader "/tmp/now-playing-pipe" (30, 1, " - ") "nowPlaying"
-                    , Run Com "now-playing" [] "nowPlaying" 2
                     , Run Com "batalert" [] "batalert" 100
+                    , Run Com "vpn-status" [] "vpnStatus" 20
                     , Run Com "volume-control" [] "volume-control" 5
                     , Run Com "sp-icon" [] "nowPlayingIcon" 5
                     , Run Com "duolingo" ["-i"] "duolingo" 5
@@ -58,7 +58,7 @@ Config { alpha = 240
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action> { <action=`sp play`>%nowPlaying% %nowPlayingIcon%</action>  |  <action=`terminal -- gtop`>%multicpu% %memory%</action>  |  %volume-control%  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
+       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action> { <action=`vpn-status t`>%vpnStatus%</action> | <action=`sp play`>%nowPlayingIcon%</action>  |  %volume-control%  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
        }
 
   -- <action=`memrise -o`>%memrise%</action> <action=`duolingo -o`>%duolingo%</action>
