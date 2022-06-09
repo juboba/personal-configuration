@@ -8,6 +8,4 @@ const ${1:`(file-name-sans-extension (buffer-name))`} = () => {
   return ($2);
 };
 
-$1.propTypes = {};
-
 export default $1;
