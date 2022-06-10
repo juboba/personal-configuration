@@ -10,9 +10,10 @@ import ./docker-compose.nix //
   gcal = "gcalcli calw $(date -d \"$D\" \"+%d\") 2 --monday";
   hm = "home-manager";
   hs = "hess";
-  ls = "exa";
-  l = "ls --sort=modified --group-directories-first";
+  ls = "exa --group-directories-first";
+  l = "ls ";
   ll = "l -l --git --color=always";
+  llt = "ll --sort=modified";
   lla = "ll -a";
   la = "l -a";
   man = "man --pager=\"sh -c 'col -bx | bat -l man -p'\"";
