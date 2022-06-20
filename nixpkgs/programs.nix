@@ -150,7 +150,7 @@ in with builtins; {
       };
     };
 
-    vim = {
+    neovim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [
         ale
@@ -167,14 +167,8 @@ in with builtins; {
         vim-jsx-pretty
         vim-one
         vim-surround
+        vim-nix
       ];
-
-      settings = {
-        expandtab = true;
-        number = true;
-        relativenumber = true;
-        tabstop = 2;
-      };
 
       extraConfig = ''
         set smarttab
@@ -182,6 +176,10 @@ in with builtins; {
         set shiftwidth=2
         set autoindent
         set showcmd
+        set expandtab
+        set number
+        set relativenumber
+        set tabstop=2
 
         let b:ale_fixers = ['prettier', 'eslint']
         let g:ale_completion_enabled = 1
