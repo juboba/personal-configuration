@@ -1,0 +1,35 @@
+#!/bin/sh
+
+ISUP="NO"
+TIMEOUT=${2:-5}
+URL=$1
+
+check_dep() {
+  if type "$1" > /dev/null 2>&1 -ne 0
+  then
+    echo "Error: Dependency not found: $1"
+    exit 1
+  fi
+}
+
+check_dep curl
+check_dep notify-send
+
+if [ -z "$URL" ]
+then
+  echo "No URL provided"
+  exit 1
+fi
+
+echo "Waiting for $URL to be up (retrying every $TIMEOUT seconds)..."
+
+while
+  echo 'trying...'
+  STATUS_CODE=$(curl -s -o /dev/stderr -w "%{http_code}" $URL 2> /dev/null)
+  [ $STATUS_CODE -eq 000 ] && sleep "$TIMEOUT"
+  :
+  [ $STATUS_CODE -eq 000 ]
+do :; done
+
+mpv ~/Sounds/doorbell-notification.wav &
+notify-send "$URL is up!"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+FILE=$(fd \
+  | rofi -dmenu -matching fuzzy -p 'Open with Sxiv' -sort -levenshtein-sort)
+
+echo $FILE
+
+if [ -n "$FILE" ] ; then
+  sxiv -t $FILE;
+fi

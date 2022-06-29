@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# name: batalert
+# author: juboba <juboba@gmail.com>
+#
+# This script should run every X seconds. It will show some alerts
+# depending on the charge level. If the laptop is plugged, it should just exits.
+
+type jq > /dev/null 2>&1 || (echo "Dependency not found: 'jq'" && exit 1)
+
+LOW_THRESHOLD=20
+CRITICAL_THRESHOLD=$(($LOW_THRESHOLD - 5))
+
+CURRENT_CHARGE=$(cat /sys/class/power_supply/BAT0/charge_now)
+FULL_CHARGE=$(cat /sys/class/power_supply/BAT0/charge_full)
+STATUS=$(cat /sys/class/power_supply/BAT0/status)
+
+CURRENT_PERCENT=$(jq -n "$CURRENT_CHARGE * 100 / $FULL_CHARGE" | cut -d'.' -f1)
+
+[ $STATUS = "Charging" ] && exit 0
+
+[ $CURRENT_PERCENT -lt $CRITICAL_THRESHOLD ] && notify-send -u critical -t 6000 "BATTERY LOW MOTHERFUCKER!!"
+[ $CURRENT_PERCENT -lt $LOW_THRESHOLD ] && echo "BATTERY LOW! -----------> " || echo ""

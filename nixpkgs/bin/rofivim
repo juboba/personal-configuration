@@ -1,0 +1,9 @@
+#!/bin/sh
+
+FILE=$(rg --files 2> /dev/null | rofi -dmenu -matching fuzzy -p 'Open with Vim' -sort -levenshtein-sort)
+
+echo $FILE
+
+if [ -n "$FILE" ] ; then
+  terminal -- vim $FILE;
+fi

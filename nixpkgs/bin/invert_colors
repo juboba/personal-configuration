@@ -1,0 +1,5 @@
+#!/bin/sh
+
+systemctl --user stop redshift.service &&
+xcalib -i -a &&
+systemctl --user start redshift.service

@@ -1,0 +1,24 @@
+#!/bin/sh
+COMMAND=$(basename $0)
+
+TERN_PROJECT_TEMPLATE=$(cat <<EOF
+{
+  "plugins": {
+    "node": {
+    },
+    "es_modules": {}
+  }
+}
+EOF
+)
+
+usage () {
+  echo "Usage"
+  echo "$COMMAND tags|tern"
+}
+
+case $1 in
+  tags) ctags -e -R --exclude=node_modules --exclude=public --exclude=src/app/vendors ;;
+  tern) echo $TERN_PROJECT_TEMPLATE > .tern-project ;;
+  *) usage ;;
+esac

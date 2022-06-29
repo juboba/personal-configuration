@@ -1,0 +1,39 @@
+#!/bin/sh
+
+play_feedback() {
+  #mpv /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga > /dev/null 2>&1
+  echo ""
+}
+
+show_notification() {
+  #notify-send "Volume" "$1"
+  echo "$1"
+}
+
+get_current_vol() {
+  echo $(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }')
+}
+
+case $1 in
+  "mute")
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    ;;
+  "up")
+    pactl set-sink-volume @DEFAULT_SINK@ +2000
+
+    VOLUME=$(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }')
+
+    play_feedback
+
+    show_notification $(get_current_vol)
+    ;;
+  "down")
+    pactl set-sink-volume @DEFAULT_SINK@ -2000
+
+    VOLUME=$(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }')
+
+    play_feedback
+
+    show_notification $(get_current_vol)
+    ;;
+esac

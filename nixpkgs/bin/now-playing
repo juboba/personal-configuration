@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+TITLE_MAX_LENGTH=30
+ARTIST_MAX_LENGTH=10
+
+# Get the first $TITLE_MAX_LENGTH characters of Title
+# after trimming.
+TITLE="sp current \
+| grep ^Title \
+| cut -d' ' -f2- \
+| sed -e \"s/^[[:space:]]*//\" -e \"s/[[:space:]]*$//\""
+
+#| sed \"s/^\(.\{$TITLE_MAX_LENGTH\}\).*/\1/\""
+
+# Get the first $ARTIST_MAX_LENGTH characters of Title
+# after trimming.
+ARTIST="sp current \
+| grep ^Artist \
+| cut -d' ' -f2- \
+| sed -e \"s/^[[:space:]]*//\" -e \"s/[[:space:]]*$//\""
+#| sed \"s/^\(.\{$ARTIST_MAX_LENGTH\}\).*/\1/\""
+
+TEXT="`$TITLE` (`$ARTIST`)"
+
+# If the last command failed, Spotify is not running
+[ $? -eq 0 ] && echo "$TEXT" || echo ""

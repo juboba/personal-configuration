@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+THEME=dusk
+
+highlight "$1" --out-format xterm256 --line-numbers --force -s $THEME | less -R
