@@ -27,6 +27,6 @@ import ./docker-compose.nix //
   tree = "l --tree --color=always";
   gtree = "tree -l --git | less -r";
   trim = "sed -e 's/^[ \t]*//'";
-  vi = "vim";
+  vi = "nvim";
   gduck = "steam-run gitduck";
 }

@@ -9,8 +9,8 @@ cf () {
 #vf fuzzy vim open =)
 vf () {
   cd "${1:-.}"
-  FILE=$(fzf -e --preview 'bat --color always {+1}' --prompt "Open with Vim: ")
-  [ -n "$FILE" ] && vim "$FILE"
+  FILE=$(fzf -e --preview 'bat --color always {+1}' --prompt "Open with NeoVim: ")
+  [ -n "$FILE" ] && nvim "$FILE"
   [ -n $1 ] && cd -
 }
 
