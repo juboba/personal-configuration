@@ -1,5 +1,7 @@
 * Personal Configuration
 
+[[https://builtwithnix.org/badge.svg]]
+
 This is my personal configuration. It's currently a mess in progress.
 
 ** OS Config
