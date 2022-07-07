@@ -125,21 +125,6 @@ in with pkgs; {
 
   systemd.user = {
     services = {
-      conky = {
-        Unit = {
-          Description = "A conky service";
-        };
-
-        Install = {
-          WantedBy = ["default.target"];
-        };
-
-        Service = {
-          Type="forking";
-          ExecStart="${pkgs.conky}/bin/conky -d -c ${./dotfiles/xdg-configs/conky/config}";
-        };
-      };
-
       syncmail = {
         Unit = {
           Description = "Sync email and index with mu";
