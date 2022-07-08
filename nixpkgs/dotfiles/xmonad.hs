@@ -112,7 +112,7 @@ xmobarEscape = concatMap doubleLts
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
 myWorkspaces :: [String]
-myWorkspaces = clickable . (map xmobarEscape) $ [ " \61728 " -- 
+myWorkspaces = clickable . map xmobarEscape $ [ " \61728 " -- 
                   , " \61508 " -- 
                   , " \62038 " -- 
                   , " \62056 " -- 
@@ -122,7 +122,7 @@ myWorkspaces = clickable . (map xmobarEscape) $ [ " \61728 " -- 
                   , " \61760 " -- 
                   , " \62057 " -- 
                   ]
-               where clickable w = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>"
+               where clickable w = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>"
                                      | (i,ws) <- zip [1..9] w, let n = i ]
 
 -- Border colors for unfocused and focused windows, respectively.
@@ -149,11 +149,11 @@ myKeys =
     -- Toggle Fullscreen
     [ ((superKey, xK_f), goFull)
     , ((superKey .|. shiftMask, xK_f), sendMessage ToggleStruts )
-    , ((superKey, xK_Left), moveTo Prev NonEmptyWS)
-    , ((superKey, xK_Right), moveTo Next NonEmptyWS)
+    , ((superKey, xK_Left), moveTo Prev (Not emptyWS))
+    , ((superKey, xK_Right), moveTo Next (Not emptyWS))
     -- Go to previous workspace
     , ((superKey, xK_Tab), toggleWS' ["NSP"])
-    , ((superKey, xK_g), goToSelected defaultGSConfig)
+    --, ((superKey, xK_g), goToSelected defaultConfig)
     -- Cycle tiling modes
     -- , ((superKey, xK_0), sendMessage NextLayout)
     -- Send current workspace to next screen
@@ -227,18 +227,18 @@ myKeys =
 myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll
     [ isFullscreen --> doFullFloat
-    , className =? "Emacs"                                                 --> (takeTo 1)
-    , className =? "Thunderbird"                                           --> (takeTo 7)
+    , className =? "Emacs"                                                 --> takeTo 1
+    , className =? "Thunderbird"                                           --> takeTo 7
     -- , className =? "Xmessage"                                              --> doFloat
-    , appName =? "chromium-browser (dev-profile)"                          --> (takeTo 2)
-    , appName =? "chromium-browser"                                        --> (takeTo 3)
-    , appName =? "google-chrome"                                           --> (takeTo 3)
-    , title =? "meet.google.com is sharing your screen."                   --> (takeTo 7)
-    , className =? "Spotify"                                               --> (takeTo 5)
-    , className =? "TelegramDesktop"                                       --> (takeTo 4)
-    , className =? "Slack"                                                 --> (takeTo 4)
-    , className =? "discord"                                               --> (takeTo 4)
-    , className =? "firefox"                                               --> (takeTo 8)
+    , appName =? "chromium-browser (dev-profile)"                          --> takeTo 2
+    , appName =? "chromium-browser"                                        --> takeTo 3
+    , appName =? "google-chrome"                                           --> takeTo 3
+    , title =? "meet.google.com is sharing your screen."                   --> takeTo 6
+    , className =? "Spotify"                                               --> takeTo 5
+    , className =? "TelegramDesktop"                                       --> takeTo 4
+    , className =? "Slack"                                                 --> takeTo 4
+    , className =? "discord"                                               --> takeTo 4
+    , className =? "firefox"                                               --> takeTo 8
     , stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore
     -- , resource  =? "desktop_window"                                     --> doIgnore
     -- , className =? "Exe"                                                --> doFloat
@@ -259,8 +259,8 @@ myManageHook = composeAll
 -- Startup:
 myStartupHook :: X ()
 myStartupHook =
-  (spawnOnce "fusuma") <+>
-  (spawnOnce "trayer --height 30 --width 6 --edge top --align right --tint 0x00000000 --transparent true --alpha 0")
+  spawnOnce "fusuma" <+>
+  spawnOnce "trayer --height 30 --width 6 --edge top --align right --tint 0x00000000 --transparent true --alpha 0"
 -- do
 --   _ <- let count = show  wsContainingCopies
 --    in spawn ("notify-send " ++ count)
@@ -270,14 +270,14 @@ myStartupHook =
 addGap = smartSpacing 10
 
 -- Layouts:
-mainLayout :: ModifiedLayout SmartSpacing Tall a
+mainLayout :: ModifiedLayout Spacing Tall a
 mainLayout = addGap $ Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
     ratio   = 3/4
 
 -- tallLayout :: ModifiedLayout
-tallLayout       = named "\61659"     $ avoidStruts $ mainLayout -- 
+tallLayout       = named "\61659"     $ avoidStruts mainLayout -- 
 wideLayout       = named "\61785"     $ avoidStruts $ Mirror mainLayout -- 
 
 messagingLayout  = named "\61659" $ addGap $ Tall nmaster delta ratio where
@@ -291,7 +291,7 @@ messagingLayout  = named "\61659" $ addGap $ Tall nmaster delta ratio where
 -- mosaicLayout     = named "Mosaic"   $ MosaicAlt M.empty
 -- gridLayout       = named "Grid"     $ Grid
 -- spiralLayout     = named "Spiral"   $ spiral (6/7) -- (1 % 1)
-accordionLayout  = named "A" $ avoidStruts $ addGap $ Accordion
+accordionLayout  = named "A" $ avoidStruts $ addGap Accordion
 verticalAccordionLayout  = named "VA" $ avoidStruts $ addGap $Mirror Accordion
 
 -- myLayoutHook :: ModifiedLayout ??
@@ -330,14 +330,13 @@ main = do
         , focusedBorderColor = myFocusedBorderColor
         , layoutHook         = smartBorders . avoidStruts
           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-          $ myLayoutHook
+          myLayoutHook
         , logHook = fadeInactiveLogHook 0.8 <+> dynamicLogWithPP xmobarPP
                         { ppCurrent = currentWsStyle
                         , ppLayout  = layoutIndicatorStyle
                         , ppOutput  = hPutStrLn xmproc
                         , ppSep     = "  "
-                        , ppSort = fmap (.namedScratchpadFilterOutWorkspace)
-                                           $ ppSort defaultPP
+                        , ppSort = (.namedScratchpadFilterOutWorkspace) <$> ppSort xmobarPP
                         , ppTitle   = windowTitleStyle
                         , ppUrgent  = urgentWsIndicatorStyle
                         , ppVisible = visibleWsStyle
