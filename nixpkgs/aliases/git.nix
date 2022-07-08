@@ -50,8 +50,8 @@
   gbc = ''git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(else)%(refname:short)%(end) %09 %(creatordate)" refs/remotes/ --sort=authorname DESC'';
   gbt = "git branch --track";
   gbm = "git branch -m";
-  gbd = "git branch -d $(git branch | fzf)";
-  gbdel = "git branch -D $(git branch | fzf)";
+  gbd = "git branch -d $(git branch | fzf --prompt 'Remove branch: ')";
+  gbdel = "git branch -D $(git branch | fzf --prompt 'Remove branch (force): ')";
   gcp = "git cherry-pick";
   gcpx = "git cherry-pick -x";
   gco = "git checkout";
