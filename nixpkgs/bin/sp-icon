@@ -8,8 +8,8 @@
 ICON=""
 
 case "$(sp status)" in
-  "Playing") ICON="" ;;
-  "Paused") ICON="" ;;
+  "Playing") ICON="" ;;
+  "Paused") ICON="" ;;
   *) ICON="■" ;;
 esac
 

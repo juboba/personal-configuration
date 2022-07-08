@@ -28,15 +28,12 @@ set_away() {
   run_slack "presence" "away"
 }
 
-SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nmeeting\nnow-playing\noff\nout\nto-school" | rofi -dmenu -matching fuzzy -p 'Set Slack status to' -sort -levenshtein-sort)
+SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nmeeting\nnix\nnow-playing\noff\nout\nto-school" | rofi -dmenu -matching fuzzy -p 'Set Slack status to' -sort -levenshtein-sort)
 
 case $SELECTED in
   "branch")
     set_active
     set_status "$(git -C $MONO_REPO_PATH branch --show-current)" ":git-branch:" ;;
-  "meeting")
-    set_active
-    set_status "Reunido" ":red_circle:" ;;
   "fortune")
     set_active
     set_status "$(fortune -n 20 -s)" ":fortune_cookie:" ;;
@@ -53,6 +50,12 @@ case $SELECTED in
   "lunch")
     set_away
     set_status "Almuerzo" ":stew:" ;;
+  "meeting")
+    set_active
+    set_status "Reunido" ":red_circle:" ;;
+  "nix")
+    set_active
+    set_status "Nixing" ":nixos:" ;;
   "now-playing") set_status "$(now-playing)" ":headphones:" ;;
   "off")
     set_away
@@ -65,5 +68,5 @@ case $SELECTED in
     set_status "Preparando al :child: para el :school:" ":school:" ;;
   # more cases...
   "") clear_status ;;
-  *) echo "Options: branch | breakfast | child | fortune | from-school | meeting | lunch | now-playing | off | out | to-school" ;;
+  *) echo "Options: branch | breakfast | child | fortune | from-school | lunch | meeting | nix | now-playing | off | out | to-school" ;;
 esac
