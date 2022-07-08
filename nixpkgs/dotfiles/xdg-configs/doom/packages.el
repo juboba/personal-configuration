@@ -50,6 +50,13 @@
 (package! jsonian
   :recipe (:host github :repo "iwahbe/jsonian"))
 
+;; If this was not enough, we also have: https://github.com/DarthFennec/highlight-indent-guides
+(package! hightlight-indentation
+  :recipe (:host github :repo "antonj/Highlight-Indentation-for-Emacs"))
+
+(package! pulsing-cursor
+    :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
+
 ;; (package! indium)
 ;; (package! google-translate)
 ;; (package! darkroom)

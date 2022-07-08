@@ -184,3 +184,6 @@
 
 ;; To diasable so-long mode overrides
 (after! (jsonian so-long) (jsonian-no-so-long-mode))
+
+(use-package pulsing-cursor
+    :config (pulsing-cursor-mode +1))

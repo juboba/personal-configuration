@@ -20,11 +20,12 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (company +childframe)             ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
-       ;;ido               ; the other *other* search engine...
-       (ivy                ; a search engine for love and life
-        +icons)
+       (company +tng)        ; the ultimate code completion backend
+       ;;helm                ; the *other* search engine for love and life
+       ;;ido                 ; the other *other* search engine...
+       ;;(ivy                  ; a search engine for love and life
+        ;;+icons)
+       (vertico +icons)
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -130,7 +131,7 @@
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       (haskell +dante)    ; a language that's lazier than I am
+       (haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        ;;json              ; At least it ain't XML
