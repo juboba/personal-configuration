@@ -76,6 +76,10 @@ in with builtins; {
       userEmail = "juboba@genial.ly";
       userName = "Julio Borja Barra";
       extraConfig = {
+        diff = {
+          external = "difft";
+        };
+
         github = {
           oauth-token = readFile ~/.oauth-token;
           user = "juboba";
@@ -159,6 +163,7 @@ in with builtins; {
         emmet-vim
         fugitive
         nerdtree
+        nnn-vim
         vim-airline
         vim-airline-themes
         vim-css-color

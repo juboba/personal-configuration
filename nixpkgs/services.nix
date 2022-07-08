@@ -14,7 +14,65 @@
       path = "/home/juboba/Documents/Org/Dropbox";
     };
 
+    emacs = {
+      enable = true;
+    };
+
     flameshot.enable = true;
+
+		fusuma = {
+			enable = true;
+
+			settings = {
+				swipe = {
+					"3" = {
+            left = {
+              command = "xdotool key alt+Right";
+            };
+
+            right = {
+              command = "xdotool key alt+Left";
+            };
+
+            up = {
+              command = "xdotool key super";
+            };
+
+            down = {
+              command = "xdotool key Escape";
+            };
+          };
+
+          "4"= {
+            left = {
+              command = "xdotool key super+Right";
+            };
+            right = {
+              command = "xdotool key super+Left";
+            };
+          };
+				};
+
+				pinch = {
+          "in"= {
+            command= "xdotool key ctrl+plus";
+          };
+          out= {
+            command= "xdotool key ctrl+minus";
+          };
+				};
+
+				threshold= {
+					swipe= 0.4;
+					pinch= 0.4;
+				};
+
+				interval= {
+					swipe= 0.8;
+					pinch= 0.1;
+				};
+			};
+};
 
     grobi = {
       enable = true;

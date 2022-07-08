@@ -13,10 +13,6 @@ let
       ];
     });
 
-    nodemon = (pkgs.callPackage ./nodemon { inherit pkgs; }).nodemon;
-
-    typescript-language-server = (pkgs.callPackage ./typescript-language-server { inherit pkgs; }).typescript-language-server;
-
     comma = with pkgs; callPackage (fetchFromGitHub {
       name = "comma";
       owner = "nix-community";
@@ -37,13 +33,10 @@ in with pkgs; [
   feh
   fd
   file
-  fusuma
   fzf
   fzy
   gcalcli
   htop
-  juboba-bin
-  juboba-scripts
   imagemagick
   ispell
   nixfmt
@@ -52,6 +45,7 @@ in with pkgs; [
   ripgrep
   simplescreenrecorder
   steam-run
+  unzip
   xournal
   zscroll
 
@@ -64,6 +58,7 @@ in with pkgs; [
   libnotify
   scrot
   slock
+  trayer
   xcalib
   xclip
   xdotool
@@ -98,10 +93,10 @@ in with pkgs; [
   # Development
   awscli2
   cypress
+  difftastic
   docker-compose
   gcc
   gotty
-  gsh
   highlight
   hugo
   jq
@@ -110,14 +105,11 @@ in with pkgs; [
   nodejs-16_13_1
   yarnWithNode16
   nodePackages.node2nix
-  nodemon
   peek
   pick-colour-picker
   python3
   robo3t
   shellcheck
-  trayer
-  typescript-language-server
-  unzip
+  haskell-language-server
 ]
 
