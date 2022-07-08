@@ -52,22 +52,10 @@ in with pkgs; {
       # Set background:
       ${HOME_PATH}/.fehbg
   '';
-
-    pointerCursor = {
-      defaultCursor = "left_ptr";
-      name = "Numix-Cursor";
-      package = numix-cursor-theme;
-      size = 64;
-    };
   };
 
 
   home = {
-    stateVersion = "20.09";
-
-    username = "juboba";
-    homeDirectory = /home/juboba;
-
     sessionVariables = {
       CM_LAUNCHER = "rofi";
     };
@@ -79,13 +67,15 @@ in with pkgs; {
 
     packages = (import ./packages.nix) pkgs;
 
-    # Extra configs
+    pointerCursor = {
+      gtk.enable = true;
+      name = "Nordzy-cursors";
+      package = nordzy-cursor-theme;
+      size = 64;
+      x11.enable = true;
+    };
+
     file = {
-      /*
-      ".emacs.d/init.el".text = ''
-            (load "default.el")
-      '';
-      */
       ".bash_completion".text = builtins.readFile ./bash_completion/git.sh;
 
       ".local/reveal.js".source = (fetchFromGitHub {
@@ -125,6 +115,21 @@ in with pkgs; {
 
   systemd.user = {
     services = {
+      conky = {
+        Unit = {
+          Description = "A conky service";
+        };
+
+        Install = {
+          WantedBy = ["graphical-session.target"];
+        };
+
+        Service = {
+          Type="forking";
+          ExecStart="${pkgs.conky}/bin/conky -d -c ${./dotfiles/xdg-configs/conky/config}";
+        };
+      };
+
       syncmail = {
         Unit = {
           Description = "Sync email and index with mu";
