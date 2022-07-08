@@ -58,7 +58,7 @@ Config { alpha = 220
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action> { <action=`vpn-status t`>%vpnStatus%</action> | <action=`sp play`>%nowPlayingIcon%</action>  |  %volume-control%  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
+       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action> { <action=`vpn-status t`>%vpnStatus%</action> |<action=`sp play`>  %nowPlayingIcon%  </action>|  %volume-control%  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
        }
 
   -- <action=`memrise -o`>%memrise%</action> <action=`duolingo -o`>%duolingo%</action>
