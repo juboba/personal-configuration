@@ -68,7 +68,6 @@ in with builtins; {
     emacs = {
       enable = true;
       extraPackages = epkgs: [ epkgs.emacsql-sqlite ] ;
-      #package =
     };
 
     git = {
@@ -76,10 +75,6 @@ in with builtins; {
       userEmail = "juboba@genial.ly";
       userName = "Julio Borja Barra";
       extraConfig = {
-        diff = {
-          external = "difft";
-        };
-
         github = {
           oauth-token = readFile ~/.oauth-token;
           user = "juboba";
@@ -88,8 +83,6 @@ in with builtins; {
         init.defaultBranch = "main";
 
         merge.conflictstyle = "diff3";
-
-        pull.ff = "only";
 
         ui.color = false;
       };
