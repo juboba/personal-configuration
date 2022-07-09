@@ -251,7 +251,8 @@ myManageHook = composeAll
     , appName =? "plasmashell"                                             --> doIgnore -- Plasma stuff
     , className =? ".pick-colour-picker-wrapped"                           --> doFloat -- Color picker
     , appName =? "showmyself"                                              --> doFloat -- Show me
-    , title     =? "Copying Files"                                         --> doFloat ]
+    , title     =? "Copying Files"                                         --> doFloat
+    , checkDock                                                            --> doLower]
     where takeTo n = doShift $ myWorkspaces !! n
     -- where viewShift = doF . liftM2 (.) W.greedyView W.shift
 

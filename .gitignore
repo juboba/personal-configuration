@@ -7,3 +7,4 @@ _xmonad/xmonad.state
 _spacemacs.d/.spacemacs.env
 *pyo
 __pycache__
+get_pass
