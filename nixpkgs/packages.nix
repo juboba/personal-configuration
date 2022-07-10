@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ juboba-bin, pkgs, ... }:
 
 let 
   nodejs-16_13_1 = (import (fetchTarball {
@@ -39,6 +39,7 @@ in with pkgs; [
   htop
   imagemagick
   ispell
+  juboba-bin
   nixfmt
   procs
   qsudo

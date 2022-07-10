@@ -22,10 +22,12 @@
       homeDirectory = "/home/juboba";
       configuration = {...}: {
         imports = [ ../nixpkgs/home.nix ];
-        #home.packages = [ juboba-bin ];
 
         nixpkgs.config.allowUnfreePredicate = a: true; 
 
+      };
+      extraSpecialArgs = {
+        inherit juboba-bin;
       };
     };
 
