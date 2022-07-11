@@ -98,6 +98,7 @@ in with pkgs; [
   docker-compose
   gcc
   gotty
+  gsh
   highlight
   hugo
   jq

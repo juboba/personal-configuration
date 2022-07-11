@@ -2,15 +2,13 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
 
-    juboba-bin.url = "path:../nixpkgs/bin";
-
     homeManager = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs @ { homeManager, juboba-bin, nixpkgs, ... }: 
+  outputs = inputs @ { homeManager, nixpkgs, ... }: 
   let
       system = "x86_64-linux";
   in {
@@ -24,10 +22,6 @@
         imports = [ ../nixpkgs/home.nix ];
 
         nixpkgs.config.allowUnfreePredicate = a: true; 
-
-      };
-      extraSpecialArgs = {
-        inherit juboba-bin;
       };
     };
 

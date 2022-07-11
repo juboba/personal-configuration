@@ -21,18 +21,6 @@
         "type": "github"
       }
     },
-    "juboba-bin": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-yDDpmOquMZAJNYmaxVUWhQZuIWWGHnBxaYqCbMFmhgQ=",
-        "path": "../nixpkgs/bin",
-        "type": "path"
-      },
-      "original": {
-        "path": "../nixpkgs/bin",
-        "type": "path"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1656433693,
@@ -52,7 +40,6 @@
     "root": {
       "inputs": {
         "homeManager": "homeManager",
-        "juboba-bin": "juboba-bin",
         "nixpkgs": "nixpkgs"
       }
     }
