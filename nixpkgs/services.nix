@@ -21,7 +21,7 @@
     flameshot.enable = true;
 
 		fusuma = {
-			enable = true;
+			enable = false;
 
 			settings = {
 				swipe = {
