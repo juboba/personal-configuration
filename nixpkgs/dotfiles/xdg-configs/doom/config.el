@@ -130,6 +130,7 @@
 (add-hook 'prog-mode-hook 'nyan-mode)
 (add-hook 'rjsx-mode-hook 'lsp)
 (add-hook 'org-mode-hook 'auto-fill-mode)
+(add-hook 'prog-mode-hook 'visual-line-mode)
 
 ;; Magit
 ;; (setq magit-git-global-arguments (delete "--literal-pathspecs" magit-git-global-arguments))
