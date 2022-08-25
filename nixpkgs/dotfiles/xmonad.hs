@@ -91,7 +91,7 @@ launchVim = spawn "rofivim"
 
 -- Width of the window border in pixels.
 myBorderWidth :: Dimension
-myBorderWidth   = 2
+myBorderWidth = 0
 
 -- scratchPads
 scratchpads :: [NamedScratchpad]
