@@ -75,7 +75,7 @@
 };
 
     grobi = {
-      enable = true;
+      enable = false;
       rules = let LAPTOP_SCREEN = "eDP";
       HOME_SCREEN = "HDMI-A-0";
       in [
