@@ -147,7 +147,6 @@
 
 ;; Doom splash image
 (setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-private-dir))
-(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 ;; Org-roam
 (setq org-roam-graph-filetype "pdf")
