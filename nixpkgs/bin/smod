@@ -24,7 +24,7 @@ case $MODE in
 
     xrandr \
     --output $LAPTOP_SCREEN --mode $RESOLUTION \
-    --output $HOME_SCREEN --auto --above $LAPTOP_SCREEN
+    --output $HOME_SCREEN --auto --above $LAPTOP_SCREEN --primary 
 
     xmonad --restart
     ;;
@@ -46,7 +46,10 @@ case $MODE in
 
     xmonad --restart
     ;;
+  *) exit 0
+    ;;
 esac
 
 # Restore background to prevent weird behaviour
 ~/.fehbg
+systemctl --user restart conky
