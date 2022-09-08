@@ -167,6 +167,10 @@ myKeys =
     -- Focus urgent window
     , ((superKey, xK_x), focusUrgent)
 
+    -- Suspend
+    , ((superKey .|. shiftMask, xK_x), spawn "systemctl suspend")
+    -- Open Pavucontrol
+    , ((superKey, xK_v), spawn "pavucontrol")
     -- Invert screen colors
     , ((superKey .|. shiftMask, xK_v), spawn "invert_colors")
     -- Screensaver
@@ -179,7 +183,9 @@ myKeys =
     , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
     -- Set slack status
     , ((superKey .|. shiftMask, xK_l), spawn "slack-do")
-    -- Set slack status
+    -- Select screen
+    , ((superKey, xK_p), spawn "smod")
+    -- Toggle terminal scratchpad
     , ((superKey .|. shiftMask, xK_t), namedScratchpadAction scratchpads "terminal")
     -- Launch Screenshot
     , ((0, xK_Print), spawn "flameshot gui")
@@ -197,7 +203,7 @@ myKeys =
     -- , ((shiftMask, xF86XK_KbdBrightnessUp), spawn "shine temp-up")
     -- , ((shiftMask, xF86XK_KbdBrightnessDown), spawn "shine temp-down")
     -- Launch rofi
-    , ((superKey, xK_p), spawn myLauncher)
+    , ((superKey, xK_e), spawn myLauncher)
     -- Toggle window transparency
     , ((superKey, xK_r), spawn "transset 0.8 -t -a")
     -- Notifications
@@ -250,6 +256,7 @@ myManageHook = composeAll
     , className =? "Gsimplecal"                                            --> doFloat -- Calendar window
     , appName =? "plasmashell"                                             --> doIgnore -- Plasma stuff
     , className =? ".pick-colour-picker-wrapped"                           --> doFloat -- Color picker
+    , className =? "Pavucontrol"                                           --> doFloat
     , appName =? "showmyself"                                              --> doFloat -- Show me
     , title     =? "Copying Files"                                         --> doFloat
     , checkDock                                                            --> doLower]

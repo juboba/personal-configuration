@@ -112,6 +112,7 @@ in with pkgs; [
   python3
   robo3t
   shellcheck
-  haskell-language-server
+  pavucontrol
+  #haskell-language-server
 ]
 
