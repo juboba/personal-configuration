@@ -119,7 +119,7 @@
 
     users.juboba = {
       isNormalUser = true;
-      extraGroups = [ "audio" "docker" "input" "wheel" ];
+      extraGroups = [ "pulse-access" "docker" "input" "wheel" ];
     };
   };
 
