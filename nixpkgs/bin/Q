@@ -6,5 +6,5 @@ case $SERVICE in
   "ramda") qutebrowser ramdajs.com/repl ;;
   "repl.it") qutebrowser repl.it ;;
   "") exit 0 ;;
-  *) qutebrowser $SERVICE
+  *) qutebrowser "$SERVICE"
 esac
