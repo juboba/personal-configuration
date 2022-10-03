@@ -63,6 +63,9 @@ in with pkgs; {
     keyboard = {
       layout="us";
       variant = "altgr-intl";
+      options = [
+        "caps:escape"
+      ];
     };
 
     packages = (import ./packages.nix) pkgs;
