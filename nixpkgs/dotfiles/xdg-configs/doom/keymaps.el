@@ -25,7 +25,8 @@
 (map! :leader "w D" 'ace-delete-window)
 (map! :leader "w W" 'ace-swap-window)
 (map! :leader "w w" 'ace-window)
-(map! :leader "w m" 'doom/window-maximize-buffer)
+(map! :leader :desc "only " "w o" 'doom/window-maximize-buffer)
+(map! :leader :desc "maximize" "w m" 'doom/window-enlargen)
 (map! :leader "w f" 'projectile-find-file-other-window)
 (map! :leader "w F" 'find-file-other-window)
 
