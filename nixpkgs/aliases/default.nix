@@ -1,3 +1,5 @@
+let config-path = "~/repositories/personal-configuration";
+in
 import ./git.nix // 
 import ./docker.nix //
 import ./docker-compose.nix //
@@ -29,4 +31,6 @@ import ./docker-compose.nix //
   trim = "sed -e 's/^[ \t]*//'";
   vi = "nvim";
   gduck = "steam-run gitduck";
+  hme = "vf ${config-path}";
+  hms = "home-manager switch --impure --flake ${config-path}/nixos";
 }
