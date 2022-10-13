@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-SERVICE=$(echo -e "ramda\nrepl.it" | rofi -dmenu -p "URL")
+SERVICE=$(echo -e "ramda\nrepl.it\nultimate guitar" | rofi -dmenu -p "URL")
 
 case $SERVICE in
   "ramda") qutebrowser ramdajs.com/repl ;;
   "repl.it") qutebrowser repl.it ;;
+  "ultimate guitar") qutebrowser ultimate-guitar.com ;;
   "") exit 0 ;;
   *) qutebrowser "$SERVICE"
 esac
