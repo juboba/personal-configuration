@@ -28,7 +28,7 @@ set_away() {
   run_slack "presence" "away"
 }
 
-SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nmeeting\nnix\nnow-playing\noff\nout\nto-school" | rofi -dmenu -matching fuzzy -p 'Set Slack status to' -sort -levenshtein-sort)
+SELECTED=$(echo -e "branch\nbreakfast\nchild\nfortune\nfrom-school\nlunch\nmeeting\nnix\nnow-playing\noff\npr\nout\nto-school" | rofi -dmenu -matching fuzzy -p 'Set Slack status to' -sort -levenshtein-sort)
 
 case $SELECTED in
   "branch")
@@ -63,10 +63,13 @@ case $SELECTED in
   "out")
     set_away
     set_status "Volveré" ":away:" ;;
+  "pr")
+    set_active
+    set_status "Revisando PRs" ":github:" ;;
   "to-school")
     set_away
     set_status "Preparando al :child: para el :school:" ":school:" ;;
   # more cases...
   "") clear_status ;;
-  *) echo "Options: branch | breakfast | child | fortune | from-school | lunch | meeting | nix | now-playing | off | out | to-school" ;;
+  *) echo "Options: branch | breakfast | child | fortune | from-school | lunch | meeting | nix | now-playing | off | out | pr | to-school" ;;
 esac
