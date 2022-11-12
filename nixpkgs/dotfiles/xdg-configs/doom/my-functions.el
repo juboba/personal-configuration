@@ -76,6 +76,18 @@ If the error list is visible, hide it.  Otherwise, show it."
 (evil-set-register ?b
    (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))
 
+(defun go-to-definition-other-window ()
+  (interactive)
+  (progn (evil-window-vsplit)
+    (+lookup/definition 'symbol)))
+
 (defun home-manager-edit ()
   (interactive)
   (doom-project-find-file "~/repositories/personal-configuration"))
+
+(defun translate-and-replace ()
+  (interactive)
+  (let ((google-translate-output-destination 'kill-ring))
+        (google-translate-smooth-translate)
+        (delete-region (region-beginning) (region-end))
+        (yank)))

@@ -58,8 +58,8 @@
     :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
 
 (package! minimap)
+(package! google-translate)
 ;; (package! indium)
-;; (package! google-translate)
 ;; (package! darkroom)
 ;; (package! org-present)
 ;; (package! mini-modeline)

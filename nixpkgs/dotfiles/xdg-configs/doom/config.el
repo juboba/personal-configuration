@@ -191,3 +191,8 @@
 (use-package minimap
   :config (setq minimap-window-location 'right)
   (setq minimap-width-fraction 0.05))
+
+(use-package google-translate
+  :config (setq
+           google-translate-translation-directions-alist
+           '(("en" . "de") ("de" . "en"))))

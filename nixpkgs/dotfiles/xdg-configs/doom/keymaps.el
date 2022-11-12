@@ -6,14 +6,18 @@
 (map! :leader
       (:prefix-map ("j" . "juboba")
         :desc "pause music" "p" 'spotify-playpause
-        :desc "pretty symbols" "t" 'prettify-symbols-mode
+        :desc "pretty symbols" "s" 'prettify-symbols-mode
         :desc "emojis" "e" 'emojify-mode
         :desc "Highlight indentation" "i" 'highlight-indentation-mode
         :desc "Copy link at point" :mode mu4e-view-mode "l" 'link-hint-copy-link-at-point
 
-       (:prefix ("h" . "Home Manager")
-        :desc "open file" "e" #'home-manager-edit
-        :desc "reload" "s" #'home-manager-switch)))
+        (:prefix ("t" . "translate")
+        :desc "translate" "t" 'google-translate-smooth-translate
+        :desc "replace with translation" "r" 'translate-and-replace)
+
+        (:prefix ("h" . "Home Manager")
+         :desc "edit" "e" #'home-manager-edit
+         :desc "switch" "s" #'home-manager-switch)))
 
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
