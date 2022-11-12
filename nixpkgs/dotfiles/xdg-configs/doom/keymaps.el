@@ -2,43 +2,52 @@
 
 ;; My Mappings
 (map! :leader "\"" 'terminal-here-launch)
-(map! :leader :prefix ("j" . "juboba") :desc "pause music" "p" 'spotify-playpause)
-(map! :leader :desc "pretty symbols" "j t" 'prettify-symbols-mode)
-(map! :leader :desc "emojis" "j e" 'emojify-mode)
-(map! :leader :desc "Highlight indentation" "j h" 'highlight-indentation-mode)
-(map! :leader :desc "Toggle minimap" "j m" 'minimap-mode)
-; Disabled in favour of =SPC c d=
-; (map! :leader :desc "jump to definition" "j d" 'tide-jump-to-definition)
-(map! :leader "t i" 'imenu-list-smart-toggle)
-(map! :leader :desc "Toggle aufo-fill" "t f" 'auto-fill-mode)
+
+(map! :leader
+      (:prefix-map ("j" . "juboba")
+        :desc "pause music" "p" 'spotify-playpause
+        :desc "pretty symbols" "t" 'prettify-symbols-mode
+        :desc "emojis" "e" 'emojify-mode
+        :desc "Highlight indentation" "i" 'highlight-indentation-mode
+        :desc "Copy link at point" :mode mu4e-view-mode "l" 'link-hint-copy-link-at-point
+
+       (:prefix ("h" . "Home Manager")
+        :desc "open file" "e" #'home-manager-edit
+        :desc "reload" "s" #'home-manager-switch)))
+
+(map! :leader :prefix "t"
+      "i" 'imenu-list-smart-toggle
+      :desc "Toggle aufo-fill" "f" 'auto-fill-mode
+      :desc "Toggle minimap" "m" 'minimap-mode)
+
 (map! :leader :desc "Comment lines" "c l" 'evilnc-comment-or-uncomment-lines)
 (map! :leader :desc "Find Org file" "o o" 'my/find-file-in-org-directory)
 
 ;; Flycheck
-(map! :leader :prefix ("e" "errors") "N" 'flycheck-previous-error)
-(map! :leader "e n" 'flycheck-next-error)
-(map! :leader "e l" 'spacemacs/toggle-flycheck-error-list)
-(map! :leader "e L" 'spacemacs/goto-flycheck-error-list)
-(map! :leader "e f" 'lsp-eslint-apply-all-fixes)
+(map! :leader :prefix ("e" . "errors")
+      :desc "previous error" "N" 'flycheck-previous-error
+      :desc "next error" "n" 'flycheck-next-error
+      :desc "open error list" "l" 'spacemacs/toggle-flycheck-error-list
+      :desc "open and focus error list" "L" 'spacemacs/goto-flycheck-error-list
+      :desc "fix all errors (lsp)" "f" 'lsp-eslint-apply-all-fixes)
 
 ;; Buffers and windows:
 (map! :leader "b D" 'kill-buffer-and-window)
-(map! :leader "w D" 'ace-delete-window)
-(map! :leader "w W" 'ace-swap-window)
-(map! :leader "w w" 'ace-window)
-(map! :leader :desc "only " "w o" 'doom/window-maximize-buffer)
-(map! :leader :desc "maximize" "w m" 'doom/window-enlargen)
-(map! :leader "w f" 'projectile-find-file-other-window)
-(map! :leader "w F" 'find-file-other-window)
+
+(map! :leader :prefix "w"
+      "D" 'ace-delete-window
+      "W" 'ace-swap-window
+      "w" 'ace-window
+      :desc "only " "o" 'doom/window-maximize-buffer
+      :desc "maximize" "m" 'doom/window-enlargen
+      "f" 'projectile-find-file-other-window
+      "F" 'find-file-other-window)
 
 ;; Magit
-(map! :leader :desc "Magit status" "g s" 'magit-status)
-(map! :leader :desc "Magit blame" "g b" 'magit-blame-addition)
-(map! :leader :desc "Magit switch to branch" "g B" 'magit-branch-checkout)
+(map! :leader :prefix "g"
+      :desc "Magit status" "s" 'magit-status
+      :desc "Magit blame" "b" 'magit-blame-addition
+      :desc "Magit switch to branch" "B" 'magit-branch-checkout)
 
 ;; Evil
 (define-key evil-visual-state-map (kbd "s") 'evil-surround-region)
-
-(map! :leader :desc "Copy link at point"
-      :mode 'mu4e-view-mode
-      "j l" 'link-hint-copy-link-at-point)

@@ -68,11 +68,14 @@ If the error list is visible, hide it.  Otherwise, show it."
       (interactive "*P\nr")
       (sort-regexp-fields reverse "\\w+" "\\&" beg end))
 
-(defun my/home-manager-switch ()
+(defun home-manager-switch ()
   "Switch to current home-manager configuration."
   (interactive)
-  (shell-command "home-manager switch"))
+  (shell-command "home-manager switch --impure --flake ~/repositories/personal-configuration/nixos"))
 
 (evil-set-register ?b
    (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))
 
+(defun home-manager-edit ()
+  (interactive)
+  (doom-project-find-file "~/repositories/personal-configuration"))
