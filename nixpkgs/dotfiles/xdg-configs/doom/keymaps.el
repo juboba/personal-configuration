@@ -13,6 +13,7 @@
 
         (:prefix ("t" . "translate")
         :desc "translate" "t" 'google-translate-smooth-translate
+        :desc "to kill ring" "y" 'translate-to-kill-ring
         :desc "replace with translation" "r" 'translate-and-replace)
 
         (:prefix ("h" . "Home Manager")

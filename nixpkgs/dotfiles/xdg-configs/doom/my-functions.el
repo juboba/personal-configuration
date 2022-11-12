@@ -85,6 +85,11 @@ If the error list is visible, hide it.  Otherwise, show it."
   (interactive)
   (doom-project-find-file "~/repositories/personal-configuration"))
 
+(defun translate-to-kill-ring ()
+  (interactive)
+  (let ((google-translate-output-destination 'kill-ring))
+        (google-translate-smooth-translate)))
+
 (defun translate-and-replace ()
   (interactive)
   (let ((google-translate-output-destination 'kill-ring))
