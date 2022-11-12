@@ -31,5 +31,5 @@ while
   [ $STATUS_CODE -eq 000 ]
 do :; done
 
-mpv ~/Sounds/doorbell-notification.wav &
+mpv ~/sounds/doorbell-notification.wav &
 notify-send "$URL is up!"
