@@ -74,7 +74,7 @@ in with pkgs; [
   # Media
   mpv
   pamix
-  python27Packages.pygments
+  #python27Packages.pygments
   spotify
   spotifywm
   sxiv
@@ -113,6 +113,6 @@ in with pkgs; [
   robo3t
   shellcheck
   pavucontrol
-  #haskell-language-server
+  haskell-language-server
 ]
 

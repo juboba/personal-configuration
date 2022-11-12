@@ -1,9 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
 
     homeManager = {
-      url = "github:nix-community/home-manager/release-22.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -14,15 +14,22 @@
   in {
 
     homeConfigurations.juboba = homeManager.lib.homeManagerConfiguration {
-      inherit system;
-      stateVersion = "20.09";
-      username = "juboba";
-      homeDirectory = "/home/juboba";
-      configuration = {...}: {
-        imports = [ ../nixpkgs/home.nix ];
+			pkgs = nixpkgs.legacyPackages.${system};
+			modules = [
+				../nixpkgs/home.nix
 
-        nixpkgs.config.allowUnfreePredicate = a: true; 
-      };
+				{
+					nixpkgs.config.allowUnfreePredicate = a: true; 
+				}
+
+				{
+					home = {
+						username = "juboba";
+						homeDirectory = "/home/juboba";
+						stateVersion = "20.09";
+					};
+				}
+			];
     };
 
     nixosConfigurations.faraday = nixpkgs.lib.nixosSystem {

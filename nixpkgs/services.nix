@@ -113,13 +113,15 @@
       #inactiveDim = "0.5";
       #inactiveOpacity = "0.7";
       enable = true;
-      extraOptions = ''
-        corner-radius = 12;
-      '';
       fade = true;
       fadeDelta = 5;
+
+      settings = {
+        corner-radius = 12;
+      };
+
       shadow = true;
-      shadowOpacity = "0.9";
+      shadowOpacity = 0.9;
     };
 
     redshift = {
