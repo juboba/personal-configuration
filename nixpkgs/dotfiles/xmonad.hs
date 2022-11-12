@@ -259,6 +259,7 @@ myManageHook = composeAll
     , className =? "Pavucontrol"                                           --> doFloat
     , appName =? "showmyself"                                              --> doFloat -- Show me
     , title     =? "Copying Files"                                         --> doFloat
+    , className =? "Xmessage"                                              --> doFloat
     , checkDock                                                            --> doLower]
     where takeTo n = doShift $ myWorkspaces !! n
     -- where viewShift = doF . liftM2 (.) W.greedyView W.shift
