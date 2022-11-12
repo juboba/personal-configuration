@@ -57,6 +57,7 @@
 (package! pulsing-cursor
     :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
 
+(package! minimap)
 ;; (package! indium)
 ;; (package! google-translate)
 ;; (package! darkroom)

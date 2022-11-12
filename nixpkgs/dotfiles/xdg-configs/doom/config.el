@@ -187,3 +187,7 @@
 
 (use-package pulsing-cursor
     :config (pulsing-cursor-mode +1))
+
+(use-package minimap
+  :config (setq minimap-window-location 'right)
+  (setq minimap-width-fraction 0.05))

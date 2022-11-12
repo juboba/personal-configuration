@@ -6,6 +6,7 @@
 (map! :leader :desc "pretty symbols" "j t" 'prettify-symbols-mode)
 (map! :leader :desc "emojis" "j e" 'emojify-mode)
 (map! :leader :desc "Highlight indentation" "j h" 'highlight-indentation-mode)
+(map! :leader :desc "Toggle minimap" "j m" 'minimap-mode)
 ; Disabled in favour of =SPC c d=
 ; (map! :leader :desc "jump to definition" "j d" 'tide-jump-to-definition)
 (map! :leader "t i" 'imenu-list-smart-toggle)
