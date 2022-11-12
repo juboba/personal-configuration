@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# Other icons:
-# ICON="▶"
-# ICON="▮▮"
-# ICON="■"
-
 ICON=""
 
 case "$(sp status)" in

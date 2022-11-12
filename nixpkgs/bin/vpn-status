@@ -19,9 +19,9 @@ if [ "$1" = "t" ]; then
 fi
 
 if [ "$ACTIVE" = "active" ]; then
-  STATUS=""
+  STATUS="🔶"
 else
-  STATUS="O"
+  STATUS="🔸"
 fi
 
 echo $STATUS

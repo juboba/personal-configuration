@@ -5,13 +5,13 @@
 -- #fc5130
 -- #050401
 
-Config { alpha = 220
-       -- , font = "xft:Monaco:size=14,FontAwesome:size=14,Arial:size=10"
+Config { alpha = 120
+       -- , font = "xft:Monaco:size=14,FontAwesome:size=14,Arial:size=10,Noto Color Emoji"
        -- , font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
        , font = "xft:Ubuntu:size=16,FontAwesome:size=14,Arial:size=10"
        , bgColor = "#000000"
        , fgColor = "#7f7f7f"
-       , position = TopW L 94
+       , position = TopSize L 95 30
        , lowerOnStart = True
        , iconRoot = "/home/juboba/.xmobar"
        , commands = [ Run Weather "EGPF" ["-t"," <tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
@@ -33,11 +33,11 @@ Config { alpha = 220
                         "-t", "<acstatus> <left>%",
                         "--",
                         -- "-c", "charge_full",
-                        "-O", "<fc=#fc5130></fc>",
-                        "-i", "<fc=#303036></fc>",
-                        "-o", "<fc=#30bced></fc>",
+                        "-O", "<fc=#fc5130>🔌</fc>",
+                        "-i", "<fc=#303036>🔌</fc>",
+                        "-o", "<fc=#30bced>🔋</fc>",
                         -- "--off-icon-pattern",
-                        -- "",
+                        -- "🔋",
                         "-h", "green",
                         "-m", "blue",
                         "-l", "red",
@@ -58,7 +58,7 @@ Config { alpha = 220
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader%} <action=`gsimplecal`><fc=#30bced> %date%</fc></action> { <action=`vpn-status t`>%vpnStatus%</action> |<action=`sp play`>  %nowPlayingIcon%  </action>|  %volume-control%  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
+       , template = " %UnsafeStdinReader%}<action=`gsimplecal`><fc=#30bced> %date%</fc></action>{<action=`vpn-status t`>%vpnStatus%</action> |<action=`sp play`>  %nowPlayingIcon%  </action>|  %volume-control%  |  <fc=red>%batalert%</fc> %battery%  |  <fc=#30bced> %time%</fc> "
        }
 
   -- <action=`memrise -o`>%memrise%</action> <action=`duolingo -o`>%duolingo%</action>
