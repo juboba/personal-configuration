@@ -123,7 +123,7 @@ in with builtins; {
 
     rofi = {
       enable = true;
-      theme = "${HOME_PATH}/.config/rofi/themes/User\ Themes/slate.rasi";
+      theme = "${HOME_PATH}/.config/rofi/themes/themes/spotlight-dark.rasi";
     };
 
     starship = {

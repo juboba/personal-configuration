@@ -102,10 +102,10 @@ in with pkgs; {
 
       ".config/rofi/themes".source = (fetchFromGitHub {
         name = "rofi-themes";
-        owner = "davatorium";
-        repo = "rofi-themes";
-        rev = "bfdde8e7912ad50a468c721b29b448c1ec5fa5e3";
-        sha256 = "1k0nznqccc9y13x3pj6yd2j80nbnl3pyy8ihs91rf89gizb09w63";
+        owner = "lr-tech";
+        repo = "rofi-themes-collection";
+        rev = "5ae9b23ef58893229b0df57ad750ad84801a632e";
+        sha256 = "sha256-ecCQcDVWXpSilER99OROW9wutIq58llUGjFTn9rH2RM=";
       });
 
       ".xmobarrc".text = builtins.readFile ./dotfiles/xmobarrc;
