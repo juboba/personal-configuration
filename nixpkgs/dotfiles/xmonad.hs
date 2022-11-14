@@ -169,8 +169,8 @@ myKeys =
 
     -- Suspend
     , ((superKey .|. shiftMask, xK_x), spawn "systemctl suspend")
-    -- Open Pavucontrol
-    , ((superKey, xK_v), spawn "pavucontrol -t 3")
+    -- Select sound card
+    , ((superKey, xK_v), spawn "sndsel")
     -- Invert screen colors
     , ((superKey .|. shiftMask, xK_v), spawn "invert_colors")
     -- Screensaver
