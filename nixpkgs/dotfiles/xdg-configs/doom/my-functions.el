@@ -71,7 +71,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 (defun home-manager-switch ()
   "Switch to current home-manager configuration."
   (interactive)
-  (shell-command "home-manager switch --impure --flake ~/repositories/personal-configuration/nixos"))
+  (async-shell-command "home-manager switch --impure --flake ~/repositories/personal-configuration/nixos"))
 
 (evil-set-register ?b
    (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))
@@ -96,3 +96,14 @@ If the error list is visible, hide it.  Otherwise, show it."
         (google-translate-smooth-translate)
         (delete-region (region-beginning) (region-end))
         (yank)))
+
+(defun get-remark-file-path ()
+  (concat "~/Documents/Org/remark/" (f-filename (doom-project-root)) ".org"))
+
+(setq org-remark-notes-file-name
+      #'get-remark-file-path)
+
+(defun fix-and-save ()
+  (interactive)
+  (lsp-eslint-apply-all-fixes)
+  (save-buffer))

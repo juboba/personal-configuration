@@ -2,6 +2,7 @@
 
 ;; My Mappings
 (map! :leader "\"" 'terminal-here-launch)
+(map! :leader "!" 'shell-pop)
 
 (map! :leader
       (:prefix-map ("j" . "juboba")
@@ -16,9 +17,20 @@
         :desc "to kill ring" "y" 'translate-to-kill-ring
         :desc "replace with translation" "r" 'translate-and-replace)
 
+        (:prefix ("r" . "remark")
+        :desc "mark" "m" 'org-remark-mark
+        :desc "mark yellow" "y" 'org-remark-mark-yellow
+        :desc "mark red" "r" 'org-remark-mark-red-line
+        :desc "view" "v" 'org-remark-view
+        :desc "delete" "d" 'org-remark-delete)
+
         (:prefix ("h" . "Home Manager")
          :desc "edit" "e" #'home-manager-edit
          :desc "switch" "s" #'home-manager-switch)))
+
+(map! :leader :prefix "c"
+      :desc "Jump to def other window" "D" 'go-to-definition-other-window
+      :desc "Jump to references" "u" '+lsp-lookup-references-handler)
 
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
@@ -34,6 +46,7 @@
       :desc "next error" "n" 'flycheck-next-error
       :desc "open error list" "l" 'spacemacs/toggle-flycheck-error-list
       :desc "open and focus error list" "L" 'spacemacs/goto-flycheck-error-list
+      :desc "fix & save" "e" 'fix-and-save
       :desc "fix all errors (lsp)" "f" 'lsp-eslint-apply-all-fixes)
 
 ;; Buffers and windows:

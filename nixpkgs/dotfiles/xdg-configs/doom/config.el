@@ -28,11 +28,6 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'kaolin-valley-dark)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/Org/")
-(setq org-roam-directory "~/Documents/Org/Dropbox")
-
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
@@ -105,22 +100,12 @@
 ;(push '("\\.tsx\\'" . rjsx-mode) auto-mode-alist)
 (push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
 
-;; Revealjs root
-(setq org-reveal-root "file:///home/juboba/.local/reveal.js")
-
-(require 'ox-reveal)
-(require 'ox-hugo)
-
 ;; Doom's private directory
 (setq doom-private-dir "/home/juboba/repositories/personal-configuration/nixpkgs/dotfiles/xdg-configs/doom")
 
 
 ;; Set branch name max length
 (setq doom-modeline-vcs-max-length 40)
-
-;; Github Flavored Markdown export in Org
-(eval-after-load "org"
-  '(require 'ox-gfm nil t))
 
 ;; Hooks
 (add-hook 'after-init-hook #'global-emojify-mode)
@@ -129,7 +114,6 @@
 (add-hook 'prog-mode-hook 'my/add-pretty-lambda)
 (add-hook 'prog-mode-hook 'nyan-mode)
 (add-hook 'rjsx-mode-hook 'lsp)
-(add-hook 'org-mode-hook 'auto-fill-mode)
 (add-hook 'prog-mode-hook 'visual-line-mode)
 
 ;; Magit
@@ -148,23 +132,6 @@
 ;; Doom splash image
 (setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-private-dir))
 
-;; Org-roam
-(setq org-roam-graph-filetype "pdf")
-
-(use-package! websocket
-    :after org-roam)
-
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
 
 (use-package! kubernetes)
 
@@ -189,10 +156,18 @@
     :config (pulsing-cursor-mode +1))
 
 (use-package minimap
-  :config (setq minimap-window-location 'right)
+  :config
+  (setq minimap-window-location 'right)
   (setq minimap-width-fraction 0.05))
 
 (use-package google-translate
   :config (setq
            google-translate-translation-directions-alist
            '(("en" . "de") ("de" . "en"))))
+
+(use-package shell-pop
+  :config (setq
+           shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell))))
+           shell-pop-autocd-to-working-dir nil))
+
+;;; config.el ends here
