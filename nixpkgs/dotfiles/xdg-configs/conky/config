@@ -44,17 +44,16 @@ gap_y 80
 
 # Minimum size of text area
 minimum_size 30 0
-maximum_width 290
+maximum_width 300
 
 
 # Create own window instead of using desktop (required in nautilus)
 own_window yes
-own_window_type dock
+own_window_type desktop
 own_window_transparent yes
 own_window_argb_visual yes
-own_window_argb_visual no
 own_window_colour 000000
-own_window_argb_value 0
+own_window_argb_value 0.5
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 
 # Text alignment, other possible values are commented
@@ -106,19 +105,17 @@ default_outline_color white
 color1 DDDDDD
 color2 AAAAAA
 color3 888888
-color4 ffa54f # Orange
+color4 30bced # Orange
 color5 77B753 # Green
 color6 3a5153 # DarkGrey
 
 # Header with base system info
 # stuff after 'TEXT' will be formatted on screen
-own_window_argb_value 0
-own_window_argb_visual yes
-own_window_colour 000000
 TEXT
 #SYSTEM DETAILS:
 ${font Monospace:style=Bold:pixelsize=16}${color4}SYSTEM ${color6}${hr 2}
-${color}${font Monospace:size=7.2}OS: ${alignr}NixOS 21.11 (Porcupine) x86_64
+${color}${font Monospace:size=7.2}OS: ${alignr}NixOS 22.11 (Raccoon) x86_64
+${execi 60000 nixos-version | sed -E 's/([0-9]{2}\.[0-9]{2})\..*\((.*)\)/\1 (\2)/'}
 KERNEL: $alignr$sysname $kernel ($machine)
 UPTIME: $alignr$uptime
 RUNNING PROCESSES: ${alignr}$processes (${color4}$running_processes Executing${color})

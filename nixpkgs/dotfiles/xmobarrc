@@ -5,7 +5,7 @@
 -- #fc5130
 -- #050401
 
-Config { alpha = 120
+Config { alpha = 220
        -- , font = "xft:Monaco:size=14,FontAwesome:size=14,Arial:size=10,Noto Color Emoji"
        -- , font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
        , font = "xft:Ubuntu:size=16,FontAwesome:size=14,Arial:size=10"
