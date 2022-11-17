@@ -57,6 +57,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce
+import XMonad.Util.WorkspaceCompare (filterOutWs)
 import Graphics.X11.ExtraTypes.XF86
 
 import qualified Data.Map        as M
@@ -345,7 +346,7 @@ main = do
                         , ppLayout  = layoutIndicatorStyle
                         , ppOutput  = hPutStrLn xmproc
                         , ppSep     = "  "
-                        , ppSort = (.namedScratchpadFilterOutWorkspace) <$> ppSort xmobarPP
+                        , ppSort =  (.filterOutWs [scratchpadWorkspaceTag]) <$> ppSort xmobarPP
                         , ppTitle   = windowTitleStyle
                         , ppUrgent  = urgentWsIndicatorStyle
                         , ppVisible = visibleWsStyle
