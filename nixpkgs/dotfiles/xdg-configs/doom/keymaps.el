@@ -12,6 +12,13 @@
         :desc "Highlight indentation" "i" 'highlight-indentation-mode
         :desc "Copy link at point" :mode mu4e-view-mode "l" 'link-hint-copy-link-at-point
 
+        (:prefix ("c" . "conflict")
+        :desc "keep upper" "u" 'smerge-keep-upper
+        :desc "keep lower" "l" 'smerge-keep-lower
+        :desc "keep both" "b" 'smerge-keep-base
+        :desc "keep both" "a" 'smerge-keep-all
+        :desc "next" "n" 'smerge-vc-next-conflict)
+
         (:prefix ("t" . "translate")
         :desc "translate" "t" 'google-translate-smooth-translate
         :desc "to kill ring" "y" 'translate-to-kill-ring
