@@ -97,7 +97,6 @@ in with pkgs; {
         sha256 = "0yh6lgd341j7clz4h5xkmcj21iv68a0azamxc7arffydig6ah17f";
       });
 
-      ".local/share/applications".source = ./dotfiles/applications;
       ".local/share/fonts".source = ./fonts;
 
       ".config/rofi/themes".source = (fetchFromGitHub {
