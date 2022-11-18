@@ -53,6 +53,7 @@
       autorun = true;
     
       displayManager.lightdm.enable = true;
+      displayManager.lightdm.background = ./lightdm-background.jpg;
 
       windowManager.xmonad = {
         enable = true;

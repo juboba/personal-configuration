@@ -166,8 +166,31 @@ with pkgs; {
   mimeApps = {
     enable = true;
 
-    defaultApplications = {
-      "application/pdf"= "org.pwmt.zathura.desktop";
-    };
+    defaultApplications =
+      let
+        browser = google-chrome;
+        google-chrome = "google-chrome.desktop";
+        qutebrowser = "org.qutebrowser.qutebrowser.desktop";
+        slack = "org.pwmt.zathura.desktop";
+        sxiv = "sxiv.desktop";
+        zathura = "org.pwmt.zathura.desktop";
+      in {
+        "application/pdf" = zathura;
+        "application/x-extension-htm" = browser;
+        "application/x-extension-html" = browser;
+        "application/x-extension-shtml" = browser;
+        "application/x-extension-xht" = browser;
+        "application/x-extension-xhtml" = browser;
+        "application/xhtml+xml" = browser;
+
+        "image/png" = sxiv;
+        "text/html" = browser;
+
+        "x-scheme-handler/chrome" = browser;
+        "x-scheme-handler/http" = browser;
+        "x-scheme-handler/https" = browser;
+        "x-scheme-handler/slack" = slack;
+
+      };
   };
 }

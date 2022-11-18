@@ -26,7 +26,7 @@ My config is mainly:
    - Mouse gestures                  :fusuma
    - Compositioning for X11          :picom
    - Notification daemon             :dunst
-   - Simple system tray              :stalonetray
+   - Simple system tray              :trayer
    - Network Manager applet for tray :nm-applet
 
 *** Applications
