@@ -11,6 +11,7 @@
         :desc "emojis" "e" 'emojify-mode
         :desc "Highlight indentation" "i" 'highlight-indentation-mode
         :desc "Copy link at point" :mode mu4e-view-mode "l" 'link-hint-copy-link-at-point
+        :desc "Show info" "v" 'lsp-signature-activate
 
         (:prefix ("c" . "conflict")
         :desc "keep upper" "u" 'smerge-keep-upper

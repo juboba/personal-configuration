@@ -132,6 +132,7 @@
 ;; Doom splash image
 (setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-private-dir))
 
+(setq lsp-signature-auto-activate nil)
 
 (use-package! kubernetes)
 
