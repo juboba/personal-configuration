@@ -21,7 +21,7 @@ import XMonad.Actions.CopyWindow
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
--- import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.EwmhDesktops (ewmhFullscreen, ewmh, setEwmhActivateHook)
 import XMonad.Hooks.ManageHelpers
 -- import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
@@ -211,6 +211,7 @@ myKeys =
     , ((superKey .|. shiftMask, xK_n), spawn "dunstctl set-paused toggle")
     , ((superKey, xK_grave), spawn "dunstctl close-all")
     , ((superKey .|. shiftMask, xK_grave), spawn "dunstctl history-pop")
+    , ((superKey .|. shiftMask, xK_a), spawn "dunstctl action")
     -- Launch Terminal
     -- , ((modm,               xK_F1     ), spawn $ XMonad.terminal conf)
     ]
@@ -335,7 +336,7 @@ windowTitleStyle = xmobarColor "#444444" "" . shorten 30 . xmobarStrip . wrap " 
 main :: IO()
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ docks $ withUrgencyHook NoUrgencyHook def
+    xmonad $ docks $ withUrgencyHook NoUrgencyHook $ setEwmhActivateHook doAskUrgent . ewmh $ def
         { borderWidth        = myBorderWidth
         , focusedBorderColor = myFocusedBorderColor
         , layoutHook         = smartBorders . avoidStruts
