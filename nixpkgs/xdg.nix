@@ -89,8 +89,6 @@ with pkgs; {
 		};
 
 		gsh = {
-			#startupWMClass = "Devium";
-			#version = 1.0;
 			comment = "Genially dev-env";
 			exec = "terminal gsh";
 			genericName = "Genially Dev Env";
@@ -101,8 +99,6 @@ with pkgs; {
 		};
 
 		jmux = {
-			#startupWMClass = "Devium";
-			#version = 1.0;
 			comment= " My entry point to Tmux";
 			exec = "jmux";
 			genericName = "JMux";
@@ -113,8 +109,6 @@ with pkgs; {
 		};
 
 		qutebrowser = {
-			#startupWMClass= "Devium";
-			#version = 1.0;
 			categories =  [ "Network" "WebBrowser" ];
 			comment = "A keyboard-driven, vim-like browser based on PyQt5";
 			exec = "Q";
@@ -126,8 +120,6 @@ with pkgs; {
 		};
 
 		smod = {
-			#startupWMClass= "Devium";
-			#version = 1.0;
 			comment = "Select screen configuration";
 			exec = "smod";
 			icon = "screen";
@@ -137,8 +129,6 @@ with pkgs; {
 		};
 
 		sndsel = {
-			#startupWMClass= "Devium";
-			#version = 1.0;
 			comment = "Select sound output";
 			exec = "sndsel";
 			icon = "screen";
