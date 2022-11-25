@@ -88,6 +88,12 @@ with pkgs; {
 			type = "Application";
 		};
 
+    emacs = {
+      exec = "emacs";
+      name = "Emacs";
+      noDisplay = true;
+    };
+
 		gsh = {
 			comment = "Genially dev-env";
 			exec = "terminal gsh";
