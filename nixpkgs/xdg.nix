@@ -75,18 +75,18 @@ with pkgs; {
     };
   };
 
-	desktopEntries = {
-		devium = {
-			#startupWMClass = "Devium";
-			#version = 1.0;
-			comment = "Self destructing Chromium browser with predefined profile";
-			exec = "devium %f";
-			genericName = "Development Chromium";
-			icon = "chromium";
-			name = "Devium";
-			terminal = false;
-			type = "Application";
-		};
+  desktopEntries = {
+    devium = {
+      #startupWMClass = "Devium";
+      #version = 1.0;
+      comment = "Self destructing Chromium browser with predefined profile";
+      exec = "devium %f";
+      genericName = "Development Chromium";
+      icon = "chromium";
+      name = "Devium";
+      terminal = false;
+      type = "Application";
+    };
 
     emacs = {
       exec = "emacs";
@@ -94,70 +94,69 @@ with pkgs; {
       noDisplay = true;
     };
 
-		gsh = {
-			comment = "Genially dev-env";
-			exec = "terminal gsh";
-			genericName = "Genially Dev Env";
-			icon = "screen";
-			name = "gsh";
-			terminal = false;
-			type = "Application";
-		};
+    gsh = {
+      comment = "Genially dev-env";
+      exec = "terminal gsh";
+      genericName = "Genially Dev Env";
+      icon = "screen";
+      name = "gsh";
+      terminal = false;
+      type = "Application";
+    };
 
-		jmux = {
-			comment= " My entry point to Tmux";
-			exec = "jmux";
-			genericName = "JMux";
-			icon = "tmux";
-			name = "JMux";
-			terminal = false;
-			type = "Application";
-		};
+    jmux = {
+      comment= " My entry point to Tmux";
+      exec = "jmux";
+      genericName = "JMux";
+      icon = "tmux";
+      name = "JMux";
+      terminal = false;
+      type = "Application";
+    };
 
-		qutebrowser = {
-			categories =  [ "Network" "WebBrowser" ];
-			comment = "A keyboard-driven, vim-like browser based on PyQt5";
-			exec = "Q";
-			genericName = "Browser";
-			icon = "qutebrowser";
-			name = "qutebrowser";
-			terminal = false;
-			type = "Application";
-		};
+    qutebrowser = {
+      categories =  [ "Network" "WebBrowser" ];
+      comment = "A keyboard-driven, vim-like browser based on PyQt5";
+      exec = "Q";
+      genericName = "Browser";
+      icon = "qutebrowser";
+      name = "qutebrowser";
+      terminal = false;
+      type = "Application";
+    };
 
-		smod = {
-			comment = "Select screen configuration";
-			exec = "smod";
-			icon = "screen";
-			name = "Screen Mode";
-			terminal = false;
-			type = "Application";
-		};
+    smod = {
+      comment = "Select screen configuration";
+      exec = "smod";
+      icon = "screen";
+      name = "Screen Mode";
+      terminal = false;
+      type = "Application";
+    };
 
-		sndsel = {
-			comment = "Select sound output";
-			exec = "sndsel";
-			icon = "screen";
-			name = "Sound output select";
-			terminal = false;
-			type = "Application";
-		};
+    sndsel = {
+      comment = "Select sound output";
+      exec = "sndsel";
+      icon = "screen";
+      name = "Sound output select";
+      terminal = false;
+      type = "Application";
+    };
 
-		spotify = {
-			#mimeType = "x-scheme-handler/spotify;";
-			#startupWMClass = "spotify";
-			#tryExec = "spotifywm";
-			categories = [ "Audio" "Music" "Player" "AudioVideo" ];
-			exec = "spotifywm %U";
-			genericName = "Music Player";
-			icon = "spotify-client";
-			name = "Spotify";
-			terminal = false;
-			type = "Application";
-		};
+    spotify = {
+      #mimeType = "x-scheme-handler/spotify;";
+      #startupWMClass = "spotify";
+      #tryExec = "spotifywm";
+      categories = [ "Audio" "Music" "Player" "AudioVideo" ];
+      exec = "spotifywm %U";
+      genericName = "Music Player";
+      icon = "spotify-client";
+      name = "Spotify";
+      terminal = false;
+      type = "Application";
+    };
 
-	};
-
+  };
 
   mimeApps = {
     enable = true;
