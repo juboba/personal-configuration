@@ -270,8 +270,7 @@ myManageHook = composeAll
 -- Startup:
 myStartupHook :: X ()
 myStartupHook =
-  spawnOnce "fusuma" <+>
-  spawnOnce "trayer --height 30 --width 6 --edge top --align right --tint 0x00000000 --transparent true --alpha 0"
+  spawnOnce "fusuma"
 -- do
 --   _ <- let count = show  wsContainingCopies
 --    in spawn ("notify-send " ++ count)

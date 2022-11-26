@@ -59,7 +59,6 @@ in with pkgs; [
   libnotify
   scrot
   slock
-  trayer
   xcalib
   xclip
   xdotool

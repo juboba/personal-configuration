@@ -1,160 +1,185 @@
 { ... }:
 {
-    blueman-applet.enable = true;
+  blueman-applet.enable = true;
 
-    clipmenu.enable = true;
+  clipmenu.enable = true;
 
-    dunst = {
-      enable = true;
-      settings = import ./dunst.nix;
-    };
+  dunst = {
+    enable = true;
+    settings = import ./dunst.nix;
+  };
 
-    dropbox = {
-      enable = true;
-      path = "/home/juboba/Documents/Org/Dropbox";
-    };
+  dropbox = {
+    enable = true;
+    path = "/home/juboba/Documents/Org/Dropbox";
+  };
 
-    emacs = {
-      enable = true;
-    };
+  emacs = {
+    enable = true;
+  };
 
-    flameshot.enable = true;
+  flameshot.enable = true;
 
-		fusuma = {
-			enable = false;
+	fusuma = {
+		enable = false;
 
-			settings = {
-				swipe = {
-					"3" = {
-            left = {
-              command = "xdotool key alt+Right";
-            };
-
-            right = {
-              command = "xdotool key alt+Left";
-            };
-
-            up = {
-              command = "xdotool key super";
-            };
-
-            down = {
-              command = "xdotool key Escape";
-            };
+		settings = {
+			swipe = {
+				"3" = {
+          left = {
+            command = "xdotool key alt+Right";
           };
 
-          "4"= {
-            left = {
-              command = "xdotool key super+Right";
-            };
-            right = {
-              command = "xdotool key super+Left";
-            };
+          right = {
+            command = "xdotool key alt+Left";
           };
-				};
 
-				pinch = {
-          "in"= {
-            command= "xdotool key ctrl+plus";
+          up = {
+            command = "xdotool key super";
           };
-          out= {
-            command= "xdotool key ctrl+minus";
+
+          down = {
+            command = "xdotool key Escape";
           };
-				};
+        };
 
-				threshold= {
-					swipe= 0.4;
-					pinch= 0.4;
-				};
-
-				interval= {
-					swipe= 0.8;
-					pinch= 0.1;
-				};
+        "4"= {
+          left = {
+            command = "xdotool key super+Right";
+          };
+          right = {
+            command = "xdotool key super+Left";
+          };
+        };
 			};
-};
 
-    grobi = {
-      enable = false;
-      rules = let LAPTOP_SCREEN = "eDP";
-      HOME_SCREEN = "HDMI-A-0";
-      in [
-        {
-          name = "Solo";
-          outputs_connected = [ LAPTOP_SCREEN ];
-          #outputs_disconnected = [ "DP-1" "DP-2" ];
-          outputs_disconnected = [ HOME_SCREEN ];
-          configure_single = LAPTOP_SCREEN + "@1920x1080";
-          primary = true;
-          atomic = true;
+			pinch = {
+        "in"= {
+          command= "xdotool key ctrl+plus";
+        };
+        out= {
+          command= "xdotool key ctrl+minus";
+        };
+			};
 
-          execute_after = [
-            "~/.fehbg"
-          ];
-        }
-        {
-          name = "Home";
-          outputs_connected = [ HOME_SCREEN ];
-          #configure_column = [ HOME_SCREEN HOME_SCREEN ++ "@1920x1080" ];
-          configure_single = HOME_SCREEN;
-          primary = true;
-          atomic = true;
+			threshold= {
+				swipe= 0.4;
+				pinch= 0.4;
+			};
 
-          execute_after = [
-            "~/.fehbg"
-          ];
-        }
+			interval= {
+				swipe= 0.8;
+				pinch= 0.1;
+			};
+		};
+  };
+
+  grobi = {
+    enable = false;
+    rules = let LAPTOP_SCREEN = "eDP";
+                HOME_SCREEN = "HDMI-A-0";
+            in [
+              {
+                name = "Solo";
+                outputs_connected = [ LAPTOP_SCREEN ];
+                #outputs_disconnected = [ "DP-1" "DP-2" ];
+                outputs_disconnected = [ HOME_SCREEN ];
+                configure_single = LAPTOP_SCREEN + "@1920x1080";
+                primary = true;
+                atomic = true;
+
+                execute_after = [
+                  "~/.fehbg"
+                ];
+              }
+              {
+                name = "Home";
+                outputs_connected = [ HOME_SCREEN ];
+                #configure_column = [ HOME_SCREEN HOME_SCREEN ++ "@1920x1080" ];
+                configure_single = HOME_SCREEN;
+                primary = true;
+                atomic = true;
+
+                execute_after = [
+                  "~/.fehbg"
+                ];
+              }
+            ];
+  };
+
+  network-manager-applet.enable = true;
+
+  picom = {
+    #inactiveDim = "0.5";
+    #inactiveOpacity = "0.7";
+    enable = true;
+    fade = true;
+    fadeDelta = 5;
+
+    settings = {
+      corner-radius = 12;
+      rounded-corners-exclude = [
+        "class_i = 'xmobar'"
+        "class_g = 'trayer'"
+      ];
+
+      shadow-exclude = [
+        "class_g = 'trayer'"
       ];
     };
 
-    network-manager-applet.enable = true;
+    shadow = true;
+    shadowOpacity = 0.9;
+  };
 
-    picom = {
-      #inactiveDim = "0.5";
-      #inactiveOpacity = "0.7";
-      enable = true;
-      fade = true;
-      fadeDelta = 5;
+  redshift = {
+    enable = true;
+    #provider = "geoclue2";
 
-      settings = {
-        corner-radius = 12;
-      };
-
-      shadow = true;
-      shadowOpacity = 0.9;
+    settings = {
+      redshift.brightness-day = 1;
+      redshift.brightness-night = 0.8;
     };
 
-    redshift = {
-      enable = true;
-      #provider = "geoclue2";
+    latitude = "36";
+    longitude = "-6";
 
-      settings = {
-        redshift.brightness-day = 1;
-        redshift.brightness-night = 0.8;
-      };
-
-      latitude = "36";
-      longitude = "-6";
-
-      temperature = {
-        day = 7700;
-        night = 3700;
-      };
-
-      tray = true;
+    temperature = {
+      day = 7700;
+      night = 3700;
     };
 
-    stalonetray = {
-      enable = false;
+    tray = true;
+  };
 
-      config = {
-        transparent = false;
-        geometry  = "6x1-0+0";
+  stalonetray = {
+    enable = false;
 
-        background = "#000000";
-        icon_size = 22;
-        kludges = "force_icons_size";
-        grow_gravity = "E";
-      };
+    config = {
+      transparent = false;
+      geometry  = "6x1-0+0";
+
+      background = "#000000";
+      icon_size = 22;
+      kludges = "force_icons_size";
+      grow_gravity = "E";
     };
+  };
+
+  trayer = {
+    enable = true;
+
+    settings = {
+      align = "right";
+      alpha = 50;
+      distance = 90;
+      distancefrom = "right";
+      edge = "top";
+      height = 30;
+      tint = "0x00000000";
+      transparent = true;
+      width = 6;
+      widthtype = "request";
+    };
+  };
 }
