@@ -20,12 +20,12 @@
 
   flameshot.enable = true;
 
-	fusuma = {
-		enable = false;
+  fusuma = {
+    enable = false;
 
-		settings = {
-			swipe = {
-				"3" = {
+    settings = {
+      swipe = {
+        "3" = {
           left = {
             command = "xdotool key alt+Right";
           };
@@ -51,27 +51,27 @@
             command = "xdotool key super+Left";
           };
         };
-			};
+      };
 
-			pinch = {
+      pinch = {
         "in"= {
           command= "xdotool key ctrl+plus";
         };
         out= {
           command= "xdotool key ctrl+minus";
         };
-			};
+      };
 
-			threshold= {
-				swipe= 0.4;
-				pinch= 0.4;
-			};
+      threshold= {
+        swipe= 0.4;
+        pinch= 0.4;
+      };
 
-			interval= {
-				swipe= 0.8;
-				pinch= 0.1;
-			};
-		};
+      interval= {
+        swipe= 0.8;
+        pinch= 0.1;
+      };
+    };
   };
 
   grobi = {
