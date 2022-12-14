@@ -13,6 +13,7 @@ Config { alpha = 220
        , fgColor = "#7f7f7f"
        , position = TopSize L 100 30
        , lowerOnStart = True
+       , overrideRedirect = True
        , iconRoot = "/home/juboba/.xmobar"
        , commands = [ Run Weather "EGPF" ["-t"," <tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
                     -- , Run Swap [] 10
@@ -59,7 +60,7 @@ Config { alpha = 220
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader%}<action=`gsimplecal`><fc=#30bced> %date%</fc></action>{<action=`vpn-status t`>%vpnStatus%</action> |<action=`sp play`>  %nowPlayingIcon%  </action>|  %volume-control%  |  <fc=red>%batalert%</fc> %battery% | %trayer-space% |  <fc=#30bced> %time%</fc> "
+       , template = " %UnsafeStdinReader%}<action=`gsimplecal`><fc=#30bced>🗓 %date%</fc></action>{<action=`vpn-status t`>%vpnStatus%</action> |<action=`sp play`>  %nowPlayingIcon%  </action>|  %volume-control%  |  <fc=red>%batalert%</fc> %battery% | %trayer-space% |  <fc=#30bced> %time%</fc> "
        }
 
   -- <action=`memrise -o`>%memrise%</action> <action=`duolingo -o`>%duolingo%</action>

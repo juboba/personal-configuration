@@ -61,6 +61,7 @@ import XMonad.Util.WorkspaceCompare (filterOutWs)
 import Graphics.X11.ExtraTypes.XF86
 
 import qualified Data.Map        as M
+import qualified XMonad.Util.Hacks as Hacks
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -262,19 +263,10 @@ myManageHook = composeAll
     , appName =? "showmyself"                                              --> doFloat -- Show me
     , title     =? "Copying Files"                                         --> doFloat
     , className =? "Xmessage"                                              --> doFloat
+    , className =? "trayer"                                                --> doIgnore
     , checkDock                                                            --> doLower]
     where takeTo n = doShift $ myWorkspaces !! n
     -- where viewShift = doF . liftM2 (.) W.greedyView W.shift
-
-------------------------------------------------------------------------
--- Startup:
-myStartupHook :: X ()
-myStartupHook =
-  spawnOnce "fusuma"
--- do
---   _ <- let count = show  wsContainingCopies
---    in spawn ("notify-send " ++ count)
---   return ()
 
 ------------------------------------------------------------------------
 addGap = smartSpacing 10
@@ -338,6 +330,7 @@ main = do
     xmonad $ docks $ withUrgencyHook NoUrgencyHook $ setEwmhActivateHook doAskUrgent . ewmh $ def
         { borderWidth        = myBorderWidth
         , focusedBorderColor = myFocusedBorderColor
+        , handleEventHook = Hacks.trayerAboveXmobarEventHook <> Hacks.windowedFullscreenFixEventHook
         , layoutHook         = smartBorders . avoidStruts
           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
           myLayoutHook
@@ -360,7 +353,6 @@ main = do
                               <+> manageHook def
         , modMask           = superKey
         , normalBorderColor = myNormalBorderColor
-        , startupHook       = myStartupHook
         , terminal          = myTerminal
         , workspaces        = myWorkspaces
         } `additionalKeys` myKeys
