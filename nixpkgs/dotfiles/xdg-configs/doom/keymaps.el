@@ -1,11 +1,13 @@
 ;;; keymaps.el -*- lexical-binding: t; -*-
 
-;; My Mappings
+;;; Code:
 (map! :leader "\"" 'terminal-here-launch)
 (map! :leader "!" 'shell-pop)
 
+(map! "C-SPC" 'execute-extended-command)
+
 (map! :leader
-      (:prefix-map ("j" . "juboba")
+      (:prefix ("j" . "juboba")
         :desc "pause music" "p" 'spotify-playpause
         :desc "pretty symbols" "s" 'prettify-symbols-mode
         :desc "emojis" "e" 'emojify-mode
@@ -16,7 +18,7 @@
         (:prefix ("c" . "conflict")
         :desc "keep upper" "u" 'smerge-keep-upper
         :desc "keep lower" "l" 'smerge-keep-lower
-        :desc "keep both" "b" 'smerge-keep-base
+        :desc "keep base" "b" 'smerge-keep-base
         :desc "keep both" "a" 'smerge-keep-all
         :desc "next" "n" 'smerge-vc-next-conflict)
 
@@ -43,7 +45,7 @@
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
       :desc "Toggle aufo-fill" "f" 'auto-fill-mode
-      :desc "Toggle minimap" "m" 'minimap-mode)
+      :desc "Toggle breadcrumbs" "p" 'lsp-headerline-breadcrumb-mode)
 
 (map! :leader :desc "Comment lines" "c l" 'evilnc-comment-or-uncomment-lines)
 (map! :leader :desc "Find Org file" "o o" 'my/find-file-in-org-directory)
@@ -71,9 +73,10 @@
 
 ;; Magit
 (map! :leader :prefix "g"
-      :desc "Magit status" "s" 'magit-status
       :desc "Magit blame" "b" 'magit-blame-addition
       :desc "Magit switch to branch" "B" 'magit-branch-checkout)
 
 ;; Evil
 (define-key evil-visual-state-map (kbd "s") 'evil-surround-region)
+
+;;; keymaps.el ends here
