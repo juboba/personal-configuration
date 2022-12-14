@@ -5,6 +5,7 @@ let
 in with builtins; {
     alacritty = {
       enable = true;
+
       settings = {
         colors = {
           primary = {
@@ -29,6 +30,7 @@ in with builtins; {
 
     bash = {
       enable = true;
+
       initExtra = ''
         PATH=~/.emacs.d/bin:$PATH
         # Disable terminal suspension with Ctrl + s and Ctrl + q
@@ -72,6 +74,7 @@ in with builtins; {
 
     git = {
       enable = true;
+
       userEmail = "juboba@genial.ly";
       userName = "Julio Borja Barra";
       extraConfig = {
@@ -132,6 +135,7 @@ in with builtins; {
 
       settings = {
         add_newline = false;
+
         line_break = {
           disabled = true;
         };
@@ -149,6 +153,7 @@ in with builtins; {
 
     neovim = {
       enable = true;
+
       plugins = with pkgs.vimPlugins; [
         ale
         awesome-vim-colorschemes
@@ -202,6 +207,12 @@ in with builtins; {
       keyMode = "vi";
       shortcut = "x";
       terminal = "screen-256color";
+    };
+
+    xmobar = {
+      enable = true;
+
+      extraConfig = builtins.readFile ./dotfiles/xmobarrc;
     };
 
     zathura = {

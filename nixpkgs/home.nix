@@ -106,14 +106,12 @@ in with pkgs; {
         rev = "5ae9b23ef58893229b0df57ad750ad84801a632e";
         sha256 = "sha256-ecCQcDVWXpSilER99OROW9wutIq58llUGjFTn9rH2RM=";
       });
-
-      ".xmobarrc".text = builtins.readFile ./dotfiles/xmobarrc;
     };
   };
 
   xdg = (import ./xdg.nix) { inherit pkgs; };
   programs = (import ./programs.nix) { inherit pkgs builtins; };
-  services = (import ./services.nix) {};
+  services = (import ./services.nix) { inherit pkgs; };
 
   systemd.user = {
     services = {
