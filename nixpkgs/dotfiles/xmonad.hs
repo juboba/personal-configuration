@@ -140,6 +140,9 @@ goFull = do
     sendMessage ToggleStruts
 
 ------------------------------------------------------------------------
+myEventHooks = Hacks.trayerAboveXmobarEventHook <> Hacks.windowedFullscreenFixEventHook <> Hacks.trayerPaddingXmobarEventHook
+
+------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
 -- myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
@@ -330,7 +333,7 @@ main = do
     xmonad $ docks $ withUrgencyHook NoUrgencyHook $ setEwmhActivateHook doAskUrgent . ewmh $ def
         { borderWidth        = myBorderWidth
         , focusedBorderColor = myFocusedBorderColor
-        , handleEventHook = Hacks.trayerAboveXmobarEventHook <> Hacks.windowedFullscreenFixEventHook
+        , handleEventHook = myEventHooks
         , layoutHook         = smartBorders . avoidStruts
           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
           myLayoutHook

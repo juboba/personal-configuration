@@ -29,7 +29,6 @@ Config { alpha = 220
                     , Run Com "sp-icon" [] "nowPlayingIcon" 5
                     , Run Com "duolingo" ["-i"] "duolingo" 5
                     , Run Com "memrise" ["-i"] "memrise" 5
-                    , Run Com "trayer-padding-icon.sh" [] "trayer-space" 20
                     , Run Battery [
                         -- "-t", "<left>% <acstatus> [<timeleft>]",
                         "-t", "<acstatus> <left>%",
@@ -57,10 +56,11 @@ Config { alpha = 220
                             --, "-n", "green"
                         ] 10
                     , Run UnsafeStdinReader
+                    , Run XPropertyLog "_XMONAD_TRAYPAD"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader%}<action=`gsimplecal`><fc=#30bced>🗓 %date%</fc></action>{<action=`vpn-status t`>%vpnStatus%</action> |<action=`sp play`>  %nowPlayingIcon%  </action>|  %volume-control%  |  <fc=red>%batalert%</fc> %battery% | %trayer-space% |  <fc=#30bced> %time%</fc> "
+       , template = " %UnsafeStdinReader%}<action=`gsimplecal`><fc=#30bced>🗓 %date%</fc></action>{<action=`vpn-status t`>%vpnStatus%</action> |<action=`sp play`>  %nowPlayingIcon%  </action>|  %volume-control%  |  <fc=red>%batalert%</fc> %battery% | %_XMONAD_TRAYPAD% |  <fc=#30bced> %time%</fc> "
        }
 
   -- <action=`memrise -o`>%memrise%</action> <action=`duolingo -o`>%duolingo%</action>
