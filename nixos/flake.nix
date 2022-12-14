@@ -43,9 +43,11 @@
         homeManager.nixosModules.home-manager
 
         ({ pkgs, ... }: {
-          nix.extraOptions = "experimental-features = nix-command flakes";
-          nix.package = pkgs.nixFlakes;
-          nix.registry.nixpkgs.flake = nixpkgs;
+          nix = {
+            extraOptions = "experimental-features = nix-command flakes";
+            package = pkgs.nixFlakes;
+            registry.nixpkgs.flake = nixpkgs;
+          };
           
           home-manager.useGlobalPkgs = true;
         })
