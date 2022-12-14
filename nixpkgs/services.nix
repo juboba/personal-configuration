@@ -110,14 +110,14 @@
   network-manager-applet.enable = true;
 
   picom = {
-    #inactiveDim = "0.5";
-    #inactiveOpacity = "0.7";
     enable = true;
+
     fade = true;
     fadeDelta = 5;
 
     settings = {
       corner-radius = 12;
+
       rounded-corners-exclude = [
         "class_i = 'xmobar'"
         "class_g = 'trayer'"
@@ -172,7 +172,7 @@
     settings = {
       align = "right";
       alpha = 50;
-      distance = 90;
+      distance = 80;
       distancefrom = "right";
       edge = "top";
       height = 24;
