@@ -6,5 +6,5 @@ FILE=$(fd \
 echo $FILE
 
 if [ -n "$FILE" ] ; then
-  sxiv -t $FILE;
+  sxiv -a -t $FILE;
 fi
