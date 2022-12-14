@@ -175,7 +175,7 @@
       distance = 80;
       distancefrom = "right";
       edge = "top";
-      height = 24;
+      height = 26;
       margin = 10;
       tint = "0x00000000";
       transparent = true;
