@@ -11,7 +11,6 @@ import ./docker-compose.nix //
   ec = "emacsclient";
   gcal = "gcalcli calw $(date -d \"$D\" \"+%d\") 2 --monday";
   hm = "home-manager";
-  hs = "hess";
   ls = "exa --group-directories-first";
   l = "ls ";
   ll = "l -l --git --color=always";
@@ -32,7 +31,8 @@ import ./docker-compose.nix //
   vim = "nvim";
   vi = "vim";
   gduck = "steam-run gitduck";
-  hme = "vf ${config-path}";
   hmb = "home-manager build --impure --flake ${config-path}/nixos";
+  hmd = "cd ${config-path}";
+  hme = "vf ${config-path}";
   hms = "home-manager switch --impure --flake ${config-path}/nixos";
 }
