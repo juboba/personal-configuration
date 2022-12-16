@@ -39,20 +39,10 @@
       specialArgs = {
         inherit inputs;
       };
+
       modules = [
         homeManager.nixosModules.home-manager
-
-        ({ pkgs, ... }: {
-          nix = {
-            extraOptions = "experimental-features = nix-command flakes";
-            package = pkgs.nixFlakes;
-            registry.nixpkgs.flake = nixpkgs;
-          };
-          
-          home-manager.useGlobalPkgs = true;
-        })
-
-        ./configuration.nix
+        (import ./configuration.nix { inherit nixpkgs; })
       ];
     };
 

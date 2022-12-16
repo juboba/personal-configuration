@@ -1,12 +1,10 @@
-{ config, pkgs, ... }:
+{ nixpkgs }: { config, pkgs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
     ];
-
-  nixpkgs.config.allowUnfree = true;
 
   boot = {
     # https://en.wikipedia.org/wiki/Magic_SysRq_key
@@ -34,6 +32,19 @@
     # replicates the default behaviour.
     useDHCP = false;
   };
+
+  home-manager.useGlobalPkgs = true;
+
+  nix = {
+    extraOptions = "experimental-features = nix-command flakes";
+    package = pkgs.nixFlakes;
+    registry.nixpkgs.flake = nixpkgs;
+    #nixPath = ["nixos-config=/home/juboba/repositories/personal-configuration/nixos/configuration.nix"];
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
