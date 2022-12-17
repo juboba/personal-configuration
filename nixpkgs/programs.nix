@@ -174,20 +174,21 @@ in with builtins; {
       ];
 
       extraConfig = ''
-        set smarttab
-        set softtabstop=0
-        set shiftwidth=2
         set autoindent
-        set showcmd
         set expandtab
         set number
+        set omnifunc=ale#completion#OmniFunc
         set relativenumber
+        set shiftwidth=2
+        set showcmd
+        set smartcase
+        set smarttab
+        set softtabstop=0
         set tabstop=2
 
         let b:ale_fixers = ['prettier', 'eslint']
         let g:ale_completion_enabled = 1
 
-        set omnifunc=ale#completion#OmniFunc
         let g:ale_completion_autoimport = 1
 
         let g:airline_theme='fruit_punch'
@@ -200,8 +201,9 @@ in with builtins; {
     };
 
     tmux = {
-      baseIndex = 1;
       enable = true;
+
+      baseIndex = 1;
       extraConfig = builtins.readFile ./dotfiles/tmux.conf;
       historyLimit = 10000;
       keyMode = "vi";
