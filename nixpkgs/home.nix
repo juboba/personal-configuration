@@ -31,6 +31,8 @@ in with pkgs; {
     certificatesFile = "/etc/ssl/certs/ca-certificates.crt";
   };
 
+  nixpkgs.config.allowUnfreePredicate = a: true;
+
   xresources.properties = {
     "*background" = "#303036";
     "*foreground" = "#fffaff";
@@ -54,11 +56,8 @@ in with pkgs; {
   '';
   };
 
-
   home = {
-    sessionVariables = {
-      CM_LAUNCHER = "rofi";
-    };
+    homeDirectory = "/home/juboba";
 
     keyboard = {
       layout="us";
@@ -66,16 +65,6 @@ in with pkgs; {
       options = [
         "caps:escape"
       ];
-    };
-
-    packages = (import ./packages.nix) pkgs;
-
-    pointerCursor = {
-      gtk.enable = true;
-      name = "Nordzy-cursors";
-      package = nordzy-cursor-theme;
-      size = 64;
-      x11.enable = true;
     };
 
     file = {
@@ -107,6 +96,24 @@ in with pkgs; {
         sha256 = "sha256-ecCQcDVWXpSilER99OROW9wutIq58llUGjFTn9rH2RM=";
       });
     };
+
+    packages = (import ./packages.nix) pkgs;
+
+    pointerCursor = {
+      gtk.enable = true;
+      name = "Nordzy-cursors";
+      package = nordzy-cursor-theme;
+      size = 64;
+      x11.enable = true;
+    };
+
+    stateVersion = "20.09";
+
+    sessionVariables = {
+      CM_LAUNCHER = "rofi";
+    };
+
+    username = "juboba";
   };
 
   xdg = (import ./xdg.nix) { inherit pkgs; };

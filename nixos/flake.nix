@@ -14,22 +14,10 @@
   in {
 
     homeConfigurations.juboba = homeManager.lib.homeManagerConfiguration {
-			pkgs = nixpkgs.legacyPackages.${system};
-			modules = [
-				../nixpkgs/home.nix
-
-				{
-					nixpkgs.config.allowUnfreePredicate = a: true; 
-				}
-
-				{
-					home = {
-						username = "juboba";
-						homeDirectory = "/home/juboba";
-						stateVersion = "20.09";
-					};
-				}
-			];
+      pkgs = nixpkgs.legacyPackages.${system};
+      modules = [
+        ../nixpkgs/home.nix
+      ];
     };
 
     nixosConfigurations.faraday = nixpkgs.lib.nixosSystem {
