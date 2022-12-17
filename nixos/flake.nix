@@ -30,6 +30,8 @@
 
       modules = [
         homeManager.nixosModules.home-manager
+        ./amd-controller/amd-controller.nix
+        ./hardware-configuration.nix
         (import ./configuration.nix { inherit nixpkgs; })
       ];
     };

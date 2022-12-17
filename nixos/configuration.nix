@@ -1,28 +1,34 @@
 { nixpkgs }: { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
-
   boot = {
     # https://en.wikipedia.org/wiki/Magic_SysRq_key
     kernel.sysctl."kernel.sysrq" = 1;
 
     loader = {
+      efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
       timeout = 1;
-      efi.canTouchEfiVariables = true;
     };
 
     plymouth.enable = true;
   };
 
-  time.timeZone = "Europe/Madrid";
+  environment.systemPackages = with pkgs; [
+    gnupg
+    ghc
+    wget
+    home-manager
+  ];
+
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+  };
+
+  home-manager.useGlobalPkgs = true;
 
   networking = {
-
     hostName = "faraday"; # Define your hostname.
     interfaces.eno1.useDHCP = true;
     interfaces.wlp1s0.useDHCP = true;
@@ -32,8 +38,6 @@
     # replicates the default behaviour.
     useDHCP = false;
   };
-
-  home-manager.useGlobalPkgs = true;
 
   nix = {
     extraOptions = "experimental-features = nix-command flakes";
@@ -46,6 +50,13 @@
 
   powerManagement.cpuFreqGovernor = "ondemand";
 
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs = {
+    gnupg.agent.enable = true;
+    vim.defaultEditor = true;
+  };
+
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
@@ -54,37 +65,12 @@
   # };
 
   services = {
+    avahi.enable = true;
+    #avahi.nssmdns = true;
     blueman.enable = true;
     cron.enable = true;
-
     geoclue2.enable = true;
     
-    xserver = {
-      enable = true;
-      autorun = true;
-    
-      displayManager.lightdm.enable = true;
-      displayManager.lightdm.background = ./lightdm-background.jpg;
-
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-      };
-    
-      layout = "us";
-      xkbVariant = "altgr-intl";
-      xkbOptions = "caps:escape";
-    
-      libinput = {
-        enable = true;
-        touchpad = {
-          additionalOptions = ''MatchIsTouchpad "on"'';
-          naturalScrolling = true;
-          tapping = true;
-        };
-      };
-    };
-
     openvpn.servers = {
       genially = {
         autoStart = false;
@@ -98,8 +84,35 @@
       drivers = [ pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
     };
 
-    avahi.enable = true;
-    #avahi.nssmdns = true;
+    xserver = {
+      enable = true;
+      autorun = true;
+
+      displayManager.lightdm = {
+        enable = true;
+        background = ./lightdm-background.jpg;
+      };
+
+      layout = "us";
+
+      libinput = {
+        enable = true;
+
+        touchpad = {
+          additionalOptions = ''MatchIsTouchpad "on"'';
+          naturalScrolling = true;
+          tapping = true;
+        };
+      };
+
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+      };
+
+      xkbVariant = "altgr-intl";
+      xkbOptions = "caps:escape";
+    };
 
   };
 
@@ -111,11 +124,24 @@
     };
   };
 
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-  };
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "20.09"; # Did you read the comment?
 
+  time.timeZone = "Europe/Madrid";
+
+  users = {
+    extraGroups.vboxusers.members = ["juboba"];
+
+    users.juboba = {
+      extraGroups = [ "pulse-access" "docker" "input" "wheel" ];
+      isNormalUser = true;
+    };
+  };
 
   virtualisation = {
     docker.enable = true;
@@ -125,39 +151,4 @@
       enableExtensionPack = true;
     };
   };
-  
-  users = {
-    extraGroups.vboxusers.members = ["juboba"];
-
-    users.juboba = {
-      isNormalUser = true;
-      extraGroups = [ "pulse-access" "docker" "input" "wheel" ];
-    };
-  };
-
-  environment.systemPackages = with pkgs; [
-    gnupg
-    ghc
-    wget
-    home-manager
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs = {
-    gnupg.agent = {
-      enable = true;
-    };
-
-    vim.defaultEditor = true;
-  };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
 }
-
