@@ -48,7 +48,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "ondemand";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -70,6 +73,7 @@
     blueman.enable = true;
     cron.enable = true;
     geoclue2.enable = true;
+    gpm.enable = true;
     
     openvpn.servers = {
       genially = {
