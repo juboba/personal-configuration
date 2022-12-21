@@ -1,14 +1,14 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
-
     homeManager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
   };
 
-  outputs = inputs @ { homeManager, nixpkgs, ... }: 
+  outputs = inputs @ { homeManager, nixpkgs, ... }:
   let
       system = "x86_64-linux";
   in {
@@ -30,7 +30,7 @@
 
       modules = [
         homeManager.nixosModules.home-manager
-        ./amd-controller/amd-controller.nix
+        (import ./amd-controller/amd-controller.nix)
         ./hardware-configuration.nix
         (import ./configuration.nix { inherit nixpkgs; })
       ];

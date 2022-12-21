@@ -1,6 +1,21 @@
 { nixpkgs }: { config, pkgs, ... }:
 
 {
+  amd-controller = {
+    enable = true;
+
+    udev.enable = true;
+
+    # processor = "4800H";
+
+    # power-saving = {
+    #   ac = true;
+    #   batt = true;
+    # };
+
+    # temperature = 95;
+  };
+
   boot = {
     # https://en.wikipedia.org/wiki/Magic_SysRq_key
     kernel.sysctl."kernel.sysrq" = 1;
