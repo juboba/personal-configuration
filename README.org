@@ -31,38 +31,12 @@ My config is mainly:
 
 *** Applications
    - Browser:              Firefox
-   - Work Browser:         Chromium
+   - Work Browser:         Chrome
    - Development Browser:  [[https://github.com/juboba/scripts/blob/master/devium][Devium]]
-   - Terminal:             st
+   - Terminal:             alacritty
    - Terminal multiplexer: tmux
    - PDF Viewer:           zathura
    - File manager:         ranger
 
 *** Global Key mappings
-   | Key Chord           | Action                                                  |
-   |---------------------+---------------------------------------------------------|
-   | Super f             | Fullscreen                                              |
-   | Super Shift v       | Invert X11 colors                                       |
-   | Super r             | Toggle window transparency (80%)                        |
-   | Super Enter         | Promote window to main                                  |
-   | Super Shift Enter   | Run terminal                                            |
-   | Super p             | Run program                                             |
-   | Super j             | Next window                                             |
-   | Super k             | Previous window                                         |
-   | Super h             | Decrease main window size                               |
-   | Super l             | Increase main window size                               |
-   | Super o             | Focus other screen                                      |
-   | Super g             | Show all open windows                                   |
-   | Super Shift o       | Send workspace to other screen                          |
-   | Super Shift i       | Copy emoticon                                           |
-   | Super Shift e       | Open with Vim                                           |
-   | Super Shift w       | Open with Sxiv (to set wallpaper)                       |
-   | Super Shift y       | Open colorpicker                                        |
-   | Super Shift n       | Toggle notifications (dunst)                            |
-   | Print               | Take screenshot to ~/Pictures/Screenshots               |
-   | Shift Print         | Take screenshot to clipboard                            |
-   | Media keys          | Volume and Previous, Play/Pause and Next                |
-   | Brightness          | Control screen brightness level                         |
-   | Shift Brightness*   | Control screen temperature level                        |
-   | Super `             | Close all notifications (dunst)                         |
-   | Super Shift`        | Show previous notification (dunst)                      |
+See [[./nixpkgs/dotfiles/xmonad.hs::146][xmonad.hs]]
