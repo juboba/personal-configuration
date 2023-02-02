@@ -2,6 +2,7 @@
 
 let cfg = config.amd-controller;
     amdController = (pkgs.callPackage ./default.nix {});
+
     awake = pkgs.writeShellScriptBin "awake" ''
     if [ ! -f "/sys/class/power_supply/AC0/online" ]; then
       exit 1
@@ -34,6 +35,14 @@ in {
       '';
     };
 
+    managePM.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = mDoc ''
+        Enable powerManagement handling...
+      '';
+    };
+
     udev.enable = mkOption {
       type = types.bool;
       default = false;
@@ -43,14 +52,14 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = with lib; mkIf cfg.enable {
     environment = {
       systemPackages = [ amdController ];
 
       etc."amd-controller/config.json".source = with builtins; toFile "config" (toJSON processors."4800H");
     };
 
-    powerManagement = {
+    powerManagement = mkIf cfg.managePM.enable {
       enable = true;
 
       cpuFreqGovernor = "ondemand";
@@ -60,7 +69,7 @@ in {
       powertop.enable = true;
     };
 
-    services.udev.extraRules = lib.mkIf cfg.udev.enable ''
+    services.udev.extraRules = mkIf cfg.udev.enable ''
       # This config optimize the battery power
       SUBSYSTEM=="power_supply", KERNEL=="AC0", DRIVER=="", ATTR{online}=="1", RUN+="${awake-udev}/bin/awake-udev"
       SUBSYSTEM=="power_supply", KERNEL=="AC0", DRIVER=="", ATTR{online}=="0", RUN+="${awake-udev}/bin/awake-udev"
