@@ -46,3 +46,7 @@ mkcd() {
 gitLinesForAuthor() {
   git log --author="$1" --pretty=tformat: --numstat | awk -F" " '{ added += $1; removed += $2 } END { print "added: ",  added, "removed:", removed }'
 }
+
+nrn () {
+  nix run "nixpkgs#$1"
+}
