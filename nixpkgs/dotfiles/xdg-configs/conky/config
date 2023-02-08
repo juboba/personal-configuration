@@ -169,10 +169,9 @@ ${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=
 ${alignr}${color BBCCDD}${upspeedgraph wlp1s0 20,290 77B753 77B753}
 ${color}TOTAL UP ${alignr}${totalup wlp1s0}
 
+${color}${font :size=10:style=Bold}${alignc}"Experience is not what
+${color}${font :size=10:style=Bold}${alignc}happens to you;
+${color}${font :size=10:style=Bold}${alignc}it's what you do with
+${color}${font :size=10:style=Bold}${alignc}what happens to you."
 
-${color}${font :size=10:style=Bold}${alignc}"Perfection is achieved, not when
-${color}${font :size=10:style=Bold}${alignc}there is nothing more to add,
-${color}${font :size=10:style=Bold}${alignc}but when there is nothing left to
-${color}${font :size=10:style=Bold}${alignc}take away."
-
-${color}${font :size=9}${alignc}Antoine de Saint-Exupery
+${color}${font :size=9}${alignc}Aldous Huxley
