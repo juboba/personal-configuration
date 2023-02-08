@@ -1,11 +1,11 @@
 {
   inputs = {
     homeManager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
   };
 
   outputs = inputs @ { homeManager, nixpkgs, ... }:
