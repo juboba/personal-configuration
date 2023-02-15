@@ -22,6 +22,8 @@ in with builtins; {
           size = 15;
         };
 
+        "import" = [ "${HOME_PATH}/.config/alacritty/dracula/dracula.yml" ];
+
         window = {
           padding = { x = 10; y = 10; };
         };
@@ -37,7 +39,10 @@ in with builtins; {
         stty -ixon -ixoff
 
         # `cd` when quit ranger
-        source ~/.config/ranger/shell_automatic_cd.sh
+        if [ -f ~/.config/ranger/shell_automatic_cd.sh ]
+        then
+          source ~/.config/ranger/shell_automatic_cd.sh
+        fi
 
         # `cd` when quit nnn
         if [ -f ~/.config/nnn/plugins/quitcd.bash_zsh ]
@@ -45,7 +50,7 @@ in with builtins; {
           source ~/.config/nnn/plugins/quitcd.bash_zsh
         fi
 
-        export NNN_BMS='m:~/Projects/genially/mono;o:~/Documents/Org'
+        export NNN_BMS='m:~/projects/genially/mono;o:~/Documents/Org'
 
         # Greet with some fortune cookie | with lovely colors
         fortune | lolcat
@@ -54,8 +59,8 @@ in with builtins; {
 
       profileExtra = ''
         setxkbmap -option caps:escape
-        if [ -e /home/juboba/.nix-profile/etc/profile.d/nix.sh ]; then . /home/juboba/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-        '';
+      '';
+
       shellOptions =  [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
 
       sessionVariables = {
@@ -207,6 +212,16 @@ in with builtins; {
       extraConfig = builtins.readFile ./dotfiles/tmux.conf;
       historyLimit = 10000;
       keyMode = "vi";
+      plugins = [
+        {
+          plugin = pkgs.tmuxPlugins.dracula;
+          extraConfig = ''
+            set -g @dracula-show-fahrenheit false
+            set -g @dracula-show-battery false
+            set -g @dracula-show-network false
+          '';
+        }
+      ];
       shortcut = "x";
       terminal = "screen-256color";
     };
