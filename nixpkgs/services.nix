@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   blueman-applet.enable = true;
 
@@ -117,6 +117,8 @@
 
     settings = {
       corner-radius = 12;
+
+      inactive-dim = 0.5;
 
       rounded-corners-exclude = [
         "class_i = 'xmobar'"
