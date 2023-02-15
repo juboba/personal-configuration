@@ -88,7 +88,7 @@ in with pkgs; [
   # Communication
   discord
   slack
-  tdesktop
+  kotatogram-desktop
 
   # Development
   awscli2

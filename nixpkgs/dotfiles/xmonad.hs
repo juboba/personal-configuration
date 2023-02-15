@@ -25,7 +25,6 @@ import XMonad.Hooks.EwmhDesktops (ewmhFullscreen, ewmh, setEwmhActivateHook)
 import XMonad.Hooks.ManageHelpers
 -- import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
-import XMonad.Hooks.FadeInactive
 
 -- import XMonad.Layout.Renamed
 import XMonad.Layout.PerWorkspace
@@ -240,14 +239,13 @@ myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll
     [ isFullscreen --> doFullFloat
     , className =? "Emacs"                                                 --> takeTo 1
-    , className =? "Thunderbird"                                           --> takeTo 7
     -- , className =? "Xmessage"                                              --> doFloat
     , appName =? "chromium-browser (dev-profile)"                          --> takeTo 2
     , appName =? "chromium-browser"                                        --> takeTo 3
     , appName =? "google-chrome"                                           --> takeTo 3
     , title =? "meet.google.com is sharing your screen."                   --> takeTo 6
     , className =? "Spotify"                                               --> takeTo 5
-    , className =? "TelegramDesktop"                                       --> takeTo 4
+    , className =? "KotatogramDesktop"                                       --> takeTo 4
     , className =? "Slack"                                                 --> takeTo 4
     , className =? "discord"                                               --> takeTo 4
     , className =? "firefox"                                               --> takeTo 8
@@ -267,7 +265,9 @@ myManageHook = composeAll
     , title     =? "Copying Files"                                         --> doFloat
     , className =? "Xmessage"                                              --> doFloat
     , className =? "trayer"                                                --> doIgnore
-    , checkDock                                                            --> doLower]
+    , checkDock                                                            --> doLower
+
+    , className =? "Cypress"                                               --> takeTo 7 ]
     where takeTo n = doShift $ myWorkspaces !! n
     -- where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
@@ -279,7 +279,7 @@ mainLayout :: ModifiedLayout Spacing Tall a
 mainLayout = addGap $ Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
-    ratio   = 3/4
+    ratio   = 1/2
 
 -- tallLayout :: ModifiedLayout
 tallLayout       = named "\61659"     $ avoidStruts mainLayout -- 
@@ -319,7 +319,7 @@ urgentWsIndicatorStyle :: String -> String
 urgentWsIndicatorStyle = xmobarColor "#fc5130" ""
 
 visibleWsStyle :: String -> String
-visibleWsStyle = xmobarColor "#20aaaa" "LightSkyBlue4"
+visibleWsStyle = xmobarColor "#20aaaa" ""
 
 layoutIndicatorStyle :: String -> String
 layoutIndicatorStyle = wrap "" "" . xmobarColor "#303036" ""
@@ -333,16 +333,16 @@ main = do
     xmonad $ docks $ withUrgencyHook NoUrgencyHook $ setEwmhActivateHook doAskUrgent . ewmh $ def
         { borderWidth        = myBorderWidth
         , focusedBorderColor = myFocusedBorderColor
-        , handleEventHook = myEventHooks
+        , handleEventHook    = myEventHooks
         , layoutHook         = smartBorders . avoidStruts
           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
           myLayoutHook
-        , logHook = fadeInactiveLogHook 0.8 <+> dynamicLogWithPP xmobarPP
+        , logHook = dynamicLogWithPP xmobarPP
                         { ppCurrent = currentWsStyle
                         , ppLayout  = layoutIndicatorStyle
                         , ppOutput  = hPutStrLn xmproc
                         , ppSep     = "  "
-                        , ppSort =  (.filterOutWs [scratchpadWorkspaceTag]) <$> ppSort xmobarPP
+                        , ppSort    =  (.filterOutWs [scratchpadWorkspaceTag]) <$> ppSort xmobarPP
                         , ppTitle   = windowTitleStyle
                         , ppUrgent  = urgentWsIndicatorStyle
                         , ppVisible = visibleWsStyle
