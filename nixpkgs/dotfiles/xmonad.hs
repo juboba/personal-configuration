@@ -17,6 +17,7 @@ import XMonad.Actions.GridSelect
 -- import XMonad.Actions.SpawnOn
 
 import XMonad.Actions.CopyWindow
+import XMonad.Actions.Submap (submap)
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
@@ -161,7 +162,7 @@ myKeys =
     -- Cycle tiling modes
     -- , ((superKey, xK_0), sendMessage NextLayout)
     -- Send current workspace to next screen
-    , ((superKey .|. shiftMask, xK_o), swapNextScreen)
+    , ((superKey .|. shiftMask, xK_o), swapNextScreen >> nextScreen)
     , ((superKey .|. shiftMask, xK_e), launchVim)
     , ((superKey .|. shiftMask, xK_w), spawn "rofisxiv")
     -- Focus next screen
@@ -170,6 +171,8 @@ myKeys =
     , ((superKey .|. shiftMask, xK_s ),  killAllOtherCopies) -- @@ Toggle window state back
     -- Focus urgent window
     , ((superKey, xK_x), focusUrgent)
+    -- Kill window
+    , ((superKey .|. shiftMask, xK_0), spawn "xkill")
 
     -- Suspend
     , ((superKey .|. shiftMask, xK_x), spawn "systemctl suspend")
@@ -181,6 +184,11 @@ myKeys =
     , ((superKey .|. shiftMask, xK_z), spawn "slock")
     -- Copy Emoji
     , ((superKey .|. shiftMask, xK_i), spawn "rofiemoji")
+    , ((superKey, xK_m), submap . M.fromList $
+      [ ((0, xK_n),     spawn "sp next")
+      , ((shiftMask, xK_n),     spawn "sp prev")
+      , ((0, xK_p),     spawn "sp play")
+      ])
     -- Clipboard Menu
     , ((superKey .|. shiftMask, xK_m), spawn "clipmenu")
     -- Launch color picker
