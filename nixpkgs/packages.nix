@@ -1,4 +1,4 @@
-{ juboba-bin, pkgs, ... }:
+{ pkgs, ... }:
 
 let 
   nodejs-16_13_1 = (import (fetchTarball {
@@ -21,98 +21,103 @@ let
       sha256 = "0qgg632ky6bnwkf9kh1z4f12dilkmdy0xgpal26g2vv416di04jq";
     }) { inherit pkgs; };
 
-in with pkgs; [
-  # Utils
-  bc
-  brightnessctl
-  comma
-  conky
-  xdragon
-  dunst
-  exa
-  feh
-  fd
-  file
-  fzf
-  fzy
-  gcalcli
-  htop
-  imagemagick
-  ispell
-  juboba-bin
-  nixfmt
-  procs
-  qsudo
-  ripgrep
-  simplescreenrecorder
-  steam-run
-  unzip
-  xournal
-  zscroll
+in with pkgs; {
+  home.packages = [
+    # Utils
+    bc
+    brightnessctl
+    comma
+    conky
+    xdragon
+    dunst
+    exa
+    feh
+    fd
+    file
+    fzf
+    fzy
+    gcalcli
+    htop
+    imagemagick
+    ispell
+    juboba-bin
+    nixfmt
+    procs
+    qsudo
+    ripgrep
+    simplescreenrecorder
+    steam-run
+    unzip
+    xournal
+    zscroll
 
-  # Inutils
-  fortune
-  lolcat
+    # Inutils
+    fortune
+    lolcat
 
-  # UI
-  gsimplecal
-  libnotify
-  scrot
-  slock
-  xcalib
-  xclip
-  xdotool
-  xmobar
-  xorg.transset
-  xsel
+    # UI
+    gsimplecal
+    libnotify
+    scrot
+    slock
+    xcalib
+    xclip
+    xdotool
+    xmobar
+    xorg.transset
+    xsel
 
-  # File System
-  nnn
-  ranger
+    # File System
+    nnn
+    ranger
 
-  # Media
-  mpv
-  pamix
-  python39Packages.pygments
-  spotify
-  spotifywm
-  sxiv
-  texlive.combined.scheme-full
+    # Media
+    mpv
+    pamix
+    python39Packages.pygments
+    spotify
+    spotifywm
+    sxiv
+    texlive.combined.scheme-full
 
-  # Browser
-  chromium
-  firefox
-  google-chrome
-  qutebrowser
+    # Browser
+    python310Packages.adblock
+    chromium
+    firefox
+    google-chrome
+    qutebrowser
 
-  # Communication
-  discord
-  slack
-  kotatogram-desktop
+    # Communication
+    discord
+    slack
+    kotatogram-desktop
+    element-desktop
 
-  # Development
-  awscli2
-  cypress
-  difftastic
-  docker-compose
-  gcc
-  gotty
-  gsh
-  highlight
-  hugo
-  jq
-  kubectl
-  ngrok
-  nodejs-16_13_1
-  yarnWithNode16
-  nodePackages.node2nix
-  peek
-  pick-colour-picker
-  python3
-  robo3t
-  ryzenadj
-  shellcheck
-  pavucontrol
-  haskell-language-server
-]
-
+    # Development
+    awscli2
+    cypress
+    difftastic
+    docker-compose
+    gcc
+    gnuplot
+    gotty
+    gsh
+    highlight
+    hugo
+    jq
+    kubectl
+    lens
+    ngrok
+    nodejs-16_13_1
+    yarnWithNode16
+    nodePackages.node2nix
+    peek
+    pick-colour-picker
+    python3
+    robo3t
+    ryzenadj
+    shellcheck
+    pavucontrol
+    haskell-language-server
+  ];
+}

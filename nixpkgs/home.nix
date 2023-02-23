@@ -3,6 +3,12 @@
 let 
   HOME_PATH = builtins.getEnv "HOME";
 in with pkgs; {
+  imports = [
+    ./packages.nix
+    ./programs.nix
+    ./services.nix
+    ./xdg.nix
+  ];
 
   # Email configuration
   accounts.email = {
@@ -97,7 +103,6 @@ in with pkgs; {
       });
     };
 
-    packages = (import ./packages.nix) pkgs;
 
     pointerCursor = {
       gtk.enable = true;
@@ -115,10 +120,6 @@ in with pkgs; {
 
     username = "juboba";
   };
-
-  xdg = (import ./xdg.nix) { inherit pkgs; };
-  programs = (import ./programs.nix) { inherit pkgs builtins; };
-  services = (import ./services.nix) { inherit pkgs; };
 
   systemd.user = {
     services = {

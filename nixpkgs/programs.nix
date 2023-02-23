@@ -1,8 +1,9 @@
-{ pkgs, builtins }:
+{ pkgs, ... }:
 
 let
   HOME_PATH = builtins.getEnv "HOME";
 in with builtins; {
+  programs = {
     alacritty = {
       enable = true;
 
@@ -235,4 +236,5 @@ in with builtins; {
     zathura = {
       enable = true;
     };
+  };
 }
