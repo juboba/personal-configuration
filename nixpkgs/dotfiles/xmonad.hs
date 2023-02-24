@@ -8,20 +8,20 @@ import XMonad
 import Data.Monoid
 -- import System.Exit
 
-import XMonad.Actions.CycleWS
+import XMonad.Actions.CycleWS (Direction1D(Next, Prev), WSType(Not), emptyWS, moveTo, nextScreen, swapNextScreen, toggleWS')
 -- import XMonad.Actions.CycleRecentWS
 -- import XMonad.Actions.FloatKeys
-import XMonad.Actions.UpdatePointer(updatePointer)
+import XMonad.Actions.UpdatePointer (updatePointer)
 -- import XMonad.Actions.DynamicWorkspaces
-import XMonad.Actions.GridSelect
+-- import XMonad.Actions.GridSelect
 -- import XMonad.Actions.SpawnOn
 
-import XMonad.Actions.CopyWindow
+import XMonad.Actions.CopyWindow (copyToAll, killAllOtherCopies)
 import XMonad.Actions.Submap (submap)
 
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, ppCurrent, ppLayout, ppOutput, ppSep, ppSort, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, xmobarColor, xmobarPP, xmobarStrip)
+import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(Master))
+import XMonad.Hooks.ManageDocks (ToggleStruts(..), avoidStruts, checkDock, docks, manageDocks)
 import XMonad.Hooks.EwmhDesktops (ewmhFullscreen, ewmh, setEwmhActivateHook)
 import XMonad.Hooks.ManageHelpers
 -- import XMonad.Hooks.SetWMName
