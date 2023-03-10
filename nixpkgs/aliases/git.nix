@@ -79,7 +79,6 @@
   gcaa = "git commit -a --amend -C HEAD";
   # Rebase with latest remote master
   gprom = "git fetch origin master && git rebase origin/master && git update-ref refs/heads/master origin/master";
-  gpf = "git push --force";
   gpunch = "git push --force-with-lease";
   ggui = "git gui";
   gcsam = "git commit -S -am";
