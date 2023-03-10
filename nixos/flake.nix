@@ -1,5 +1,11 @@
 {
   inputs = {
+    amd-controller = {
+      type = "github";
+      owner = "ajmasia";
+      repo = "amd-controller";
+    };
+
     homeManager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +36,7 @@
 
       modules = [
         homeManager.nixosModules.home-manager
-        (import ./amd-controller/amd-controller.nix)
+        inputs.amd-controller.module
         ./hardware-configuration.nix
         (import ./configuration.nix { inherit nixpkgs; })
       ];
