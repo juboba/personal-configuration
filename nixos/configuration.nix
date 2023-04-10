@@ -6,14 +6,12 @@
 
     udev.enable = true;
 
-    # processor = "4800H";
+    processor = "4800H";
 
-    # power-saving = {
-    #   ac = true;
-    #   batt = true;
-    # };
-
-    # temperature = 95;
+    powerManagement = {
+      enable = true;
+      awakeMode = "slow";
+    };
   };
 
   boot = {
