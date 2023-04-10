@@ -1,23 +1,15 @@
-#/bin/sh
-# @author: juboba@gmail.com
-# This is jmux. My script to automatically attach to my $TMUX sessions
+#!/usr/bin/env bash
 
-type tmux > /dev/null 2>&1 || (echo "Dependency not found: 'tmux'" && exit 1)
-type fzy > /dev/null 2>&1 || (echo "Dependency not found: 'fzy'" && exit 1)
+type zellij > /dev/null 2>&1 || (echo "Dependency not found: 'zellij'" && exit 1)
 
-TMUX="tmux -L personal"
-
-if [ -z "$($TMUX ls 2> /dev/null)" ]; then
-  $TMUX new -s Main
-else
-
-  SESSION_NAME=$(echo -e "$($TMUX ls 2> /dev/null)\n[new]" | cut -d: -f1 | fzy)
-
-  if [ -n "$SESSION_NAME" ]; then
-    if [ "$SESSION_NAME" = "[new]" ]; then
-      $TMUX
+if [[ -z "$ZELLIJ" ]]; then
+    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+        zellij attach -c
     else
-      $TMUX a -t "$SESSION_NAME"
+        zellij
     fi
-  fi
+
+    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+        exit
+    fi
 fi
