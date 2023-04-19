@@ -17,6 +17,7 @@
   boot = {
     # https://en.wikipedia.org/wiki/Magic_SysRq_key
     kernel.sysctl."kernel.sysrq" = 1;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_2;
 
     loader = {
       efi.canTouchEfiVariables = true;
