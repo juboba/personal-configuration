@@ -116,6 +116,9 @@ in with pkgs; {
 
     sessionVariables = {
       CM_LAUNCHER = "rofi";
+      EDITOR = "vim";
+      FZF_DEFAULT_COMMAND = "fd";
+      ZELLIJ_AUTO_ATTACH = "true";
     };
 
     username = "juboba";

@@ -35,7 +35,7 @@ in with builtins; {
       enable = true;
 
       initExtra = ''
-        PATH=~/.emacs.d/bin:$PATH
+        PATH=~/.config/emacs/bin:$PATH
         # Disable terminal suspension with Ctrl + s and Ctrl + q
         stty -ixon -ixoff
 
@@ -63,10 +63,6 @@ in with builtins; {
       '';
 
       shellOptions =  [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
-
-      sessionVariables = {
-        EDITOR = "vim";
-      };
 
       shellAliases = import ./aliases;
     };
@@ -235,6 +231,44 @@ in with builtins; {
 
     zathura = {
       enable = true;
+    };
+
+    zellij = {
+      enable = true;
+
+      settings = {
+        theme = "solarized-light";
+
+        themes = {
+          dracula = {
+            fg = "248 248 242";
+            bg = "40 42 54";
+            black = "0 0 0";
+            red = "255 85 85";
+            green = "80 250 123";
+            yellow = "241 250 140";
+            blue = "98 114 164";
+            magenta = "255 121 198";
+            cyan = "139 233 253";
+            white = "255 255 255";
+            orange = "255 184 108";
+          };
+
+          solarized-light = {
+            fg = "101 123 131";
+            bg = "253 246 227";
+            black = "7 54 66";
+            red = "220 50 47";
+            green = "133 153 0";
+            yellow = "181 137 0";
+            blue = "38 139 210";
+            magenta = "211 54 130";
+            cyan = "42 161 152";
+            white = "238 232 213";
+            orange = "203 75 22";
+          };
+        };
+      };
     };
   };
 }
