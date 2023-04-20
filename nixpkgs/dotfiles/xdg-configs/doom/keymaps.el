@@ -45,7 +45,9 @@
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
       :desc "Toggle aufo-fill" "f" 'auto-fill-mode
-      :desc "Toggle breadcrumbs" "p" 'lsp-headerline-breadcrumb-mode)
+      :desc "Toggle breadcrumbs" "p" 'lsp-headerline-breadcrumb-mode
+      :desc "Zen mode (fullscreen)" "z" '+zen/toggle-fullscreen
+      "Z" nil)
 
 (map! :leader :desc "Comment lines" "c l" 'evilnc-comment-or-uncomment-lines)
 (map! :leader :desc "Find Org file" "o o" 'my/find-file-in-org-directory)
