@@ -1,27 +1,20 @@
 #!/usr/bin/env sh
 
 set_sink () {
-  #notify-send switching default
-  pacmd set-default-sink $1 ||
-    notify-send "Failed default"
-
-  #notify-send switching applications
-  pacmd list-sink-inputs |
-    awk '/index:/{print $2}' |
-    xargs -r -I{} pacmd move-sink-input {} $1 ||
-    notify-send "Failed switching applications"
+  SINK_NAME=$(pactl -f json list sinks \
+    | jq ".[].properties | select(.[\"node.nick\"] == \"$1\") | .[\"node.name\"]" \
+    | tr -d \")
+  
+  if [ -n "$SINK_NAME" ]; then
+    pactl set-default-sink "$SINK_NAME" ||
+      notify-send "Failed default"
+  fi
 }
 
-SINK=$(pacmd list-sinks \
-  | grep -E 'index:|name:' \
-  | paste -d " " - - \
-  | sed -e 's/.*index: \(\w*\).*name:\(.*\)/\1 \2/' \
-  | sed -e 's/\s*<alsa_output.\(.*\)-stereo>/ \1/' \
-  | sed -e 's/usb-0b0e_Jabra_Link_380_.*.analog/jabra link/' \
-  | sed -e 's/<bluez.*>/jabra bluez/' \
-  | sed -e 's/pci-0000_04_00.6.analog/internal/' \
-  | sed -e 's/pci-0000_04_00.1.hdmi/hdmi/' \
-  | rofi -dmenu \
-  | sed -e 's/\(\w*\).*/\1/')
+SINK_NICK=$(pactl -f json list sinks \
+  | jq ".[].properties" \
+  | jq ".[\"node.nick\"]" \
+  | tr -d \" \
+  | rofi -dmenu -i)
 
-set_sink $SINK
+set_sink "$SINK_NICK"
