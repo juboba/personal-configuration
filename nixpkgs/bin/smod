@@ -1,55 +1,58 @@
 #!/usr/bin/env bash
 
-LAPTOP_SCREEN=eDP
-HOME_SCREEN=HDMI-A-0
+LAPTOP_SCREEN=eDP-1
+HOME_SCREEN=HDMI-1
 WORK_SCREEN=DP-1-1
 RESOLUTION=1920x1080
-EXTERNAL_RESOLUTION=2560x1080
+#EXTERNAL_RESOLUTION=2560x1080
 
-MODE=$(echo -e "solo\ntop\nexternal\nmirror" | rofi -dmenu -p "Select Screen Mode")
+if [ -n "$1" ]; then
+  case $1 in
+    solo)
+      notify-send "Screen mode" "setting LAPTOP_SCREEN ($LAPTOP_SCREEN) alone"
 
-case $MODE in
-  solo)
-    notify-send "Screen mode" "setting LAPTOP_SCREEN ($LAPTOP_SCREEN) alone"
+      xrandr \
+        --output $LAPTOP_SCREEN --mode $RESOLUTION \
+        --output $HOME_SCREEN --off \
+        --output $WORK_SCREEN --off
 
-    xrandr \
-    --output $LAPTOP_SCREEN --mode $RESOLUTION \
-    --output $HOME_SCREEN --off \
-    --output $WORK_SCREEN --off
+      xmonad --restart
+      ;;
+    top)
+      notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) on top of LAPTOP_SCREEN ($LAPTOP_SCREEN)"
 
-    xmonad --restart
-    ;;
-  top)
-    notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) on top of LAPTOP_SCREEN ($LAPTOP_SCREEN)"
+      xrandr \
+        --output $LAPTOP_SCREEN --mode $RESOLUTION \
+        --output $HOME_SCREEN --auto --above $LAPTOP_SCREEN --primary 
 
-    xrandr \
-    --output $LAPTOP_SCREEN --mode $RESOLUTION \
-    --output $HOME_SCREEN --auto --above $LAPTOP_SCREEN --primary 
+      xmonad --restart
+      ;;
+    external)
+      notify-send "Screen mode" "setting LAPTOP_SCREEN ($LAPTOP_SCREEN) alone"
 
-    xmonad --restart
-    ;;
-  external)
-    notify-send "Screen mode" "setting LAPTOP_SCREEN ($LAPTOP_SCREEN) alone"
+      xrandr \
+        --output $HOME_SCREEN --auto \
+        --output $LAPTOP_SCREEN --off
 
-    xrandr \
-    --output $HOME_SCREEN --auto \
-    --output $LAPTOP_SCREEN --off
+      xmonad --restart
+      ;;
+    mirror)
+      notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) mirroring LAPTOP_SCREEN ($LAPTOP_SCREEN)"
 
-    xmonad --restart
-    ;;
-  mirror)
-    notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) mirroring LAPTOP_SCREEN ($LAPTOP_SCREEN)"
+      xrandr \
+        --output $HOME_SCREEN --auto \
+        --output $LAPTOP_SCREEN --mode $RESOLUTION
 
-    xrandr \
-    --output $HOME_SCREEN --auto \
-    --output $LAPTOP_SCREEN --mode $RESOLUTION
-
-    xmonad --restart
-    ;;
-  *) exit 0
-    ;;
-esac
+      xmonad --restart
+      ;;
+    *) exit 0
+      ;;
+  esac
 
 # Restore background to prevent weird behaviour
 ~/.fehbg
 systemctl --user restart conky
+else
+  echo -e "solo\ntop\nexternal\nmirror"
+fi
+ #| rofi -dmenu -p "Select Screen Mode"

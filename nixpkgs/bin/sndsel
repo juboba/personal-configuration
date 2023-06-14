@@ -11,10 +11,15 @@ set_sink () {
   fi
 }
 
-SINK_NICK=$(pactl -f json list sinks \
-  | jq ".[].properties" \
-  | jq ".[\"node.nick\"]" \
-  | tr -d \" \
-  | rofi -dmenu -i)
+list_sinks () {
+  pactl -f json list sinks \
+    | jq ".[].properties" \
+    | jq ".[\"node.nick\"]" \
+    | tr -d \"
+}
 
-set_sink "$SINK_NICK"
+if [ -n "$*" ]; then
+  set_sink "$*"
+else
+  list_sinks
+fi
