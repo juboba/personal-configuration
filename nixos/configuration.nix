@@ -17,7 +17,7 @@
   boot = {
     # https://en.wikipedia.org/wiki/Magic_SysRq_key
     kernel.sysctl."kernel.sysrq" = 1;
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_2;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_3;
 
     loader = {
       efi.canTouchEfiVariables = true;
@@ -36,7 +36,7 @@
   ];
 
   hardware.pulseaudio = {
-    enable = true;
+    enable = false;
     package = pkgs.pulseaudioFull;
   };
 
@@ -60,18 +60,24 @@
     #nixPath = ["nixos-config=/home/juboba/repositories/personal-configuration/nixos/configuration.nix"];
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
+  ];
 
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "ondemand";
+  nixpkgs.config = {
+    allowUnfree = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
     gnupg.agent.enable = true;
-    vim.defaultEditor = true;
+    neovim = {
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+    };
+    hyprland.enable = true;
   };
 
   # Select internationalisation properties.
@@ -95,6 +101,14 @@
         config = ''config /home/juboba/.config/vpn/juboba@genial.ly.developers.ovpn'';
         updateResolvConf = true;
       };
+    };
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      jack.enable = true;
+      pulse.enable = true;
     };
 
     printing = {
