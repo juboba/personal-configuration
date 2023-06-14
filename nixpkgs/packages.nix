@@ -73,9 +73,8 @@ in with pkgs; {
 
     # Media
     mpv
-    pamix
+    pulseaudio
     python39Packages.pygments
-    spotify
     spotifywm
     sxiv
     texlive.combined.scheme-full

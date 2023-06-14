@@ -77,15 +77,6 @@ with pkgs; {
         sha256 = "08rkflfnynxgv2s26b33l199h6xcqdfmlqbyqa1wkw7h85br3dgl";
       };
 
-
-      "tmux/plugins/extrakto".source = fetchFromGitHub {
-        name = "extrakto";
-        owner = "laktak";
-        repo = "extrakto";
-        rev = "de8ac3e8a9fa887382649784ed8cae81f5757f77";
-        sha256 = "0mkp9r6mipdm7408w7ls1vfn6i3hj19nmir2bvfcp12b69zlzc47";
-      };
-
       "tmux/themes".source = fetchFromGitHub {
         name = "tmux-themepack";
         owner = "jimeh";

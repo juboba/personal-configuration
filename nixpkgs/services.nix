@@ -111,20 +111,29 @@
     network-manager-applet.enable = true;
 
     picom = {
-      enable = false;
+      enable = true;
 
-      package = pkgs.picom-jonaburg;
+      # package = pkgs.picom-jonaburg;
 
       backend = "glx";
       vSync = true;
 
-      fade = true;
+      fade = false;
       fadeDelta = 5;
 
       settings = {
         corner-radius = 12;
 
+        focus-exclude = [
+          "class_i = 'rofi'"
+          "name = 'Picture-in-Picture'"
+        ];
+
         inactive-dim = 0.5;
+
+        opacity-rule = [
+          "90:class_i = 'scratch-term'"
+        ];
 
         rounded-corners-exclude = [
           "class_i = 'xmobar'"

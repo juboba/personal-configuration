@@ -177,9 +177,9 @@ myKeys =
     -- Suspend
     , ((superKey .|. shiftMask, xK_x), spawn "systemctl suspend")
     -- Select sound card
-    , ((superKey, xK_v), spawn "sndsel")
+    , ((superKey, xK_v), spawn "rofi -show sndsel -modes \"sndsel:sndsel\"")
     -- Invert screen colors
-    , ((superKey .|. shiftMask, xK_v), spawn "invert_colors")
+    -- , ((superKey .|. shiftMask, xK_v), spawn "invert_colors")
     -- Screensaver
     , ((superKey .|. shiftMask, xK_z), spawn "slock")
     -- Copy Emoji
@@ -196,7 +196,7 @@ myKeys =
     -- Set slack status
     , ((superKey .|. shiftMask, xK_l), spawn "slack-do")
     -- Select screen
-    , ((superKey, xK_p), spawn "smod")
+    , ((superKey, xK_p), spawn "rofi -show smod -modes \"smod:smod\"")
     -- Toggle terminal scratchpad
     , ((superKey .|. shiftMask, xK_t), namedScratchpadAction scratchpads "terminal")
     -- Launch Screenshot
@@ -272,8 +272,11 @@ myManageHook = composeAll
     , appName =? "showmyself"                                              --> doFloat -- Show me
     , title     =? "Copying Files"                                         --> doFloat
     , className =? "Xmessage"                                              --> doFloat
+    , className =? "Peek"                                                  --> doFloat
     , className =? "trayer"                                                --> doIgnore
+    , className =? "flameshot"                                             --> doIgnore
     , checkDock                                                            --> doLower
+    -- , title =? "Slack - Huddle"                                            --> killWindow
 
     , className =? "Cypress"                                               --> takeTo 7 ]
     where takeTo n = doShift $ myWorkspaces !! n

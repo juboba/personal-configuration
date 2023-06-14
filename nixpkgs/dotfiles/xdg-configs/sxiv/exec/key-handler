@@ -12,13 +12,22 @@ case "$1" in
       fi
     done
     ;;
-  "C-w")
+  "C-c")
     while read -r file
     do
       FILE_FULL_PATH=$(readlink -f "$file")
-      echo "Setting wallpaper:" "$FILE_FULL_PATH"
+      echo "Setting centered wallpaper:" "$FILE_FULL_PATH"
       feh --bg-center "$FILE_FULL_PATH"
-      notify-send -i "$FILE_FULL_PATH" "Wallpaper changed"
+      notify-send -i "$FILE_FULL_PATH" "Wallpaper changed" "Setting centered wallpaper"
+    done
+    ;;
+  "C-f")
+    while read -r file
+    do
+      FILE_FULL_PATH=$(readlink -f "$file")
+      echo "Setting fit wallpaper:" "$FILE_FULL_PATH"
+      feh --bg-max "$FILE_FULL_PATH"
+      notify-send -i "$FILE_FULL_PATH" "Wallpaper changed" "Setting fit wallpaper"
     done
     ;;
 esac
