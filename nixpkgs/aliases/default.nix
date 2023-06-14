@@ -28,12 +28,12 @@ import ./docker-compose.nix //
   tree = "l --tree --color=always";
   gtree = "tree -l --git | less -r";
   trim = "sed -e 's/^[ \t]*//'";
-  vim = "nvim";
-  vi = "vim";
   gduck = "steam-run gitduck";
   hmb = "home-manager build --impure --flake ${config-path}/nixos";
   hmd = "cd ${config-path}";
   hme = "vf ${config-path}";
+  hmgs = "git -C ${config-path} status";
   hms = "home-manager switch --impure --flake ${config-path}/nixos";
   nsn = "nix search nixpkgs";
+  s = "systemctl --user";
 }

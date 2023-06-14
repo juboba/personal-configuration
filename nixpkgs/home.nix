@@ -116,7 +116,6 @@ in with pkgs; {
 
     sessionVariables = {
       CM_LAUNCHER = "rofi";
-      EDITOR = "vim";
       FZF_DEFAULT_COMMAND = "fd --hidden";
       ZELLIJ_AUTO_ATTACH = "true";
     };

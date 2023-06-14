@@ -156,6 +156,8 @@ in with builtins; {
     neovim = {
       enable = true;
 
+      defaultEditor = true;
+
       plugins = with pkgs.vimPlugins; [
         ale
         awesome-vim-colorschemes
@@ -200,6 +202,9 @@ in with builtins; {
 
         colorscheme OceanicNext
       '';
+
+      viAlias = true;
+      vimAlias = true;
     };
 
     tmux = {
@@ -237,35 +242,43 @@ in with builtins; {
       enable = true;
 
       settings = {
-        theme = "solarized-light";
+        default_layout = "compact";
+        default_mode = "locked";
+        #simplified_ui true
+
+        keybinds = {
+          unbind = "Ctrl b";
+        };
+
+        theme = "dracula";
 
         themes = {
           dracula = {
-            fg = "248 248 242";
-            bg = "40 42 54";
-            black = "0 0 0";
-            red = "255 85 85";
-            green = "80 250 123";
-            yellow = "241 250 140";
-            blue = "98 114 164";
-            magenta = "255 121 198";
-            cyan = "139 233 253";
-            white = "255 255 255";
-            orange = "255 184 108";
+            fg = [ 248 248 242 ];
+            bg = [ 40 42 54 ];
+            black = [ 0 0 0 ];
+            red = [ 255 85 85 ];
+            green = [ 80 250 123 ];
+            yellow = [ 241 250 140 ];
+            blue = [ 98 114 164 ];
+            magenta = [ 255 121 198 ];
+            cyan = [ 139 233 253 ];
+            white = [ 255 255 255 ];
+            orange = [ 255 184 108 ];
           };
 
           solarized-light = {
-            fg = "101 123 131";
-            bg = "253 246 227";
-            black = "7 54 66";
-            red = "220 50 47";
-            green = "133 153 0";
-            yellow = "181 137 0";
-            blue = "38 139 210";
-            magenta = "211 54 130";
-            cyan = "42 161 152";
-            white = "238 232 213";
-            orange = "203 75 22";
+            fg = [ 101 123 131 ];
+            bg = [ 253 246 227 ];
+            black = [ 7 54 66 ];
+            red = [ 220 50 47 ];
+            green = [ 133 153 0 ];
+            yellow = [ 181 137 0 ];
+            blue = [ 38 139 210 ];
+            magenta = [ 211 54 130 ];
+            cyan = [ 42 161 152 ];
+            white = [ 238 232 213 ];
+            orange = [ 203 75 22 ];
           };
         };
       };
