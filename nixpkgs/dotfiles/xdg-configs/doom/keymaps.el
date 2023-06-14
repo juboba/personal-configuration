@@ -40,7 +40,11 @@
 
 (map! :leader :prefix "c"
       :desc "Jump to def other window" "D" 'go-to-definition-other-window
-      :desc "Jump to references" "u" '+lsp-lookup-references-handler)
+      :desc "Jump to references" "u" '+lsp-lookup-references-handler
+      :desc "Jump to ref other window" "U" 'go-to-references-other-window)
+
+(map! :leader :prefix "f"
+      :desc "Open drag-n-drop" "d" 'my/dragon-drop)
 
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
@@ -76,7 +80,9 @@
 ;; Magit
 (map! :leader :prefix "g"
       :desc "Magit blame" "b" 'magit-blame-addition
-      :desc "Magit switch to branch" "B" 'magit-branch-checkout)
+      :desc "Magit switch to branch" "B" 'magit-branch-checkout
+      :desc "Magit process buffer" "p" 'magit-process-buffer
+      :desc "Magit process kill" "k" 'magit-process-kill)
 
 ;; Evil
 (define-key evil-visual-state-map (kbd "s") 'evil-surround-region)

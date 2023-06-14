@@ -76,9 +76,14 @@ If the error list is visible, hide it.  Otherwise, show it."
 (evil-set-register ?b
    (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))
 
-(defun go-to-definition-other-window ()
+(defun go-to-references-other-window ()
   (interactive)
   (progn (evil-window-vsplit)
+    (+lsp-lookup-references-handler 'symbol)))
+
+(defun go-to-definition-other-window ()
+  (interactive)
+  (progn (+evil/window-vsplit-and-follow)
     (+lookup/definition 'symbol)))
 
 (defun home-manager-edit ()
@@ -107,3 +112,30 @@ If the error list is visible, hide it.  Otherwise, show it."
   (interactive)
   (lsp-eslint-apply-all-fixes)
   (save-buffer))
+
+(defun my/use-relative-line-numbers ()
+  "Show relative line numbers."
+  (setq-local display-line-numbers 'visual))
+
+(defun my/use-absolute-line-numbers ()
+  "Show absolute line numbers."
+  (setq-local display-line-numbers t))
+
+(defun my/dragon-drop ()
+  "Use dragon to allow dropping the current file somewhere else"
+  (interactive)
+  (start-process "dragon" "*dragon" "dragon" (buffer-file-name)))
+
+(defun my/get-feature-flags ()
+  "Get feature flags from database"
+  (interactive)
+  (start-process "get-feature-flags" "*genially-cli*" "gsh" "cli" "ff" "list"))
+
+(defun my/toggle-feature-flag ()
+  "Toggle a feature flag"
+  (interactive)
+  (let* ((output (shell-command-to-string "gsh cli ff list | cut -d\":\" -f1"))
+         (suggestions (split-string output "\n" t)))
+    (when suggestions
+      (let ((selected (completing-read "Select feature flag to toggle: " suggestions)))
+        (message (shell-command-to-string (concat "gsh cli ff toggle -f " selected)))))))

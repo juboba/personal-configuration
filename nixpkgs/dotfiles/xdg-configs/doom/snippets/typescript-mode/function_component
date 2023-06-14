@@ -4,8 +4,6 @@
 # --
 import React from 'react';
 
-const ${1:`(file-name-sans-extension (buffer-name))`} = () => {
+export const ${1:`(file-name-sans-extension (buffer-name))`} = () => {
   return ($2);
 };
-
-export default $1;

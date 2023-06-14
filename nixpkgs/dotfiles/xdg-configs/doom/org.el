@@ -31,6 +31,11 @@
 (use-package! websocket
     :after org-roam)
 
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %?"
+         :target (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d>\n#+filetags: daily\n"))))
 ;; Revealjs root
 (setq org-reveal-root "file:///home/juboba/.local/reveal.js")
 

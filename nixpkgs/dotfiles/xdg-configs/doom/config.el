@@ -71,9 +71,10 @@
 ;; (zone-when-idle 105)
 
 ;; Cursor style
-;; (setq blink-cursor-interval 0.2)
+;; (setq blink-cursor-interval 0.9)
 ;; (setq blink-cursor-delay 0.1)
 ;; (setq blink-cursor-blinks-done 0)
+;; (setq blink-cursor-blinks 0)
 ;; (blink-cursor-mode)
 
 ;; Set my quick launch terminal
@@ -106,6 +107,7 @@
 
 ;; Set branch name max length
 (setq doom-modeline-vcs-max-length 40)
+(setq doom-modeline-buffer-file-name-style 'truncate-with-project)
 
 ;; Hooks
 (add-hook 'after-init-hook #'global-emojify-mode)
@@ -133,6 +135,8 @@
 (setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-private-dir))
 
 (setq lsp-signature-auto-activate nil)
+(setq lsp-ui-sideline-enable nil)
+(setq flycheck-popup-tip-error-prefix "🛑 ")
 
 (use-package! kubernetes)
 
@@ -150,16 +154,9 @@
 ;; To enable jsonian to work with flycheck
 (after! (jsonian flycheck) (jsonian-enable-flycheck))
 
-;; To diasable so-long mode overrides
+;; To disable so-long mode overrides
 (after! (jsonian so-long) (jsonian-no-so-long-mode))
 
-(use-package pulsing-cursor
-    :config (pulsing-cursor-mode +1))
-
-(use-package minimap
-  :config
-  (setq minimap-window-location 'right)
-  (setq minimap-width-fraction 0.05))
 
 (use-package google-translate
   :config (setq
@@ -171,4 +168,6 @@
            shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell))))
            shell-pop-autocd-to-working-dir nil))
 
+(add-hook 'evil-insert-state-entry-hook #'my/use-absolute-line-numbers)
+(add-hook 'evil-insert-state-exit-hook #'my/use-relative-line-numbers)
 ;;; config.el ends here

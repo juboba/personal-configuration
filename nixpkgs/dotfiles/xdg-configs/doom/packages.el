@@ -57,10 +57,10 @@
 (package! pulsing-cursor
     :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
 
-(package! minimap)
 (package! google-translate)
 (package! org-remark)
 (package! shell-pop)
+(package! sicp)
 ;; (package! indium)
 ;; (package! darkroom)
 ;; (package! org-present)
