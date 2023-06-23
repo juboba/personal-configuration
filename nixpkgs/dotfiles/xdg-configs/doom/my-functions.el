@@ -139,3 +139,7 @@ If the error list is visible, hide it.  Otherwise, show it."
     (when suggestions
       (let ((selected (completing-read "Select feature flag to toggle: " suggestions)))
         (message (shell-command-to-string (concat "gsh cli ff toggle -f " selected)))))))
+
+(defun my/toggle-window-dedication-to-buffer ()
+  (interactive)
+  (set-window-dedicated-p (selected-window) (not (window-dedicated-p))))
