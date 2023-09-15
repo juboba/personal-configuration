@@ -5,15 +5,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1678453160,
-        "narHash": "sha256-NCIE/cOe6ymOeIdSkQRbgr9QSQOTIsElzH8Ca3BFm8s=",
+        "lastModified": 1687026289,
+        "narHash": "sha256-Gl24KA5AaHaJBxXCBB7ISXsa/Reo1WWskFCgBnk3LtE=",
         "owner": "ajmasia",
         "repo": "amd-controller",
-        "rev": "b52c816d2a72b8a2aa6e0095c41ee515649fa4fb",
+        "rev": "6bf863828c098e181874f883f2451a5aa4e01fc2",
         "type": "github"
       },
       "original": {
         "owner": "ajmasia",
+        "ref": "rolling",
         "repo": "amd-controller",
         "type": "github"
       }
@@ -41,11 +42,12 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1687193290,
-        "narHash": "sha256-3bknptEbd9LLlCiFRFkMwmciHB+QXET41gH/RX+Nr1A=",
-        "path": "/nix/store/swbfb53ws0yjjl43n6nlv3gksyr34qlb-source",
-        "rev": "ad157fe26e74211e7dde0456cb3fd9ab78b6e552",
-        "type": "path"
+        "lastModified": 1686979235,
+        "narHash": "sha256-gBlBtk+KrezFkfMrZw6uwTuA7YWtbFciiS14mEoTCo0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7cc30fd5372ddafb3373c318507d9932bd74aafe",
+        "type": "github"
       },
       "original": {
         "id": "nixpkgs",

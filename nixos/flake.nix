@@ -1,9 +1,10 @@
 {
   inputs = {
     amd-controller = {
-      type = "github";
       owner = "ajmasia";
+      ref = "rolling";
       repo = "amd-controller";
+      type = "github";
     };
 
     homeManager = {
@@ -40,6 +41,26 @@
         inputs.amd-controller.module
         ./hardware-configuration.nix
         (import ./configuration.nix { inherit nixpkgs; })
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+
+            users.jabobo = {
+              home = {
+                file={
+                  ".bashrc".text = ''
+           echo Hello!
+         '';
+                };
+
+                homeDirectory = "/home/jabobo";
+                stateVersion = "20.09";
+                username = "jabobo";
+              };
+            };
+          };
+        }
       ];
     };
 
