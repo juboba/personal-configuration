@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+hms() {
+  home-manager switch --impure --flake "$HOME/repositories/personal-configuration/nixos"
+}
+
+cd "$HOME/repositories/personal-configuration" || exit
+
+echo "Set the version..."; sleep 3
+vi nixpkgs/cypress/default.nix
+
+hms
+echo "Set the SHA..."; sleep 3
+vi nixpkgs/cypress/default.nix
+hms
+
+VERSION=$(Cypress --version)
+DESTINATION="$HOME/.cache/Cypress/$VERSION"
+
+echo "version: $VERSION"
+
+if [ -d "$DESTINATION" ]
+then
+  rm -rf "$DESTINATION"
+fi
+
+mkdir "$DESTINATION"
+
+CYPRESS_PATH=$(realpath "$(which Cypress)" | cut -d/ -f"1,2,3,4")
+
+echo "$CYPRESS_PATH"
+ln -s "$CYPRESS_PATH/opt/cypress" "$DESTINATION/Cypress"
