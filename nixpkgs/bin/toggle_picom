@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "inactive" = $(systemctl --user is-active picom) ]
+then
+  systemctl --user start picom
+else
+  systemctl --user stop picom
+fi
+
