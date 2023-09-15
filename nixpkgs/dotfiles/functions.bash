@@ -33,7 +33,7 @@ of () {
 ag () {
   if [ -n "$1" ]
   then
-    alias | grep $1 | sed -e "s/alias \(.*\)='\(.*\)'/\1\t\2/" | bat --tabs 0
+    alias | sed -e "s/alias \(.*\)='\(.*\)'/\1\t\2/" | grep "$1" | bat --tabs 0
   else
     alias | sed -e "s/alias \(.*\)='\(.*\)'/\1\t\2/" | bat --tabs 0
   fi
