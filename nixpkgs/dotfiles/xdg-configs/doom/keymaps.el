@@ -46,6 +46,10 @@
 (map! :leader :prefix "f"
       :desc "Open drag-n-drop" "d" 'my/dragon-drop)
 
+(map! :leader :prefix "<tab>"
+      :desc "Next Workwspace" "<right>" '+workspace/switch-right
+      :desc "Previous Workspace" "<left>" '+workspace/switch-left)
+
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
       :desc "Toggle aufo-fill" "f" 'auto-fill-mode
