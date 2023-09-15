@@ -189,6 +189,7 @@ in with builtins; {
         set smarttab
         set softtabstop=0
         set tabstop=2
+        set clipboard=unnamedplus
 
         let b:ale_fixers = ['prettier', 'eslint']
         let g:ale_completion_enabled = 1
@@ -242,9 +243,7 @@ in with builtins; {
       enable = true;
 
       settings = {
-        default_layout = "compact";
         default_mode = "locked";
-        #simplified_ui true
 
         keybinds = {
           unbind = "Ctrl b";
