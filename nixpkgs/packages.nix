@@ -46,7 +46,6 @@ in with pkgs; {
     qsudo
     ripgrep
     simplescreenrecorder
-    steam-run
     unzip
     xournal
     zscroll
@@ -81,7 +80,6 @@ in with pkgs; {
 
     # Browser
     python310Packages.adblock
-    chromium
     firefox
     google-chrome
     qutebrowser
