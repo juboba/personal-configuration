@@ -30,7 +30,7 @@
 
   environment.systemPackages = with pkgs; [
     gnupg
-    ghc
+    (ghc.withPackages (hpkgs: with hpkgs; [xmonad xmonad-contrib X11]))
     wget
     home-manager
   ];
