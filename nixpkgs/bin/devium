@@ -3,7 +3,7 @@
 PROFILE_DIR=$HOME/tmp
 DEV_PROFILE=dev-profile
 DEV_PROFILE_BACKUP=$DEV_PROFILE.tar.gz
-BROWSER="chromium-browser --auto-open-devtools-for-tabs --user-data-dir=$DEV_PROFILE" #--disable-web-security
+BROWSER="nix run nixpkgs#chromium -- --auto-open-devtools-for-tabs --user-data-dir=$DEV_PROFILE" #--disable-web-security
 CMD=$(basename "$0")
 
 # Start fresh
