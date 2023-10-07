@@ -60,6 +60,9 @@
 (package! kanagawa-theme
   :recipe (:host github :repo "Meritamen/kanagawa-theme"))
 
+(package! catppuccin
+  :recipe (:host github :repo "catppuccin/emacs"))
+
 (package! google-translate)
 (package! org-remark)
 (package! shell-pop)
