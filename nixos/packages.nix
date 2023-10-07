@@ -83,7 +83,6 @@ in with pkgs; {
     python310Packages.adblock
     firefox
     google-chrome
-    qutebrowser
 
     # Communication
     discord

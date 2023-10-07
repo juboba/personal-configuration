@@ -81,7 +81,7 @@ in with builtins; {
       userName = "Julio Borja Barra";
       extraConfig = {
         github = {
-          oauth-token = readFile ~/.oauth-token;
+          oauth-token = readFile /home/juboba/.oauth-token;
           user = "juboba";
         };
 
@@ -109,6 +109,22 @@ in with builtins; {
 
     mu.enable = true;
     offlineimap.enable = true;
+
+    qutebrowser = {
+      enable = true;
+      loadAutoconfig = true;
+
+      extraConfig = ''
+        import  dracula.draw
+
+        dracula.draw.blood(c, {
+            'spacing': {
+                'vertical': 6,
+                'horizontal': 8
+            }
+        })
+      '';
+    };
 
     readline = {
       enable = true;

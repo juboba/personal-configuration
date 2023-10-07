@@ -49,8 +49,6 @@ with pkgs; {
         };
       };
 
-      "qutebrowser/config.py".source = ./dotfiles/xdg-configs/qutebrowser/config.py;
-
       "ranger" = {
         recursive = true;
         source = ./dotfiles/xdg-configs/ranger;

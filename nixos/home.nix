@@ -63,7 +63,10 @@ in with pkgs; {
         sha256 = "0yh6lgd341j7clz4h5xkmcj21iv68a0azamxc7arffydig6ah17f";
       });
 
-      ".local/share/fonts".source = ./fonts;
+      ".local/share/fonts" = {
+        source = ./fonts;
+        recursive = true;
+      };
 
       ".config/rofi/themes".source = (fetchFromGitHub {
         name = "rofi-themes";
