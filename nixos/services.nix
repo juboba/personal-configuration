@@ -25,8 +25,8 @@
         default = {
           matches = [
             {
-              trigger = ":gm";
-              replace = "juboba@genially.com";
+              trigger = ":nrs";
+              replace = "sudo nixos-rebuild switch --impure";
             }
           ];
         };

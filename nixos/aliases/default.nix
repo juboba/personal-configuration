@@ -33,7 +33,6 @@ import ./docker-compose.nix //
   hmd = "cd ${config-path}";
   hme = "vf ${config-path}";
   hmgs = "git -C ${config-path} status";
-  hms = "home-manager switch --impure --flake ${config-path}/nixos";
   nsn = "nix search nixpkgs";
   s = "systemctl --user";
 }

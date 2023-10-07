@@ -13,20 +13,12 @@
     };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-
   };
 
   outputs = inputs @ { homeManager, nixpkgs, ... }:
   let
     system = "x86_64-linux";
   in {
-
-    homeConfigurations.juboba = homeManager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      modules = [
-        ./home.nix
-      ];
-    };
 
     nixosConfigurations.faraday = nixpkgs.lib.nixosSystem {
       inherit system;
@@ -80,7 +72,6 @@
               })
             ];
           };
-
         }
         {
           home-manager = {
