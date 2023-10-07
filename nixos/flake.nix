@@ -24,7 +24,7 @@
     homeConfigurations.juboba = homeManager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
       modules = [
-        ../nixpkgs/home.nix
+        ./home.nix
       ];
     };
 
@@ -56,7 +56,7 @@
                 juboba-bin = super.stdenv.mkDerivation {
                   name = "juboba-binaries";
 
-                  src = ../nixpkgs/bin;
+                  src = ./bin;
 
                   dontPatchShebangs = true;
 
@@ -68,7 +68,7 @@
               })
 
               (self: super: {
-                cypress = self.callPackage ../nixpkgs/cypress/default.nix {};
+                cypress = self.callPackage ./cypress {};
               })
 
               (self: super: {
@@ -86,7 +86,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.juboba = import ../nixpkgs/home.nix;
+            users.juboba = import ./home.nix;
           };
         }
       ];

@@ -57,9 +57,13 @@
 (package! pulsing-cursor
     :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
 
+(package! kanagawa-theme
+  :recipe (:host github :repo "Meritamen/kanagawa-theme"))
+
 (package! google-translate)
 (package! org-remark)
 (package! shell-pop)
+(package! gpt)
 (package! sicp)
 ;; (package! indium)
 ;; (package! darkroom)

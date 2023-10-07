@@ -19,6 +19,20 @@
       enable = true;
     };
 
+    espanso = {
+      enable = true;
+      matches = {
+        default = {
+          matches = [
+            {
+              trigger = ":gm";
+              replace = "juboba@genially.com";
+            }
+          ];
+        };
+      };
+    };
+
     flameshot.enable = true;
 
     fusuma = {
