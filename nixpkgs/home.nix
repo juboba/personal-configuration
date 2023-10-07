@@ -110,45 +110,6 @@ in with pkgs; {
     ./xdg.nix
   ];
 
-  nixpkgs = {
-    config = {
-      allowUnfreePredicate = a: true;
-
-      permittedInsecurePackages = [
-        "openssl-1.1.1w"
-      ];
-    };
-
-    overlays = [
-      (self: super: {
-        juboba-bin = super.stdenv.mkDerivation {
-          name = "juboba-binaries";
-
-          src = ../nixpkgs/bin;
-
-          dontPatchShebangs = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            mv * $out/bin
-          '';
-        };
-      })
-
-      (self: super: {
-        cypress = self.callPackage ../nixpkgs/cypress/default.nix {};
-      })
-
-      (self: super: {
-        gsh = import (fetchGit {
-          url = "git@github.com:Genially/gsh";
-          ref = "refs/heads/main";
-          rev = "6375b537c5f20ec12eaad8f138c6f897fb5bd4f3";
-        }) {};
-      })
-    ];
-  };
-
   systemd.user = {
     services = {
       conky = {

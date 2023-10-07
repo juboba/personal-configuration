@@ -18,7 +18,7 @@
 
   outputs = inputs @ { homeManager, nixpkgs, ... }:
   let
-      system = "x86_64-linux";
+    system = "x86_64-linux";
   in {
 
     homeConfigurations.juboba = homeManager.lib.homeManagerConfiguration {
@@ -42,9 +42,51 @@
         ./hardware-configuration.nix
         (import ./configuration.nix { inherit nixpkgs; })
         {
+          nixpkgs = {
+            config = {
+              allowUnfreePredicate = a: true;
+
+              permittedInsecurePackages = [
+                "openssl-1.1.1w"
+              ];
+            };
+
+            overlays = [
+              (self: super: {
+                juboba-bin = super.stdenv.mkDerivation {
+                  name = "juboba-binaries";
+
+                  src = ../nixpkgs/bin;
+
+                  dontPatchShebangs = true;
+
+                  installPhase = ''
+                    mkdir -p $out/bin
+                    mv * $out/bin
+                  '';
+                };
+              })
+
+              (self: super: {
+                cypress = self.callPackage ../nixpkgs/cypress/default.nix {};
+              })
+
+              (self: super: {
+                gsh = import (fetchGit {
+                  url = "git@github.com:Genially/gsh";
+                  ref = "refs/heads/main";
+                  rev = "6375b537c5f20ec12eaad8f138c6f897fb5bd4f3";
+                }) {};
+              })
+            ];
+          };
+
+        }
+        {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
+            users.juboba = import ../nixpkgs/home.nix;
           };
         }
       ];
