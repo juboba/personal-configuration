@@ -68,10 +68,14 @@ If the error list is visible, hide it.  Otherwise, show it."
       (interactive "*P\nr")
       (sort-regexp-fields reverse "\\w+" "\\&" beg end))
 
-(defun home-manager-switch ()
+(defun home-manager-edit ()
+  (interactive)
+  (doom-project-find-file "~/repositories/personal-configuration"))
+
+(defun nixos-rebuild-switch ()
   "Switch to current home-manager configuration."
   (interactive)
-  (async-shell-command "home-manager switch --impure --flake ~/repositories/personal-configuration/nixos"))
+  (async-shell-command "sudo nixos-rebuild switch --impure"))
 
 (evil-set-register ?b
    (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))
@@ -85,10 +89,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   (interactive)
   (progn (+evil/window-vsplit-and-follow)
     (+lookup/definition 'symbol)))
-
-(defun home-manager-edit ()
-  (interactive)
-  (doom-project-find-file "~/repositories/personal-configuration"))
 
 (defun translate-to-kill-ring ()
   (interactive)

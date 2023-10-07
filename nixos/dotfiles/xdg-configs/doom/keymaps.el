@@ -36,7 +36,7 @@
 
         (:prefix ("h" . "Home Manager")
          :desc "edit" "e" #'home-manager-edit
-         :desc "switch" "s" #'home-manager-switch)))
+         :desc "switch" "s" #'nixos-rebuild-switch)))
 
 (map! :leader :prefix "c"
       :desc "Jump to def other window" "D" 'go-to-definition-other-window

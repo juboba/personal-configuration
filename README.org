@@ -40,7 +40,3 @@ My config is mainly:
 
 *** Global Key mappings
 See [[./nixpkgs/dotfiles/xmonad.hs::146][xmonad.hs]]
-
-* To do's
-** TODO Add home-manager configuration as a NixOS module
-** TODO Create modules to group sets of configuration that go together
