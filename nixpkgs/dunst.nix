@@ -18,7 +18,7 @@
         # will be ignored.
         follow = "mouse";
 
-        origin = "top-center";
+        origin = "top-right";
 
         offset = "35x35";
 

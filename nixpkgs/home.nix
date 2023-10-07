@@ -1,16 +1,8 @@
 { pkgs, ... }:
 
 let 
-  HOME_PATH = builtins.getEnv "HOME";
+HOME_PATH = builtins.getEnv "HOME";
 in with pkgs; {
-  imports = [
-    ./packages.nix
-    ./programs.nix
-    ./services.nix
-    ./xdg.nix
-  ];
-
-  # Email configuration
   accounts.email = {
     accounts.genially = {
       address = "juboba@genial.ly";
@@ -37,42 +29,21 @@ in with pkgs; {
     certificatesFile = "/etc/ssl/certs/ca-certificates.crt";
   };
 
-  nixpkgs.config.allowUnfreePredicate = a: true;
+  gtk = {
+    enable = false;
 
-  xresources.properties = {
-    "*background" = "#303036";
-    "*foreground" = "#fffaff";
-  };
-
-  xsession = {
-    enable = true;
-
-    windowManager.xmonad = {
-      config = ./dotfiles/xmonad.hs;
-      enable = true;
-      enableContribAndExtras = true;
+    iconTheme = {
+      name = "BeautyLine";
+      package = pkgs.beauty-line-icon-theme;
     };
 
-    initExtra = ''
-      # Welcome sound:
-      # mpv somesound.wav &
-
-      # Set background:
-      ${HOME_PATH}/.fehbg
-  '';
+    theme = {
+      name = "Juno-ocean";
+      package = pkgs.juno-theme;
+    };
   };
 
   home = {
-    homeDirectory = "/home/juboba";
-
-    keyboard = {
-      layout="us";
-      variant = "altgr-intl";
-      options = [
-        "caps:escape"
-      ];
-    };
-
     file = {
       ".bash_completion".text = builtins.readFile ./bash_completion/git.sh;
 
@@ -103,6 +74,15 @@ in with pkgs; {
       });
     };
 
+    homeDirectory = "/home/juboba";
+
+    keyboard = {
+      layout="us";
+      variant = "altgr-intl";
+      options = [
+        "caps:escape"
+      ];
+    };
 
     pointerCursor = {
       gtk.enable = true;
@@ -112,15 +92,61 @@ in with pkgs; {
       x11.enable = true;
     };
 
-    stateVersion = "20.09";
-
     sessionVariables = {
       CM_LAUNCHER = "rofi";
       FZF_DEFAULT_COMMAND = "fd --hidden";
       ZELLIJ_AUTO_ATTACH = "true";
     };
 
+    stateVersion = "20.09";
+
     username = "juboba";
+  };
+
+  imports = [
+    ./packages.nix
+    ./programs.nix
+    ./services.nix
+    ./xdg.nix
+  ];
+
+  nixpkgs = {
+    config = {
+      allowUnfreePredicate = a: true;
+
+      permittedInsecurePackages = [
+        "openssl-1.1.1w"
+      ];
+    };
+
+    overlays = [
+      (self: super: {
+        juboba-bin = super.stdenv.mkDerivation {
+          name = "juboba-binaries";
+
+          src = ../nixpkgs/bin;
+
+          dontPatchShebangs = true;
+
+          installPhase = ''
+            mkdir -p $out/bin
+            mv * $out/bin
+          '';
+        };
+      })
+
+      (self: super: {
+        cypress = self.callPackage ../nixpkgs/cypress/default.nix {};
+      })
+
+      (self: super: {
+        gsh = import (fetchGit {
+          url = "git@github.com:Genially/gsh";
+          ref = "refs/heads/main";
+          rev = "6375b537c5f20ec12eaad8f138c6f897fb5bd4f3";
+        }) {};
+      })
+    ];
   };
 
   systemd.user = {
@@ -169,4 +195,28 @@ in with pkgs; {
       };
     };
   };
+
+  xresources.properties = {
+    "*background" = "#303036";
+    "*foreground" = "#fffaff";
+  };
+
+  xsession = {
+    enable = true;
+
+    windowManager.xmonad = {
+      config = ./dotfiles/xmonad.hs;
+      enable = true;
+      enableContribAndExtras = true;
+    };
+
+    initExtra = ''
+      # Welcome sound:
+      # mpv somesound.wav &
+
+      # Set background:
+      ${HOME_PATH}/.fehbg
+    '';
+  };
+
 }

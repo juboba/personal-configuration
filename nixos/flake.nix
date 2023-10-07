@@ -45,24 +45,9 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-
-            users.jabobo = {
-              home = {
-                file={
-                  ".bashrc".text = ''
-           echo Hello!
-         '';
-                };
-
-                homeDirectory = "/home/jabobo";
-                stateVersion = "20.09";
-                username = "jabobo";
-              };
-            };
           };
         }
       ];
     };
-
   };
 }

@@ -46,9 +46,9 @@
 (map! :leader :prefix "f"
       :desc "Open drag-n-drop" "d" 'my/dragon-drop)
 
-(map! :leader :prefix "<tab>"
-      :desc "Next Workwspace" "<right>" '+workspace/switch-right
-      :desc "Previous Workspace" "<left>" '+workspace/switch-left)
+(map! :leader
+      :desc "Next Workwspace" "TAB <right>" '+workspace/switch-right
+      :desc "Previous Workspace" "TAB <left>" '+workspace/switch-left)
 
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
@@ -90,5 +90,9 @@
 
 ;; Evil
 (define-key evil-visual-state-map (kbd "s") 'evil-surround-region)
+
+(windmove-default-keybindings 'control)
+
+(define-key vertico-map (kbd "C-a") 'embark-act)
 
 ;;; keymaps.el ends here

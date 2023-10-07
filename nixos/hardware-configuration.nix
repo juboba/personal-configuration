@@ -7,7 +7,7 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  #boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems = {
@@ -28,6 +28,12 @@
 
     "/media/kinesis" =
       { device = "/dev/disk/by-uuid/E8BC-3E91";
+        fsType = "vfat";
+        options = ["user" "rw" "noauto"] ;
+      };
+
+    "/media/sda1" =
+      { device = "/dev/sda1";
         fsType = "vfat";
         options = ["user" "rw" "noauto"] ;
       };

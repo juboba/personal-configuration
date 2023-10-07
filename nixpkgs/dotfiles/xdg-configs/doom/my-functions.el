@@ -115,7 +115,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
 (defun my/use-relative-line-numbers ()
   "Show relative line numbers."
-  (setq-local display-line-numbers 'visual))
+  (setq-local display-line-numbers 'relative))
 
 (defun my/use-absolute-line-numbers ()
   "Show absolute line numbers."

@@ -7,7 +7,8 @@ case "$1" in
       nix run "nixpkgs#xorg.xmessage" -- -buttons ok:1,cancel:0 "Really delete $FILE_FULL_PATH?"
       exitStat=$?
 
-      if $exitStat; then
+      if [ 1 -eq $exitStat ]
+      then
         rm "$FILE_FULL_PATH"
       fi
     done

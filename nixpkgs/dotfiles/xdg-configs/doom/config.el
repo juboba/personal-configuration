@@ -26,7 +26,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'kaolin-aurora)
+(setq doom-theme 'kanagawa)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -63,7 +63,7 @@
 ;; My status bar
 ;; (display-battery-mode)
 ;; (display-time-mode)
-(spotify-enable-song-notifications)
+;; (spotify-enable-song-notifications)
 
 ;; My "screen saver"
 ;; (require 'zone)
@@ -92,6 +92,7 @@
 
 ;; Disable cursor movement when exiting insert mode
 (setq evil-move-cursor-back nil)
+(setq evil-respect-visual-line-mode t)
 
 ;; Authinfo (forge)
 (setq auth-sources '("~/.authinfo"))
@@ -102,7 +103,7 @@
 (push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
 
 ;; Doom's private directory
-(setq doom-private-dir "/home/juboba/repositories/personal-configuration/nixpkgs/dotfiles/xdg-configs/doom")
+(setq doom-user-dir "/home/juboba/repositories/personal-configuration/nixpkgs/dotfiles/xdg-configs/doom")
 
 
 ;; Set branch name max length
@@ -132,7 +133,7 @@
 ;(global-set-key "\C-cT" 'google-translate-query-translate)
 
 ;; Doom splash image
-(setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-private-dir))
+(setq fancy-splash-image (expand-file-name "emacs-e-template.svg" doom-user-dir))
 
 (setq lsp-signature-auto-activate nil)
 (setq lsp-ui-sideline-enable nil)
@@ -157,6 +158,9 @@
 ;; To disable so-long mode overrides
 (after! (jsonian so-long) (jsonian-no-so-long-mode))
 
+(after! evil-mode
+  (evil-set-register ?f
+                     (kmacro-lambda-form [?O return ?u ?s ?e ?E ?f ?f ?e ?c ?t ?\( ?\( ?\) ?\S-  ?= ?> ?\S-  ?\{ return ?\} ?, ?  ?\[ ?\] escape ?k ?c ?c ?c ?o ?n ?s ?o ?l ?e ?. ?l ?o ?g ?\( ?\' ?a ?s ?t ?\' ?\) ?\; escape ?k ?^] 0 "%d")))
 
 (use-package google-translate
   :config (setq
@@ -170,4 +174,17 @@
 
 (add-hook 'evil-insert-state-entry-hook #'my/use-absolute-line-numbers)
 (add-hook 'evil-insert-state-exit-hook #'my/use-relative-line-numbers)
+
+(add-hook 'prog-mode-hook (lambda () (lsp-ui-mode -1)))
+
+(transient-define-prefix my/dispatch ()
+  "Invoke something"
+  ["Some commands"
+   [("a" "   Find org file" my/find-file-in-org-directory)]
+   [("b" "   Dragon drop" my/dragon-drop)]])
+
+(use-package! gpt
+  :config
+  (setq gpt-openai-key "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"))
+
 ;;; config.el ends here

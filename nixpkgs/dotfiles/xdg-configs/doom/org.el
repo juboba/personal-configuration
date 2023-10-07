@@ -5,7 +5,6 @@
 ;;;
 ;;; Code:
 
-;; Minted (syntax highlight)
 (require 'org)
 
 ;; If you use `org' and don't want your org files in the default location below,
@@ -17,8 +16,8 @@
 (after! org
   (setq org-agenda-start-on-weekday 1)
   (setq calendar-week-start-day 1)
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
-  (setq org-latex-listings 'minted
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "INPROGRESS(i)" "|" "DONE(d)" "CANCELLED(c)")))
+  (setq org-latex-src-block-backend 'minted
         org-latex-packages-alist '(("" "minted"))
         org-latex-pdf-process
         '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"

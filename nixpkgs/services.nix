@@ -11,7 +11,7 @@
     };
 
     dropbox = {
-      enable = false;
+      enable = true;
       path = "/home/juboba/Documents/Org/Dropbox";
     };
 
@@ -23,6 +23,8 @@
 
     fusuma = {
       enable = false;
+
+      extraPackages = [ pkgs.xdotool ];
 
       settings = {
         swipe = {

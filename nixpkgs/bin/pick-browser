@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+selected_browser=$(printf "chrome\nqute\nfox" | rofi -dmenu -p 'Open in browser')
+
+case $selected_browser in
+  "chrome") google-chrome-stable "$@" ;;
+  "qute") qutebrowser "$@" ;;
+  "fox") firefox "$@" ;;
+esac

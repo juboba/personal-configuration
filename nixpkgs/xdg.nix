@@ -87,11 +87,22 @@ with pkgs; {
     };
 
     desktopEntries = {
+      browser = {
+        categories =  [ "Network" "WebBrowser" ];
+        comment = "Pick to browse URL";
+        exec = "pick-browser %U";
+        genericName = "Browser";
+        icon = "browser";
+        name = "browser";
+        terminal = false;
+        type = "Application";
+      };
+
       devium = {
         #startupWMClass = "Devium";
         #version = 1.0;
         comment = "Self destructing Chromium browser with predefined profile";
-        exec = "devium %f";
+        exec = "devium %U";
         genericName = "Development Chromium";
         icon = "chromium";
         name = "Devium";
@@ -103,6 +114,15 @@ with pkgs; {
         exec = "emacs";
         name = "Emacs";
         noDisplay = true;
+      };
+
+      emacsclient = {
+        comment = "Edit text";
+        exec = "emacsclient -c %F";
+        genericName = "Text editor";
+        icon = "emacs";
+        name = "Emacs";
+        type = "Application";
       };
 
       gsh = {
@@ -121,17 +141,6 @@ with pkgs; {
         genericName = "JMux";
         icon = "tmux";
         name = "JMux";
-        terminal = false;
-        type = "Application";
-      };
-
-      qutebrowser = {
-        categories =  [ "Network" "WebBrowser" ];
-        comment = "A keyboard-driven, vim-like browser based on PyQt5";
-        exec = "Q";
-        genericName = "Browser";
-        icon = "qutebrowser";
-        name = "qutebrowser";
         terminal = false;
         type = "Application";
       };
@@ -174,7 +183,7 @@ with pkgs; {
 
       defaultApplications =
         let
-          browser = google-chrome;
+          browser = "browser.desktop";
           google-chrome = "google-chrome.desktop";
           qutebrowser = "org.qutebrowser.qutebrowser.desktop";
           slack = "org.pwmt.zathura.desktop";

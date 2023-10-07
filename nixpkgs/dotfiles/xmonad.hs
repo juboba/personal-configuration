@@ -182,7 +182,7 @@ import XMonad.Util.WorkspaceCompare (filterOutWs)
 -- import XMonad.Operations (killWindow)
 
 main :: IO ()
-main = do
+main =
   xmonad $
     docks $
       withUrgencyHook NoUrgencyHook $
@@ -453,7 +453,7 @@ messagingLayout = named "\61659" $ addGap $ Tall nmaster delta ratio
     delta = 3 / 100
     ratio = 4 / 5
 
-threeColumns = named "3" $ ThreeColMid 1 (3 / 100) (1 / 2)
+threeColumns = named "3" $ addGap $ ThreeColMid 1 (3 / 100) (1 / 2)
 
 -- myLayoutHook :: ModifiedLayout ??
 myLayoutHook =
