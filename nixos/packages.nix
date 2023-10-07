@@ -46,6 +46,7 @@ in with pkgs; {
     qsudo
     ripgrep
     simplescreenrecorder
+    translate-shell
     unzip
     xournal
     zscroll
