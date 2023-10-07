@@ -28,6 +28,10 @@
               trigger = ":nrs";
               replace = "sudo nixos-rebuild switch --impure";
             }
+            {
+              regex = ":rs\\((?P<service>.*)\\)";
+              replace = "systemctl --user restart {{service}}";
+            }
           ];
         };
       };
