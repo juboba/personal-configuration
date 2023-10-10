@@ -26,11 +26,27 @@
           matches = [
             {
               trigger = ":nrs";
-              replace = "sudo nixos-rebuild switch --impure";
+              replace = "sudo nixos-rebuild switch --impure --flake /home/juboba/repositories/personal-configuration";
             }
             {
-              regex = ":rs\\((?P<service>.*)\\)";
+              regex = ":rs(?P<service>.*)\\.";
               replace = "systemctl --user restart {{service}}";
+            }
+            {
+              trigger = ":nsn";
+              replace = "nix search nixpkgs ";
+            }
+            {
+              trigger = ":nrn";
+              replace = "nix run nixpkgs#";
+            }
+            {
+              trigger = ":mcx";
+              replace = "man configuration.nix";
+            }
+            {
+              trigger = ":nfui";
+              replace = "nix flake lock --update-input ";
             }
           ];
         };
@@ -133,8 +149,6 @@
     picom = {
       enable = true;
 
-      # package = pkgs.picom-jonaburg;
-
       backend = "glx";
       vSync = true;
 
@@ -167,23 +181,6 @@
 
       shadow = true;
       shadowOpacity = 0.9;
-
-      /*
-    wintypes = {
-      tooltip = {
-        fade = true;
-        shadow = false;
-        opacity = 1.0;
-        focus = true;
-        full-shadow = false;
-      };
-
-      dock = { shadow = false; clip-shadow-above = true; };
-      dnd = { shadow = false; };
-      popup_menu = { shadow = false; opacity = 1.0; };
-      dropdown_menu = { shadow = false; opacity = 1.0; };
-    };
-    */
     };
 
     redshift = {

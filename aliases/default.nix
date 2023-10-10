@@ -33,6 +33,4 @@ import ./docker-compose.nix //
   hmd = "cd ${config-path}";
   hme = "vf ${config-path}";
   hmgs = "git -C ${config-path} status";
-  nsn = "nix search nixpkgs";
-  s = "systemctl --user";
 }
