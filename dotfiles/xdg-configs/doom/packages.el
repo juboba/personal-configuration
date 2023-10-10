@@ -35,6 +35,8 @@
 (package! humanoid-themes)
 (package! kaolin-themes)
 (package! nyx-theme)
+(package! catppuccin
+  :recipe (:host github :repo "catppuccin/emacs"))
 
 (unpin! org-roam)
 (package! websocket)
@@ -59,9 +61,6 @@
 
 (package! kanagawa-theme
   :recipe (:host github :repo "Meritamen/kanagawa-theme"))
-
-(package! catppuccin
-  :recipe (:host github :repo "catppuccin/emacs"))
 
 (package! google-translate)
 (package! org-remark)

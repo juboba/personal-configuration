@@ -93,6 +93,6 @@
 
 (windmove-default-keybindings 'control)
 
-(define-key vertico-map (kbd "C-a") 'embark-act)
+;(define-key vertico-map (kbd "C-a") 'embark-act)
 
 ;;; keymaps.el ends here

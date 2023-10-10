@@ -73,9 +73,9 @@ If the error list is visible, hide it.  Otherwise, show it."
   (doom-project-find-file "~/repositories/personal-configuration"))
 
 (defun nixos-rebuild-switch ()
-  "Switch to current home-manager configuration."
+  "Switch to current system configuration."
   (interactive)
-  (async-shell-command "sudo nixos-rebuild switch --impure"))
+  (async-shell-command "sudo nixos-rebuild switch --impure --flake /home/juboba/repositories/personal-configuration"))
 
 (evil-set-register ?b
    (kmacro-lambda-form [?? ?> return ?l ?v ?/ ?\; return ?s ?\{ escape ?w ?i return ?r ?e ?t ?u ?r ?n ?  escape ?$ ?i return escape ?A ?\; escape ?k] 0 "%d"))

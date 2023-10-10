@@ -11,7 +11,10 @@
     powerManagement = {
       enable = true;
       awakeMode = "slow";
+      cpuFreqGovernor = "powersave";
     };
+
+    thermald.enable = true;
   };
 
   boot = {

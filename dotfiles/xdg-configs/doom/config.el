@@ -103,7 +103,7 @@
 (push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
 
 ;; Doom's private directory
-(setq doom-user-dir "/home/juboba/repositories/personal-configuration/nixpkgs/dotfiles/xdg-configs/doom")
+(setq doom-user-dir "/home/juboba/repositories/personal-configuration/dotfiles/xdg-configs/doom")
 
 
 ;; Set branch name max length
@@ -113,8 +113,8 @@
 ;; Hooks
 (add-hook 'after-init-hook #'global-emojify-mode)
 (add-hook 'after-change-major-mode-hook #'my/doom-modeline-conditional-buffer-encoding)
-(add-hook 'prog-mode-hook 'prettify-symbols-mode)
-(add-hook 'prog-mode-hook 'my/add-pretty-lambda)
+;(add-hook 'prog-mode-hook 'prettify-symbols-mode)
+;(add-hook 'prog-mode-hook 'my/add-pretty-lambda)
 (add-hook 'prog-mode-hook 'nyan-mode)
 (add-hook 'rjsx-mode-hook 'lsp)
 (add-hook 'prog-mode-hook 'visual-line-mode)

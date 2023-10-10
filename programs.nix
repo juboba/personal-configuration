@@ -35,7 +35,7 @@ in with builtins; {
       enable = true;
 
       initExtra = ''
-        PATH=~/.config/emacs/bin:$PATH
+        PATH=~/.bin:~/.config/doom/bin:$PATH
         # Disable terminal suspension with Ctrl + s and Ctrl + q
         stty -ixon -ixoff
 
