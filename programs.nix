@@ -74,6 +74,16 @@ in with builtins; {
       extraPackages = epkgs: [ epkgs.emacsql-sqlite ] ;
     };
 
+    exa = {
+      enable = true;
+
+      enableAliases = true;
+
+      extraOptions = [
+        "--group-directories-first"
+      ];
+    };
+
     git = {
       enable = true;
 

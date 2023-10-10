@@ -11,12 +11,9 @@ import ./docker-compose.nix //
   ec = "emacsclient";
   gcal = "gcalcli calw $(date -d \"$D\" \"+%d\") 2 --monday";
   hm = "home-manager";
-  ls = "exa --group-directories-first";
-  l = "ls ";
-  ll = "l -l --git --color=always";
-  llt = "ll --sort=modified";
-  lla = "ll -a";
-  la = "l -a";
+  ls = "exa";
+  llg = "ll --git --header --sort=modified";
+  llt = "ll --header --sort=modified";
   man = "man --pager=\"sh -c 'col -bx | bat -l man -p'\"";
   o = "rifle";
   p="pwd | sed -e 's/^\\///' -e 's/\\// -> /g' | lolcat";

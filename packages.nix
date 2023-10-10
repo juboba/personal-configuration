@@ -30,7 +30,6 @@ in with pkgs; {
     conky
     xdragon
     dunst
-    exa
     feh
     fd
     file
@@ -56,6 +55,7 @@ in with pkgs; {
     lolcat
 
     # UI
+    eww
     gsimplecal
     libnotify
     scrot
