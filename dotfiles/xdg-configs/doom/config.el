@@ -101,6 +101,7 @@
 (push '("\\.mdx\\'" . markdown-mode) auto-mode-alist)
 ;(push '("\\.tsx\\'" . rjsx-mode) auto-mode-alist)
 (push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
+(push '("\\.yuck\\'" . lisp-mode) auto-mode-alist)
 
 ;; Doom's private directory
 (setq doom-user-dir "/home/juboba/repositories/personal-configuration/dotfiles/xdg-configs/doom")
