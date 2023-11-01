@@ -8,27 +8,27 @@
 
 ;; To install SOME-nACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
-(package! spotify)
+;; (package! spotify)
 (package! terminal-here)
 (package! imenu-list)
 
 (package! emmet-mode)
 (package! evil-matchit)
-(package! mu4e-alert)
-(package! js-doc)
-(package! emojify)
+;(package! mu4e-alert)
+;(package! js-doc)
+;(package! emojify)
 (package! rainbow-mode)
-(package! slack)
+;(package! slack)
 (package! nyan-mode)
-(package! csv-mode)
+;; (package! csv-mode)
 (package! org-reveal)
-(package! ox-gfm)
-(package! ox-hugo)
+;; (package! ox-gfm)
+;; (package! ox-hugo)
 (package! magit-section)
 (package! eyebrowse)
 (package! atomic-chrome)
-(package! golden-ratio)
-(package! sublimity)
+;; (package! golden-ratio)
+;; (package! sublimity)
 
 ;; Themes
 (package! badwolf-theme)
@@ -42,11 +42,11 @@
 (package! websocket)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 
-(package! kubernetes)
-(package! kubernetes-evil)
+;; (package! kubernetes)
+;; (package! kubernetes-evil)
 
-(package! tree-sitter)
-(package! tree-sitter-langs)
+;; (package! tree-sitter)
+;; (package! tree-sitter-langs)
 
 (package! json-mode :disable t)
 (package! jsonian
@@ -56,17 +56,17 @@
 (package! hightlight-indentation
   :recipe (:host github :repo "antonj/Highlight-Indentation-for-Emacs"))
 
-(package! pulsing-cursor
-    :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
+;; (package! pulsing-cursor
+;;     :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
 
 (package! kanagawa-theme
   :recipe (:host github :repo "Meritamen/kanagawa-theme"))
 
-(package! google-translate)
+;; (package! google-translate)
 (package! org-remark)
 (package! shell-pop)
-(package! gpt)
-(package! sicp)
+;; (package! gpt)
+;; (package! sicp)
 ;; (package! indium)
 ;; (package! darkroom)
 ;; (package! org-present)

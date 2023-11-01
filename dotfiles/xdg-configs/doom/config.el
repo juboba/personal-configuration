@@ -57,7 +57,7 @@
 (load! "./my-functions.el")
 (load! "./keymaps.el")
 (load! "./javascript.el")
-(load! "./email.el")
+;; (load! "./email.el")
 (load! "./macros.el")
 
 ;; My status bar
@@ -102,6 +102,8 @@
 ;(push '("\\.tsx\\'" . rjsx-mode) auto-mode-alist)
 (push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
 (push '("\\.yuck\\'" . lisp-mode) auto-mode-alist)
+(push '("\\.ts\\'" . typescript-ts-mode) auto-mode-alist)
+(push '("\\.tsx\\'" . typescript-ts-mode) auto-mode-alist)
 
 ;; Doom's private directory
 (setq doom-user-dir "/home/juboba/repositories/personal-configuration/dotfiles/xdg-configs/doom")
@@ -119,6 +121,7 @@
 (add-hook 'prog-mode-hook 'nyan-mode)
 (add-hook 'rjsx-mode-hook 'lsp)
 (add-hook 'prog-mode-hook 'visual-line-mode)
+(add-hook 'typescript-ts-mode-hook #'lsp)
 
 ;; Magit
 ;; (setq magit-git-global-arguments (delete "--literal-pathspecs" magit-git-global-arguments))
@@ -140,17 +143,11 @@
 (setq lsp-ui-sideline-enable nil)
 (setq flycheck-popup-tip-error-prefix "🛑 ")
 
-(use-package! kubernetes)
-
-(use-package! kubernetes-evil
-  :after kubernetes)
-
-(use-package! tree-sitter
-  :config
-  (require 'tree-sitter-langs)
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
+;; (use-package! tree-sitter
+;;  :config
+;;  (require 'tree-sitter-langs)
+;;  (global-tree-sitter-mode)
+;;  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 ;; Jsonian
 ;; To enable jsonian to work with flycheck
@@ -163,10 +160,10 @@
   (evil-set-register ?f
                      (kmacro-lambda-form [?O return ?u ?s ?e ?E ?f ?f ?e ?c ?t ?\( ?\( ?\) ?\S-  ?= ?> ?\S-  ?\{ return ?\} ?, ?  ?\[ ?\] escape ?k ?c ?c ?c ?o ?n ?s ?o ?l ?e ?. ?l ?o ?g ?\( ?\' ?a ?s ?t ?\' ?\) ?\; escape ?k ?^] 0 "%d")))
 
-(use-package google-translate
-  :config (setq
-           google-translate-translation-directions-alist
-           '(("en" . "de") ("de" . "en"))))
+;; (use-package google-translate
+;;  :config (setq
+;;           google-translate-translation-directions-alist
+;;           '(("en" . "de") ("de" . "en"))))
 
 (use-package shell-pop
   :config (setq
@@ -183,9 +180,5 @@
   ["Some commands"
    [("a" "   Find org file" my/find-file-in-org-directory)]
    [("b" "   Dragon drop" my/dragon-drop)]])
-
-(use-package! gpt
-  :config
-  (setq gpt-openai-key "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"))
 
 ;;; config.el ends here

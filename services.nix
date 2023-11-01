@@ -17,6 +17,7 @@
 
     emacs = {
       enable = true;
+      package = pkgs.emacs29;
     };
 
     espanso = {

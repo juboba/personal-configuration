@@ -36,14 +36,14 @@
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title: %<%Y-%m-%d>\n#+filetags: daily\n"))))
 ;; Revealjs root
-(setq org-reveal-root "file:///home/juboba/.local/reveal.js")
+;; (setq org-reveal-root "file:///home/juboba/.local/reveal.js")
 
-(require 'ox-reveal)
-(require 'ox-hugo)
+;; (require 'ox-reveal)
+;; (require 'ox-hugo)
 
 ;; Github Flavored Markdown export in Org
-(eval-after-load "org"
-  '(require 'ox-gfm nil t))
+;; (eval-after-load "org"
+;;   '(require 'ox-gfm nil t))
 
 (add-hook 'org-mode-hook 'auto-fill-mode)
 
