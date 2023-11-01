@@ -34,7 +34,7 @@ My config is mainly:
    - Work Browser:         Chrome
    - Development Browser:  [[https://github.com/juboba/scripts/blob/master/devium][Devium]]
    - Terminal:             alacritty
-   - Terminal multiplexer: tmux
+   - Terminal multiplexer: zellij
    - PDF Viewer:           zathura
    - File manager:         ranger
 

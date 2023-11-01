@@ -1,0 +1,14 @@
+(defpoll gh-notifications :interval "10s" "gh notify -s | wc -l")
+
+(defwidget github []
+  (eventbox
+   :class "github"
+   :cursor "pointer"
+   :onclick "google-chrome-stable github.com/notifications &"
+   (box
+    :halign "end"
+    (image
+     :path "/home/juboba/.config/eww/github-mark-white.png"
+     :image-height 15
+     :image-width 15)
+    (label :text gh-notifications))))

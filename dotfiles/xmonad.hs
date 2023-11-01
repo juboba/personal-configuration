@@ -61,7 +61,7 @@ import XMonad
         modMask,
         normalBorderColor,
         terminal,
-        workspaces
+        workspaces, startupHook
       ),
     appName,
     className,
@@ -176,7 +176,7 @@ import XMonad.Util.NamedScratchpad
     scratchpadWorkspaceTag,
   )
 import XMonad.Util.Run (spawnPipe)
-import XMonad.Util.SpawnOnce ()
+import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.WorkspaceCompare (filterOutWs)
 
 -- import XMonad.Operations (killWindow)
@@ -187,7 +187,6 @@ main =
     docks $
       withUrgencyHook NoUrgencyHook $
         setEwmhActivateHook doAskUrgent . ewmh $
-          xmobar $
             def
               { borderWidth = myBorderWidth,
                 focusedBorderColor = myFocusedBorderColor,
@@ -204,6 +203,8 @@ main =
                     <+> myManageHook
                     <+> namedScratchpadManageHook scratchpads
                     <+> manageHook def,
+                startupHook = do
+                  spawnOnce "eww daemon && eww open main",
                 modMask = superKey,
                 normalBorderColor = myNormalBorderColor,
                 terminal = myTerminal,
@@ -347,12 +348,12 @@ myKeys =
     -- Launch Volatile Screenshot
     ((shiftMask, xK_Print), spawn "sleep 1; sshot -t"),
     -- Media keys
-    ((0, xF86XK_AudioMute), spawn "vol mute"),
-    ((0, xF86XK_AudioRaiseVolume), spawn "vol up"),
-    ((0, xF86XK_AudioLowerVolume), spawn "vol down"),
-    ((0, xF86XK_AudioPlay), spawn "sp play"),
-    ((0, xF86XK_AudioPrev), spawn "sp prev"),
-    ((0, xF86XK_AudioNext), spawn "sp next"),
+    ((0, xF86XK_AudioMute), spawn "volume-control toggle notify"),
+    ((0, xF86XK_AudioRaiseVolume), spawn "volume-control up notify"),
+    ((0, xF86XK_AudioLowerVolume), spawn "volume-control down notify"),
+    ((0, xF86XK_AudioPlay), spawn "playerctl --player=spotify play-pause"),
+    ((0, xF86XK_AudioPrev), spawn "playerctl --player=spotify previous"),
+    ((0, xF86XK_AudioNext), spawn "playerctl --player=spotify next"),
     ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl s 10%+"),
     ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl s 10%-"),
     -- , ((shiftMask, xF86XK_KbdBrightnessUp), spawn "shine temp-up")
@@ -463,33 +464,3 @@ myLayoutHook =
     tallLayout
     ||| wideLayout
     ||| threeColumns
-
-myXmobarPP :: PP
-myXmobarPP =
-  def
-    { ppCurrent = currentWsStyle,
-      ppLayout = layoutIndicatorStyle,
-      ppSep = "  ",
-      ppSort = (. filterOutWs [scratchpadWorkspaceTag]) <$> ppSort xmobarPP,
-      ppTitle = windowTitleStyle,
-      ppUrgent = urgentWsIndicatorStyle,
-      ppVisible = visibleWsStyle,
-      ppWsSep = " "
-    }
-  where
-    currentWsStyle :: String -> String
-    currentWsStyle = xmobarColor "#30bced" ""
-
-    urgentWsIndicatorStyle :: String -> String
-    urgentWsIndicatorStyle = xmobarColor "#fc5130" ""
-
-    visibleWsStyle :: String -> String
-    visibleWsStyle = xmobarColor "#20aaaa" ""
-
-    layoutIndicatorStyle :: String -> String
-    layoutIndicatorStyle = wrap "" "" . xmobarColor "#303036" ""
-
-    windowTitleStyle :: String -> String
-    windowTitleStyle = xmobarColor "#444444" "" . shorten 30 . xmobarStrip . wrap " " " "
-
-xmobar = withEasySB (statusBarProp "xmobar" (clickablePP myXmobarPP)) defToggleStrutsKey

@@ -17,6 +17,7 @@ if [ -n "$1" ]; then
         --output $WORK_SCREEN --off
 
       xmonad --restart
+      eww reload
       ;;
     top)
       notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) on top of LAPTOP_SCREEN ($LAPTOP_SCREEN)"
@@ -26,6 +27,7 @@ if [ -n "$1" ]; then
         --output $HOME_SCREEN --auto --above $LAPTOP_SCREEN --primary 
 
       xmonad --restart
+      eww reload
       ;;
     external)
       notify-send "Screen mode" "setting LAPTOP_SCREEN ($LAPTOP_SCREEN) alone"
@@ -35,6 +37,7 @@ if [ -n "$1" ]; then
         --output $LAPTOP_SCREEN --off
 
       xmonad --restart
+      eww reload
       ;;
     mirror)
       notify-send "Screen mode" "setting HOME_SCREEN ($HOME_SCREEN) mirroring LAPTOP_SCREEN ($LAPTOP_SCREEN)"
@@ -44,6 +47,7 @@ if [ -n "$1" ]; then
         --output $LAPTOP_SCREEN --mode $RESOLUTION
 
       xmonad --restart
+      eww reload
       ;;
     *) exit 0
       ;;

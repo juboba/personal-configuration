@@ -1,0 +1,24 @@
+(defvar playerctl "playerctl --player=spotify")
+
+(deflisten player-artist "playerctl --player=spotify -F metadata artist")
+(deflisten player-status "playerctl --player=spotify -F status")
+(deflisten player-title "playerctl --player=spotify -F metadata title")
+
+(defwidget now-playing []
+  (box
+    :halign "end"
+    :spacing "5"
+    :tooltip "${player-artist} - ${player-title}"
+   ;; FIXME alignment goes to hell when activating this
+   ;; (label
+   ;;  :text "${player-artist} - ${player-title}")
+   (eventbox
+    :cursor "pointer"
+    :onclick "${playerctl} previous" "⏮️")
+   (eventbox
+    :cursor "pointer"
+    :class "now-playing"
+    :onclick "${playerctl} play-pause" { player-status == "Playing" ? "⏸️" : "▶️" })
+   (eventbox
+    :cursor "pointer"
+    :onclick "${playerctl} next" "⏭️")))

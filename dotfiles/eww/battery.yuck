@@ -1,0 +1,6 @@
+(defpoll battery :interval "5s" "batalert")
+
+(defwidget battery []
+  (box
+   :halign "end"
+   (label :text "🔋 ${battery}%")))

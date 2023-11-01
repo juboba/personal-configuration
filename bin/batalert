@@ -19,5 +19,5 @@ CURRENT_PERCENT=$(jq -n "$CURRENT_CHARGE * 100 / $FULL_CHARGE" | cut -d'.' -f1)
 
 [ $STATUS = "Charging" ] && exit 0
 
-[ $CURRENT_PERCENT -lt $CRITICAL_THRESHOLD ] && notify-send -u critical -t 6000 "BATTERY LOW MOTHERFUCKER!!"
-[ $CURRENT_PERCENT -lt $LOW_THRESHOLD ] && echo "BATTERY LOW! -----------> " || echo ""
+[ $CURRENT_PERCENT -lt $CRITICAL_THRESHOLD ] && notify-send -u critical -t 6000 "CHARGE ME NOW!!"
+[ $CURRENT_PERCENT -lt $LOW_THRESHOLD ] && echo "BATTERY LOW! -----------> $CURRENT_PERCENT" || echo "$CURRENT_PERCENT"

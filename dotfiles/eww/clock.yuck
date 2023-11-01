@@ -1,0 +1,6 @@
+(defpoll time :interval "1s" "date '+%Hh%M'")
+
+(defwidget clock []
+  (box
+   :class "clock"
+   (label :text "🕛 ${time}")))

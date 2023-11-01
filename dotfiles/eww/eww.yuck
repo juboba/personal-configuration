@@ -1,0 +1,51 @@
+(include "./workspaces.yuck")
+(include "./clock.yuck")
+(include "./date.yuck")
+(include "./volume.yuck")
+(include "./now-playing.yuck")
+(include "./vpn-status.yuck")
+(include "./github.yuck")
+(include "./battery.yuck")
+
+(defwindow main
+    :class "main"
+    :monitor 0
+    :geometry (geometry :x "0%"
+                        :y "0px"
+                        :width "100%"
+                        :height "30px"
+                        :anchor "top center")
+    :stacking "fg"
+    :reserve (struts :distance "30px" :side "top")
+    :windowtype "dock"
+    :wm-ignore false
+    (centerbox
+     :class "container"
+     (workspaces)
+     (date)
+     (right)))
+
+(defwidget right []
+  (box
+   :halign "end"
+   (box
+    :spacing 10
+    :halign "end"
+    (github)
+    (vpn-status)
+    (battery)
+    (now-playing))
+   (box
+    :halign "end"
+    :spacing "160"
+    (volume)
+    (clock))))
+
+(defvar some true)
+
+(defwidget _button []
+  (box
+   :hexpand true
+   (button :class {some ? "active" : "inactive"}
+           :onclick "eww update some=${!some}"
+           {some ? "disable" : "enable"})))

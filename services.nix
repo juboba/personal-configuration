@@ -41,6 +41,10 @@
               replace = "nix run nixpkgs#";
             }
             {
+              trigger = ":nshn";
+              replace = "nix shell nixpkgs#";
+            }
+            {
               trigger = ":mcx";
               replace = "man configuration.nix";
             }
@@ -171,6 +175,7 @@
 
         rounded-corners-exclude = [
           "class_i = 'xmobar'"
+          "class_g = 'eww-main'"
           "class_g = 'trayer'"
         ];
 
@@ -209,7 +214,7 @@
       settings = {
         align = "right";
         alpha = 50;
-        distance = 80;
+        distance = 110;
         distancefrom = "right";
         edge = "top";
         height = 26;

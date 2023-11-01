@@ -1,0 +1,47 @@
+$bgcolor: black;
+$fgcolor: #00aaff;
+
+.main {
+    background-color: $bgcolor;
+    color: $fgcolor;
+}
+
+.container {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.workspace-occupied {
+    background-color: $bgcolor;
+    color: gray;
+}
+
+.workspace-focused {
+    background-color: $bgcolor;
+    color: $fgcolor;
+}
+
+.clock {
+    font-size: 20px;
+}
+
+.github {
+    color: white;
+}
+
+.one {
+    background-color: red;
+}
+
+.two {
+    background-color: green;
+}
+
+.three {
+    background-color: blue;
+}
+
+.cont {
+    background-color: white;
+    color: black;
+}

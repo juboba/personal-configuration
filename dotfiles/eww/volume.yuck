@@ -1,0 +1,8 @@
+(deflisten volume "~/.config/eww/scripts/volume.sh")
+
+(defwidget volume []
+  (box
+   (eventbox
+    :cursor "pointer"
+    :onscroll "volume-control {}"
+    :onclick "volume-control mute" volume)))

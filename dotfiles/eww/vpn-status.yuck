@@ -1,0 +1,8 @@
+(defpoll vpn-status :interval "1s" "vpn-status")
+
+(defwidget vpn-status []
+  (box
+   :halign "end"
+   (eventbox
+    :cursor "pointer"
+    :onclick "vpn-status t" (label :text vpn-status))))

@@ -1,0 +1,7 @@
+(deflisten workspace "~/.config/eww/scripts/ws.sh")
+
+(defwidget workspaces []
+  (box
+   :halign "start"
+  (literal
+   :content workspace)))

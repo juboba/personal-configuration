@@ -56,10 +56,12 @@ in with pkgs; {
 
     # UI
     eww
+    gh
     gsimplecal
     libnotify
     scrot
     slock
+    wmctrl
     xcalib
     xclip
     xdotool
@@ -78,6 +80,7 @@ in with pkgs; {
     spotifywm
     sxiv
     texlive.combined.scheme-full
+    playerctl
 
     # Browser
     python310Packages.adblock

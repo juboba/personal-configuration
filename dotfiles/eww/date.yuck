@@ -1,0 +1,9 @@
+(defpoll date :interval "1s" "date '+%a %d %h'")
+
+(defwidget date []
+  (box
+   :class "date"
+   :halign "end"
+   (eventbox
+    :cursor "pointer"
+    :onclick "gsimplecal &" (label :text "🗓️ ${date}"))))

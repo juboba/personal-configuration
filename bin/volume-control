@@ -2,20 +2,21 @@
 AMIXER_SET_CMD="amixer sset Master"
 AMIXER_GET_CMD="amixer get Master"
 AMIXER_INC=5%
-REMOVE_BRACKETS="tr -d '[]%'"
 
 run_command() {
     echo "running..." $1 > /tmp/debug_log
-    read -r a b <<<$($1 | grep "^  Front Right" | cut -d' ' -f7,8 | $REMOVE_BRACKETS)
-    echo $a $b
+    read -r a b <<<$($1 | grep -e "^  Front Right" -e "^  Mono" | tail -1 | sed 's/.*\[\([0-9]*\)%\] \[\(on\|off\)\].*/\1 \2/')
+    echo "$a $b"
 }
 
 vol_up() {
     run_command "$AMIXER_SET_CMD $AMIXER_INC+"
+    [ "notify" = "$1" ] && notify-send -h string:x-canonical-private-synchronous:volume "$(format_volume "$(vol_getCurrent)")"
 }
 
 vol_down() {
     run_command "$AMIXER_SET_CMD $AMIXER_INC-"
+    [ "notify" = "$1" ] && notify-send -h string:x-canonical-private-synchronous:volume "$(format_volume "$(vol_getCurrent)")"
 }
 
 vol_toggle() {
@@ -27,9 +28,9 @@ vol_getCurrent() {
 }
 
 format_volume() {
-    result=$($1)
-    vol=$(echo $result | cut -d' ' -f1)
-    is_on=$(echo $result | cut -d' ' -f2)
+    result=$1
+    vol=$(echo "$result" | cut -d' ' -f1)
+    is_on=$(echo "$result" | cut -d' ' -f2)
 
     if [ $is_on = "off" ]
     then
@@ -46,15 +47,15 @@ format_volume() {
 
 if [ "$1" = "up" ]
 then
-	  echo $(format_volume vol_up)
+  format_volume "$(vol_up "$2")"
 elif [ "$1" = "down" ]
 then
-	  echo $(format_volume vol_down)
+  format_volume "$(vol_down "$2")"
 elif [ "$1" = "mute" ]
 then
-	  echo $(format_volume vol_toggle)
+  format_volume "$(vol_toggle)"
 else
-	  echo $(format_volume vol_getCurrent)
+  format_volume "$(vol_getCurrent)"
 fi
 
 # read -r a b <<<$(amixer -D pulse get Master | grep "^  Front Right" | cut -d' ' -f7,8 | sed -e 's/\[//g' -e 's/\]//g'); echo "$a $b"

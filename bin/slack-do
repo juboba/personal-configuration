@@ -2,7 +2,7 @@
 
 MONO_REPO_PATH=/home/juboba/projects/genially/mono/
 export SLACK_CLI_TOKEN
-SLACK_CLI_TOKEN=$(get_pass slack)
+SLACK_CLI_TOKEN=$(/home/juboba/.bin/get_pass slack)
 
 run_slack() {
   nix-shell \
@@ -56,7 +56,7 @@ case $SELECTED in
   "nix")
     set_active
     set_status "Nixing" ":nixos:" ;;
-  "now-playing") set_status "$(now-playing)" ":headphones:" ;;
+  "now-playing") set_status "$(playerctl --player=spotify -F metadata artist) - $(playerctl --player=spotify -F metadata title)" ":headphones:" ;;
   "off")
     set_away
     set_status "Fuera por hoy" ":wave:" ;;
