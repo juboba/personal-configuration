@@ -1,7 +1,0 @@
-#!/bin/sh
-
-case "$1" in
-  "s") curl https://terminal-stocks.herokuapp.com/market-summary ;;
-  "h") curl "https://terminal-stocks.herokuapp.com/historical/$2" ;;
-  *) curl "https://terminal-stocks.herokuapp.com/$1" ;;
-esac
