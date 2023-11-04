@@ -21,6 +21,7 @@ vol_down() {
 
 vol_toggle() {
     run_command "$AMIXER_SET_CMD toggle"
+    [ "notify" = "$1" ] && notify-send -h string:x-canonical-private-synchronous:volume "$(format_volume "$(vol_getCurrent)")"
 }
 
 vol_getCurrent() {
@@ -53,7 +54,7 @@ then
   format_volume "$(vol_down "$2")"
 elif [ "$1" = "mute" ]
 then
-  format_volume "$(vol_toggle)"
+  format_volume "$(vol_toggle $2)"
 else
   format_volume "$(vol_getCurrent)"
 fi
