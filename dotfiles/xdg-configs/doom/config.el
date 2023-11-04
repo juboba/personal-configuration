@@ -181,4 +181,7 @@
    [("a" "   Find org file" my/find-file-in-org-directory)]
    [("b" "   Dragon drop" my/dragon-drop)]])
 
+(add-to-list 'default-frame-alist '(alpha-background . 90))
+;; (set-frame-parameter nil 'alpha-background 90)
+
 ;;; config.el ends here
