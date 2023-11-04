@@ -219,22 +219,41 @@ filterNSP = unwords . filter (`notElem` nspWorkspaces) . words
 
 appendToNamedPipe namedPipe str = do
     let filteredStr = filterNSP str
-    appendFile namedPipe $ wrap "(box :spacing 5 :orientation \"h\" :class \"xmonad\" :halign \"center\" :valign \"center\" :vexpand \"true\" :hexpand \"true\" " ")" filteredStr
+    appendFile namedPipe $ wrap "(box :spacing 10 :orientation \"h\" :class \"xmonad\" :halign \"center\" :valign \"center\" :vexpand \"true\" :hexpand \"true\" " ")" filteredStr
 
 formatHiddenWs wsName =
   if wsName /= "NSP"
-  then printf "(label :class \"workspace hidden\" :text \"%s\")" wsName
+  then buildWsButton "hidden" wsName
   else wsName
+
+wrapWithEventBox number label = "(eventbox :cursor \"pointer\" :onclick \"wmctrl -s "++ number ++ "\" "++ label ++")"
+
+buildWsButton className wsName =
+  case getParts wsName of
+    [number, text] -> wrapWithEventBox number $ "(label :class \"workspace "++ className ++"\" :text \""++ text ++"\")"
+    _ -> ""
+
+
+getParts = splitString ':'
+  where
+    splitString :: Char -> String -> [String]
+    splitString _ "" = []
+    splitString delimiter input = go input []
+      where
+        go "" acc = [reverse acc]
+        go (c:cs) acc
+          | c == delimiter = reverse acc : go cs []
+          | otherwise = go cs (c : acc)
 
 myPP =
   def
     { ppOutput = appendToNamedPipe "/home/juboba/wsinfo"
-    , ppCurrent = printf "(label :class \"workspace current\" :text \"%s\")"
-    , ppVisible = printf "(label :class \"workspace visible\" :text \"%s\")"
+    , ppCurrent = buildWsButton "current"
+    , ppVisible = buildWsButton "visible"
     -- , ppTitle = printf "(label :class \"window-title\" :text \"%s\")"
     , ppTitle = const ""
     , ppWsSep = " "
-    , ppUrgent = printf "(label :class \"workspace urgent\" :text \"%s\")"
+    , ppUrgent = buildWsButton "urgent"
     , ppLayout = printf "(label :class \"layout\" :text \"%s\")"
     , ppHidden = formatHiddenWs
     , ppSep = " "
@@ -287,16 +306,17 @@ scratchpads = [NS "terminal" "alacritty --class scratch-term -e jmux" (appName =
 --
 myWorkspaces :: [String]
 myWorkspaces =
-  [ " \61728 ", -- 
-    " \61508 ", -- 
-    " \62038 ", -- 
-    " \62056 ", -- 
-    " \61574 ", -- 
-    " \61477 ", -- ''
-    " \61664 ", -- 
-    " \61760 ", -- 
-    " \62057 " -- 
+  addIndexes [ "\61728" -- 
+  , "\61508" -- 
+  , "\62038" -- 
+  , "\62056" -- 
+  , "\61574" -- 
+  , "\61477" -- ''
+  , "\61664" -- 
+  , "\61760" -- 
+  , "\62057" -- 
   ]
+  where addIndexes ws = [show n ++ ":" ++ w | (index, w) <- zip [0..8] ws, let n = index]
 
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor :: String
