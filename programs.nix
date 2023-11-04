@@ -71,7 +71,7 @@ in with builtins; {
 
     emacs = {
       enable = true;
-      package = pkgs.emacs29;
+      package = pkgs.emacs29-gtk3;
       extraPackages = epkgs: [ epkgs.emacsql-sqlite ] ;
     };
 
