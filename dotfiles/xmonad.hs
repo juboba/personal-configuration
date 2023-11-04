@@ -107,10 +107,10 @@ import XMonad
     (|||),
   )
 import XMonad.Actions.CopyWindow (copyToAll, killAllOtherCopies)
-import XMonad.Actions.CycleWS (Direction1D (Next, Prev), WSType (Not), emptyWS, moveTo, nextScreen, swapNextScreen, toggleWS')
+import XMonad.Actions.CycleWS (Direction1D (Next, Prev), WSType (Not, WSIs), emptyWS, moveTo, nextScreen, swapNextScreen, toggleWS')
 import XMonad.Actions.Submap (submap)
 import XMonad.Actions.UpdatePointer (updatePointer)
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, ppCurrent, ppLayout, ppOutput, ppSep, ppSort, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, xmobarColor, xmobarPP, xmobarProp, xmobarStrip)
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, ppCurrent, ppLayout, ppOutput, ppSep, ppSort, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, xmobarColor, xmobarPP, xmobarProp, xmobarStrip, PP (ppExtras, ppHidden))
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen, setEwmhActivateHook)
 import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Master), insertPosition)
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, checkDock, docks, manageDocks)
@@ -178,6 +178,8 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.WorkspaceCompare (filterOutWs)
+import Text.Printf (printf)
+import Data.Maybe (isJust)
 
 -- import XMonad.Operations (killWindow)
 
@@ -196,7 +198,7 @@ main =
                     mkToggle
                       (NOBORDERS ?? FULL ?? EOT)
                       myLayoutHook,
-                logHook = updatePointer (0.5, 0.5) (0, 0),
+                logHook = dynamicLogWithPP myPP <+> updatePointer (0.5, 0.5) (0, 0),
                 manageHook =
                   manageDocks
                     <+> insertPosition Master Newer
@@ -211,6 +213,32 @@ main =
                 workspaces = myWorkspaces
               }
               `additionalKeys` myKeys
+
+nspWorkspaces = ["NSP"]
+filterNSP = unwords . filter (`notElem` nspWorkspaces) . words
+
+appendToNamedPipe namedPipe str = do
+    let filteredStr = filterNSP str
+    appendFile namedPipe $ wrap "(box :spacing 5 :orientation \"h\" :class \"xmonad\" :halign \"center\" :valign \"center\" :vexpand \"true\" :hexpand \"true\" " ")" filteredStr
+
+formatHiddenWs wsName =
+  if wsName /= "NSP"
+  then printf "(label :class \"workspace hidden\" :text \"%s\")" wsName
+  else wsName
+
+myPP =
+  def
+    { ppOutput = appendToNamedPipe "/home/juboba/wsinfo"
+    , ppCurrent = printf "(label :class \"workspace current\" :text \"%s\")"
+    , ppVisible = printf "(label :class \"workspace visible\" :text \"%s\")"
+    -- , ppTitle = printf "(label :class \"window-title\" :text \"%s\")"
+    , ppTitle = const ""
+    , ppWsSep = " "
+    , ppUrgent = printf "(label :class \"workspace urgent\" :text \"%s\")"
+    , ppLayout = printf "(label :class \"layout\" :text \"%s\")"
+    , ppHidden = formatHiddenWs
+    , ppSep = " "
+    }
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -291,14 +319,15 @@ myEventHooks = Hacks.trayerAboveXmobarEventHook <> Hacks.windowedFullscreenFixEv
 -- myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 -- myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 --
+nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 
 myKeys :: [((KeyMask, KeySym), X ())]
 myKeys =
   -- Toggle Fullscreen
   [ ((superKey, xK_f), goFull),
     ((superKey .|. shiftMask, xK_f), sendMessage ToggleStruts),
-    ((superKey, xK_Left), moveTo Prev (Not emptyWS)),
-    ((superKey, xK_Right), moveTo Next (Not emptyWS)),
+    ((superKey, xK_Left), moveTo Prev nonEmptyNonNSP),
+    ((superKey, xK_Right), moveTo Next nonEmptyNonNSP),
     -- Go to previous workspace
     ((superKey, xK_Tab), toggleWS' ["NSP"]),
     -- , ((superKey, xK_g), goToSelected defaultConfig)
@@ -348,7 +377,7 @@ myKeys =
     -- Launch Volatile Screenshot
     ((shiftMask, xK_Print), spawn "sleep 1; sshot -t"),
     -- Media keys
-    ((0, xF86XK_AudioMute), spawn "volume-control toggle notify"),
+    ((0, xF86XK_AudioMute), spawn "volume-control mute notify"),
     ((0, xF86XK_AudioRaiseVolume), spawn "volume-control up notify"),
     ((0, xF86XK_AudioLowerVolume), spawn "volume-control down notify"),
     ((0, xF86XK_AudioPlay), spawn "playerctl --player=spotify play-pause"),
@@ -391,41 +420,36 @@ myKeys =
 myManageHook :: Query (Endo WindowSet)
 myManageHook =
   composeAll
-    [ isFullscreen --> doFullFloat,
-      className =? "Emacs" --> takeTo 1,
-      -- , className =? "Xmessage"                                              --> doFloat
-      appName =? "chromium-browser (dev-profile)" --> takeTo 2,
-      appName =? "chromium-browser" --> takeTo 3,
-      appName =? "google-chrome" --> takeTo 3,
-      title =? "meet.google.com is sharing your screen." --> takeTo 6,
-      className =? "Spotify" --> takeTo 5,
-      className =? "KotatogramDesktop" --> takeTo 4,
-      className =? "Slack" --> takeTo 4,
-      className =? "discord" --> takeTo 4,
-      className =? "firefox" --> takeTo 8,
-      className =? "qutebrowser" --> takeTo 8,
-      stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore,
-      -- , resource  =? "desktop_window"                                     --> doIgnore
-      -- , className =? "Exe"                                                --> doFloat
-      -- , className =? "Gvim"                                               --> viewShift "^ vim"
-      -- , className =? "Gimp"                                               --> doShift "8 grphx" <+> doFloat
-      title =? "Picture-in-Picture" --> doFloat, -- Firefox videos
-      className =? "Screen" --> doFloat, -- Screen share (with Screen.so)
-      title =? "Media viewer" --> doFloat, -- Telegram media
-      className =? "Gsimplecal" --> doFloat, -- Calendar window
-      appName =? "plasmashell" --> doIgnore, -- Plasma stuff
-      className =? ".pick-colour-picker-wrapped" --> doFloat, -- Color picker
-      className =? "Pavucontrol" --> doFloat,
-      appName =? "showmyself" --> doFloat, -- Show me
-      title =? "Copying Files" --> doFloat,
-      className =? "Xmessage" --> doFloat,
-      className =? "Peek" --> doFloat,
-      className =? "trayer" --> doIgnore,
-      className =? "flameshot" --> doIgnore,
-      checkDock --> doLower,
-      -- , title =? "Slack - Huddle"                                            --> killWindow
-
-      className =? "Cypress" --> takeTo 7
+    [ isFullscreen --> doFullFloat
+    , appName =? "chromium-browser (dev-profile)" --> takeTo 2
+    , appName =? "chromium-browser" --> takeTo 3
+    , appName =? "google-chrome" --> takeTo 3
+    , appName =? "plasmashell" --> doIgnore -- Plasma stuff
+    , appName =? "showmyself" --> doFloat -- Show me
+    , checkDock --> doLower
+    , className =? ".pick-colour-picker-wrapped" --> doFloat -- Color picker
+    , className =? "Cypress" --> takeTo 7
+    , className =? "Emacs" --> takeTo 1
+    , className =? "GSH" --> takeTo 7
+    , className =? "Gsimplecal" --> doFloat -- Calendar window
+    , className =? "KotatogramDesktop" --> takeTo 4
+    , className =? "Pavucontrol" --> doFloat
+    , className =? "Peek" --> doFloat
+    , className =? "Slack" --> takeTo 4
+    , className =? "Spotify" --> takeTo 5
+    , className =? "Xmessage" --> doFloat
+    , className =? "discord" --> takeTo 4
+    , className =? "firefox" --> takeTo 8
+    , className =? "flameshot" --> doIgnore
+    , className =? "qutebrowser" --> takeTo 8
+    , className =? "trayer" --> doIgnore
+    , stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore
+    , title =? "Copying Files" --> doFloat
+    , title =? "Media viewer" --> doFloat -- Telegram media
+    , title =? "Picture-in-Picture" --> doFloat -- Firefox videos
+    , title =? "meet.google.com is sharing your screen." --> takeTo 6
+    -- , resource  =? "desktop_window"                                     --> doIgnore
+    -- , title =? "Slack - Huddle"                                            --> killWindow
     ]
   where
     takeTo n = doShift $ myWorkspaces !! n

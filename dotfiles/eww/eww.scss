@@ -29,19 +29,20 @@ $fgcolor: #00aaff;
     color: white;
 }
 
-.one {
-    background-color: red;
-}
+.xmonad {
+    .workspace {
+        color: gray;
 
-.two {
-    background-color: green;
-}
-
-.three {
-    background-color: blue;
-}
-
-.cont {
-    background-color: white;
-    color: black;
+        &.current {
+            color: #30bced;
+        }
+        &.hidden {
+        }
+        &.visible {
+            color: #20aaaa;
+        }
+        &.urgent {
+            color: #fc5130;
+        }
+    }
 }

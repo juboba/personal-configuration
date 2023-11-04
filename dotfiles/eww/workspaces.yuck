@@ -1,4 +1,4 @@
-(deflisten workspace "~/.config/eww/scripts/ws.sh")
+(deflisten workspace "~/.config/eww/scripts/wsinfo.sh")
 
 (defwidget workspaces []
   (box
