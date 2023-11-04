@@ -125,7 +125,7 @@ with pkgs; {
 
       gsh = {
         comment = "Genially dev-env";
-        exec = "terminal gsh";
+        exec = "terminal --class GSH -e gsh";
         genericName = "Genially Dev Env";
         icon = "screen";
         name = "gsh";
