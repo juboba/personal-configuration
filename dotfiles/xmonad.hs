@@ -104,7 +104,7 @@ import XMonad
     (.|.),
     (<+>),
     (=?),
-    (|||),
+    (|||), xK_g,
   )
 import XMonad.Actions.CopyWindow (copyToAll, killAllOtherCopies)
 import XMonad.Actions.CycleWS (Direction1D (Next, Prev), WSType (Not, WSIs), emptyWS, moveTo, nextScreen, swapNextScreen, toggleWS')
@@ -180,6 +180,8 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.WorkspaceCompare (filterOutWs)
 import Text.Printf (printf)
 import Data.Maybe (isJust)
+import XMonad.Layout.CenteredIfSingle (centeredIfSingle)
+import XMonad.Layout.Grid (Grid(Grid))
 
 -- import XMonad.Operations (killWindow)
 
@@ -293,7 +295,9 @@ myBorderWidth = 0
 
 -- scratchPads
 scratchpads :: [NamedScratchpad]
-scratchpads = [NS "terminal" "alacritty --class scratch-term -e jmux" (appName =? "scratch-term") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))]
+scratchpads = [ NS "terminal" "alacritty --class scratch-term -e jmux" (appName =? "scratch-term") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
+              , NS "gsh" "alacritty --class scratch-gsh -e gsh" (appName =? "scratch-gsh") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
+              ]
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -375,11 +379,11 @@ myKeys =
     ((superKey .|. shiftMask, xK_z), spawn "slock"),
     -- Copy Emoji
     ((superKey .|. shiftMask, xK_i), spawn "rofiemoji"),
-    ( (superKey, xK_m),
+    ((superKey, xK_m),
       submap . M.fromList $
-        [ ((0, xK_n), spawn "sp next"),
-          ((shiftMask, xK_n), spawn "sp prev"),
-          ((0, xK_p), spawn "sp play")
+        [ ((0, xK_n), spawn "playerctl --player=spotify next"),
+          ((shiftMask, xK_n), spawn "playerctl --player=spotify previous"),
+          ((0, xK_p), spawn "playerctl --player=spotify play-pause")
         ]
     ),
     -- Clipboard Menu
@@ -392,10 +396,9 @@ myKeys =
     ((superKey, xK_p), spawn "rofi -show smod -modes \"smod:smod\""),
     -- Toggle terminal scratchpad
     ((superKey .|. shiftMask, xK_t), namedScratchpadAction scratchpads "terminal"),
+    ((superKey .|. shiftMask, xK_g), namedScratchpadAction scratchpads "gsh"),
     -- Launch Screenshot
     ((0, xK_Print), spawn "flameshot gui"),
-    -- Launch Volatile Screenshot
-    ((shiftMask, xK_Print), spawn "sleep 1; sshot -t"),
     -- Media keys
     ((0, xF86XK_AudioMute), spawn "volume-control mute notify"),
     ((0, xF86XK_AudioRaiseVolume), spawn "volume-control up notify"),
@@ -450,7 +453,6 @@ myManageHook =
     , className =? ".pick-colour-picker-wrapped" --> doFloat -- Color picker
     , className =? "Cypress" --> takeTo 7
     , className =? "Emacs" --> takeTo 1
-    , className =? "GSH" --> takeTo 7
     , className =? "Gsimplecal" --> doFloat -- Calendar window
     , className =? "KotatogramDesktop" --> takeTo 4
     , className =? "Pavucontrol" --> doFloat
@@ -508,3 +510,4 @@ myLayoutHook =
     tallLayout
     ||| wideLayout
     ||| threeColumns
+    ||| centeredIfSingle 0.7 0.8 Grid

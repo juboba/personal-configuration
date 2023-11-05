@@ -123,16 +123,6 @@ with pkgs; {
         type = "Application";
       };
 
-      gsh = {
-        comment = "Genially dev-env";
-        exec = "terminal --class GSH -e gsh";
-        genericName = "Genially Dev Env";
-        icon = "screen";
-        name = "gsh";
-        terminal = false;
-        type = "Application";
-      };
-
       jmux = {
         comment= " My entry point to Tmux";
         exec = "jmux";
