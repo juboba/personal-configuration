@@ -172,6 +172,7 @@
 
         opacity-rule = [
           "90:class_i = 'scratch-term'"
+          "80:class_i = 'Alacritty'"
         ];
 
         rounded-corners-exclude = [
