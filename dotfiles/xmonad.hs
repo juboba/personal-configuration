@@ -502,12 +502,13 @@ messagingLayout = named "\61659" $ addGap $ Tall nmaster delta ratio
 
 threeColumns = named "3" $ addGap $ ThreeColMid 1 (3 / 100) (1 / 2)
 
+centeredOrGrid = centeredIfSingle 0.6 1 Grid
+
 -- myLayoutHook :: ModifiedLayout ??
 myLayoutHook =
-  onWorkspace
-    (myWorkspaces !! 4)
-    messagingLayout
+  onWorkspace (myWorkspaces !! 4) messagingLayout
+  $ onWorkspace (myWorkspaces !! 8) centeredOrGrid
     tallLayout
     ||| wideLayout
     ||| threeColumns
-    ||| centeredIfSingle 0.7 0.8 Grid
+    ||| centeredOrGrid

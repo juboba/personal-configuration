@@ -115,7 +115,6 @@ in with pkgs; {
     pick-colour-picker
     python3
     robo3t
-    ryzenadj
     shellcheck
     pavucontrol
     haskell-language-server

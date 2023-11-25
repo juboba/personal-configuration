@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: constant function
-# key: c\
-# --
-const $1 = () => {
-  $2
-};

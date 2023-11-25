@@ -39,9 +39,11 @@
       };
   };
 
-  #swapDevices =
-    #[ { device = "/dev/disk/by-uuid/5ff83a2a-7d4a-4498-b47a-797b208fbc64"; }
-    #];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-uuid/1d84ec50-045b-4f88-a559-a6aabf999f35";
+    }
+  ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;

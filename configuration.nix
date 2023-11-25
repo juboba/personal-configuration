@@ -8,10 +8,18 @@
 
     processor = "4800H";
 
+    runAsAdmin = {
+      enable = true;
+
+      user = "juboba";
+    };
+
     powerManagement = {
       enable = true;
+
       awakeMode = "slow";
       cpuFreqGovernor = "powersave";
+      powerUpCommandsDelay = 60;
     };
 
     thermald.enable = true;
@@ -163,6 +171,15 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
+
+  systemd = {
+    extraConfig = ''
+    DefaultLimitNOFILE=65535
+  '';
+    user.extraConfig = ''
+    DefaultLimitNOFILE=65535
+  '';
+  };
 
   time.timeZone = "Europe/Madrid";
 

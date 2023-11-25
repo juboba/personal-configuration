@@ -124,7 +124,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 (defun my/dragon-drop ()
   "Use dragon to allow dropping the current file somewhere else"
   (interactive)
-  (start-process "dragon" "*dragon" "dragon" (buffer-file-name)))
+  (start-process "dragon" "*dragon*" "dragon" (buffer-file-name)))
 
 (defun my/get-feature-flags ()
   "Get feature flags from database"

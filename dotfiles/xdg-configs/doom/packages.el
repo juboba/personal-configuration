@@ -65,6 +65,8 @@
 ;; (package! google-translate)
 (package! org-remark)
 (package! shell-pop)
+(package! jtsx
+  :recipe (:host github :repo "llemaitre19/jtsx"))
 ;; (package! gpt)
 ;; (package! sicp)
 ;; (package! indium)

@@ -114,15 +114,6 @@ with pkgs; {
         noDisplay = true;
       };
 
-      emacsclient = {
-        comment = "Edit text";
-        exec = "emacsclient -c %F";
-        genericName = "Text editor";
-        icon = "emacs";
-        name = "Emacs";
-        type = "Application";
-      };
-
       jmux = {
         comment= " My entry point to Tmux";
         exec = "jmux";

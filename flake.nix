@@ -67,7 +67,7 @@
                 gsh = import (fetchGit {
                   url = "git@github.com:Genially/gsh";
                   ref = "refs/heads/main";
-                  rev = "334adf0411ee3208dbadee55113d23913d2399c6";
+                  rev = "07cf9e12acc85411f5579b72630784db3748f69d";
                 }) {};
               })
             ];

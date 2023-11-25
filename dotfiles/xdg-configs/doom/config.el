@@ -60,23 +60,6 @@
 ;; (load! "./email.el")
 (load! "./macros.el")
 
-;; My status bar
-;; (display-battery-mode)
-;; (display-time-mode)
-;; (spotify-enable-song-notifications)
-
-;; My "screen saver"
-;; (require 'zone)
-;; (setq zone-programs [zone-pgm-martini-swan-dive])
-;; (zone-when-idle 105)
-
-;; Cursor style
-;; (setq blink-cursor-interval 0.9)
-;; (setq blink-cursor-delay 0.1)
-;; (setq blink-cursor-blinks-done 0)
-;; (setq blink-cursor-blinks 0)
-;; (blink-cursor-mode)
-
 ;; Set my quick launch terminal
 (setq terminal-here-terminal-command (list "terminal"))
 
@@ -92,18 +75,17 @@
 
 ;; Disable cursor movement when exiting insert mode
 (setq evil-move-cursor-back nil)
-(setq evil-respect-visual-line-mode t)
 
 ;; Authinfo (forge)
 (setq auth-sources '("~/.authinfo"))
 
 ;; File associations
 (push '("\\.mdx\\'" . markdown-mode) auto-mode-alist)
-;(push '("\\.tsx\\'" . rjsx-mode) auto-mode-alist)
-(push '("\\.js\\'" . rjsx-mode) auto-mode-alist)
+(push '("\\.js\\'" . jsx-mode) auto-mode-alist)
+(push '("\\.jsx\\'" . jsx-mode) auto-mode-alist)
 (push '("\\.yuck\\'" . lisp-mode) auto-mode-alist)
 (push '("\\.ts\\'" . typescript-ts-mode) auto-mode-alist)
-(push '("\\.tsx\\'" . typescript-ts-mode) auto-mode-alist)
+(push '("\\.tsx\\'" . tsx-mode) auto-mode-alist)
 
 ;; Doom's private directory
 (setq doom-user-dir "/home/juboba/repositories/personal-configuration/dotfiles/xdg-configs/doom")
@@ -119,9 +101,10 @@
 ;(add-hook 'prog-mode-hook 'prettify-symbols-mode)
 ;(add-hook 'prog-mode-hook 'my/add-pretty-lambda)
 (add-hook 'prog-mode-hook 'nyan-mode)
-(add-hook 'rjsx-mode-hook 'lsp)
+;; (add-hook 'rjsx-mode-hook 'lsp)
 (add-hook 'prog-mode-hook 'visual-line-mode)
 (add-hook 'typescript-ts-mode-hook #'lsp)
+(add-hook 'tsx-mode-hook #'lsp)
 
 ;; Magit
 ;; (setq magit-git-global-arguments (delete "--literal-pathspecs" magit-git-global-arguments))
@@ -181,7 +164,7 @@
    [("a" "   Find org file" my/find-file-in-org-directory)]
    [("b" "   Dragon drop" my/dragon-drop)]])
 
-(add-to-list 'default-frame-alist '(alpha-background . 90))
-;; (set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 95))
+;; (set-frame-parameter nil 'alpha-background 95)
 
 ;;; config.el ends here
