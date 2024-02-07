@@ -11,7 +11,6 @@ import ./docker-compose.nix //
   ec = "emacsclient";
   gcal = "gcalcli calw $(date -d \"$D\" \"+%d\") 2 --monday";
   hm = "home-manager";
-  ls = "exa";
   llg = "ll --git --header --sort=modified";
   llt = "ll --header --sort=modified";
   man = "man --pager=\"sh -c 'col -bx | bat -l man -p'\"";

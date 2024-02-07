@@ -59,4 +59,3 @@ systemctl --user restart conky
 else
   echo -e "solo\ntop\nexternal\nmirror"
 fi
- #| rofi -dmenu -p "Select Screen Mode"

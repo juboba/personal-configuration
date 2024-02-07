@@ -40,7 +40,7 @@
 
   environment.systemPackages = with pkgs; [
     gnupg
-    (ghc.withPackages (hpkgs: with hpkgs; [xmonad xmonad-contrib X11]))
+    (ghc.withPackages (hpkgs: with hpkgs; [ xmonad xmonad-contrib X11 ]))
     wget
     home-manager
   ];
@@ -49,6 +49,10 @@
     enable = false;
     package = pkgs.pulseaudioFull;
   };
+
+  imports = [
+    ./nvim
+  ];
 
   networking = {
     hostName = "faraday"; # Define your hostname.
@@ -80,12 +84,6 @@
   # started in user sessions.
   programs = {
     gnupg.agent.enable = true;
-    neovim = {
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-    };
-    hyprland.enable = true;
   };
 
   # Select internationalisation properties.
@@ -102,7 +100,7 @@
     cron.enable = true;
     geoclue2.enable = true;
     gpm.enable = true;
-    
+
     openvpn.servers = {
       genially = {
         autoStart = false;
@@ -174,17 +172,17 @@
 
   systemd = {
     extraConfig = ''
-    DefaultLimitNOFILE=65535
-  '';
+      DefaultLimitNOFILE=65535
+    '';
     user.extraConfig = ''
-    DefaultLimitNOFILE=65535
-  '';
+      DefaultLimitNOFILE=65535
+    '';
   };
 
   time.timeZone = "Europe/Madrid";
 
   users = {
-    extraGroups.vboxusers.members = ["juboba"];
+    extraGroups.vboxusers.members = [ "juboba" ];
 
     users.juboba = {
       extraGroups = [ "pulse-access" "docker" "input" "wheel" ];

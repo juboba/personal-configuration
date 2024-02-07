@@ -97,13 +97,17 @@ with pkgs; {
       };
 
       devium = {
-        #startupWMClass = "Devium";
         #version = 1.0;
         comment = "Self destructing Chromium browser with predefined profile";
         exec = "devium %U";
         genericName = "Development Chromium";
         icon = "chromium";
         name = "Devium";
+
+        settings = {
+          StartupWMClass = "Devium";
+        };
+
         terminal = false;
         type = "Application";
       };

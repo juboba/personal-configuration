@@ -35,7 +35,7 @@ in with builtins; {
       enable = true;
 
       initExtra = ''
-        PATH=~/.bin:~/.config/doom/bin:$PATH
+        PATH=~/.bin:~/.config/emacs/bin:$PATH
         # Disable terminal suspension with Ctrl + s and Ctrl + q
         stty -ixon -ixoff
 
@@ -75,7 +75,7 @@ in with builtins; {
       extraPackages = epkgs: [ epkgs.emacsql-sqlite ] ;
     };
 
-    exa = {
+    eza = {
       enable = true;
 
       enableAliases = true;
@@ -181,55 +181,9 @@ in with builtins; {
     };
 
     neovim = {
-      enable = true;
+      enable = false;
 
       defaultEditor = true;
-
-      plugins = with pkgs.vimPlugins; [
-        ale
-        awesome-vim-colorschemes
-        ctrlp
-        emmet-vim
-        fugitive
-        nerdtree
-        nnn-vim
-        vim-airline
-        vim-airline-themes
-        vim-css-color
-        vim-devicons
-        vim-gitgutter
-        vim-jsx-pretty
-        vim-one
-        vim-surround
-        vim-nix
-      ];
-
-      extraConfig = ''
-        set autoindent
-        set expandtab
-        set number
-        set omnifunc=ale#completion#OmniFunc
-        set relativenumber
-        set shiftwidth=2
-        set showcmd
-        set smartcase
-        set smarttab
-        set softtabstop=0
-        set tabstop=2
-        set clipboard=unnamedplus
-
-        let b:ale_fixers = ['prettier', 'eslint']
-        let g:ale_completion_enabled = 1
-
-        let g:ale_completion_autoimport = 1
-
-        let g:airline_theme='fruit_punch'
-        let g:airline_powerline_fonts = 1
-
-        xmap s <Plug>VSurround
-
-        colorscheme OceanicNext
-      '';
 
       viAlias = true;
       vimAlias = true;

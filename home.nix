@@ -1,12 +1,13 @@
 { pkgs, ... }:
 
-let 
-HOME_PATH = builtins.getEnv "HOME";
-in with pkgs; {
+let
+  HOME_PATH = builtins.getEnv "HOME";
+in
+with pkgs; {
   accounts.email = {
     accounts.genially = {
       address = "juboba@genial.ly";
-      aliases = ["juboba@genially.com"];
+      aliases = [ "juboba@genially.com" ];
       flavor = "gmail.com";
 
       imap = {
@@ -80,7 +81,7 @@ in with pkgs; {
     homeDirectory = "/home/juboba";
 
     keyboard = {
-      layout="us";
+      layout = "us";
       variant = "altgr-intl";
       options = [
         "caps:escape"
@@ -121,12 +122,12 @@ in with pkgs; {
         };
 
         Install = {
-          WantedBy = ["graphical-session.target"];
+          WantedBy = [ "graphical-session.target" ];
         };
 
         Service = {
-          Type="forking";
-          ExecStart="${pkgs.conky}/bin/conky -d -c ${./dotfiles/xdg-configs/conky/config}";
+          Type = "forking";
+          ExecStart = "${pkgs.conky}/bin/conky -d -c ${./dotfiles/xdg-configs/conky/config}";
         };
       };
 

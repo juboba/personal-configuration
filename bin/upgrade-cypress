@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 #
 hms() {
-  home-manager switch --impure --flake "$HOME/repositories/personal-configuration/nixos"
+	home-manager switch --impure --flake "$HOME/repositories/personal-configuration"
 }
 
 cd "$HOME/repositories/personal-configuration" || exit
 
-echo "Set the version..."; sleep 3
+echo "Set the version..."
+sleep 3
 vi nixpkgs/cypress/default.nix
 
 hms
-echo "Set the SHA..."; sleep 3
+echo "Set the SHA..."
+sleep 3
 vi nixpkgs/cypress/default.nix
 hms
 
@@ -19,9 +21,8 @@ DESTINATION="$HOME/.cache/Cypress/$VERSION"
 
 echo "version: $VERSION"
 
-if [ -d "$DESTINATION" ]
-then
-  rm -rf "$DESTINATION"
+if [ -d "$DESTINATION" ]; then
+	rm -rf "$DESTINATION"
 fi
 
 mkdir "$DESTINATION"
