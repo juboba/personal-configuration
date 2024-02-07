@@ -79,13 +79,16 @@
 ;; Authinfo (forge)
 (setq auth-sources '("~/.authinfo"))
 
+;; Golden ratio
+(setq zoom-size '(0.618 0.618))
+
 ;; File associations
 (push '("\\.mdx\\'" . markdown-mode) auto-mode-alist)
-(push '("\\.js\\'" . jsx-mode) auto-mode-alist)
-(push '("\\.jsx\\'" . jsx-mode) auto-mode-alist)
+(push '("\\.js\\'" . js-ts-mode) auto-mode-alist)
+(push '("\\.jsx\\'" . jtsx-jsx-mode) auto-mode-alist)
 (push '("\\.yuck\\'" . lisp-mode) auto-mode-alist)
 (push '("\\.ts\\'" . typescript-ts-mode) auto-mode-alist)
-(push '("\\.tsx\\'" . tsx-mode) auto-mode-alist)
+(push '("\\.tsx\\'" . jtsx-tsx-mode) auto-mode-alist)
 
 ;; Doom's private directory
 (setq doom-user-dir "/home/juboba/repositories/personal-configuration/dotfiles/xdg-configs/doom")
@@ -103,8 +106,10 @@
 (add-hook 'prog-mode-hook 'nyan-mode)
 ;; (add-hook 'rjsx-mode-hook 'lsp)
 (add-hook 'prog-mode-hook 'visual-line-mode)
+(add-hook 'prog-mode-hook 'indent-bars-mode)
 (add-hook 'typescript-ts-mode-hook #'lsp)
-(add-hook 'tsx-mode-hook #'lsp)
+(add-hook 'js-ts-mode-hook #'lsp)
+(add-hook 'jtsx-tsx-mode-hook #'lsp)
 
 ;; Magit
 ;; (setq magit-git-global-arguments (delete "--literal-pathspecs" magit-git-global-arguments))
@@ -125,6 +130,7 @@
 (setq lsp-signature-auto-activate nil)
 (setq lsp-ui-sideline-enable nil)
 (setq flycheck-popup-tip-error-prefix "🛑 ")
+(setq indent-bars-width-frac 0.1)
 
 ;; (use-package! tree-sitter
 ;;  :config

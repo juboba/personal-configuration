@@ -37,6 +37,7 @@
 (package! nyx-theme)
 (package! catppuccin
   :recipe (:host github :repo "catppuccin/emacs"))
+(package! naga-theme)
 
 (unpin! org-roam)
 (package! websocket)
@@ -53,8 +54,10 @@
   :recipe (:host github :repo "iwahbe/jsonian"))
 
 ;; If this was not enough, we also have: https://github.com/DarthFennec/highlight-indent-guides
-(package! hightlight-indentation
-  :recipe (:host github :repo "antonj/Highlight-Indentation-for-Emacs"))
+;; (package! hightlight-indentation
+;;   :recipe (:host github :repo "antonj/Highlight-Indentation-for-Emacs"))
+(package! indent-bars
+          :recipe (:host github :repo "jdtsmith/indent-bars"))
 
 ;; (package! pulsing-cursor
 ;;     :recipe (:host github :repo "jasonjckn/pulsing-cursor"))
@@ -65,6 +68,8 @@
 ;; (package! google-translate)
 (package! org-remark)
 (package! shell-pop)
+(package! zoom)
+(package! org-modern)
 (package! jtsx
   :recipe (:host github :repo "llemaitre19/jtsx"))
 ;; (package! gpt)

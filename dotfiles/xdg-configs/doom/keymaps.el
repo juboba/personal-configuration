@@ -11,7 +11,7 @@
         :desc "pause music" "p" 'spotify-playpause
         :desc "pretty symbols" "s" 'prettify-symbols-mode
         :desc "emojis" "e" 'emojify-mode
-        :desc "Highlight indentation" "i" 'highlight-indentation-mode
+        :desc "Highlight indentation" "i" 'indent-bars-mode
         :desc "Copy link at point" :mode mu4e-view-mode "l" 'link-hint-copy-link-at-point
         :desc "Show info" "v" 'lsp-signature-activate
 
@@ -55,7 +55,7 @@
       :desc "Toggle aufo-fill" "f" 'auto-fill-mode
       :desc "Toggle breadcrumbs" "p" 'lsp-headerline-breadcrumb-mode
       :desc "Zen mode (fullscreen)" "z" '+zen/toggle-fullscreen
-      "Z" nil)
+      :desc "Zoom mode" "Z" 'zoom-mode)
 
 (map! :leader :desc "Comment lines" "c l" 'evilnc-comment-or-uncomment-lines)
 (map! :leader :desc "Find Org file" "o o" 'my/find-file-in-org-directory)
