@@ -29,6 +29,7 @@
 -- import XMonad.Config.Desktop
 
 import Data.Map qualified as M
+import Data.Maybe (isJust)
 import Data.Monoid (Endo)
 import Graphics.X11.ExtraTypes.XF86
   ( xF86XK_AudioLowerVolume,
@@ -41,6 +42,7 @@ import Graphics.X11.ExtraTypes.XF86
     xF86XK_MonBrightnessUp,
   )
 import System.IO ()
+import Text.Printf (printf)
 import XMonad
   ( Default (def),
     Dimension,
@@ -60,8 +62,9 @@ import XMonad
         manageHook,
         modMask,
         normalBorderColor,
+        startupHook,
         terminal,
-        workspaces, startupHook
+        workspaces
       ),
     appName,
     className,
@@ -84,6 +87,7 @@ import XMonad
     xK_a,
     xK_e,
     xK_f,
+    xK_g,
     xK_grave,
     xK_i,
     xK_l,
@@ -104,20 +108,20 @@ import XMonad
     (.|.),
     (<+>),
     (=?),
-    (|||), xK_g,
+    (|||), (<&&>),
   )
 import XMonad.Actions.CopyWindow (copyToAll, killAllOtherCopies)
 import XMonad.Actions.CycleWS (Direction1D (Next, Prev), WSType (Not, WSIs), emptyWS, moveTo, nextScreen, swapNextScreen, toggleWS')
 import XMonad.Actions.Submap (submap)
 import XMonad.Actions.UpdatePointer (updatePointer)
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, ppCurrent, ppLayout, ppOutput, ppSep, ppSort, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, xmobarColor, xmobarPP, xmobarProp, xmobarStrip, PP (ppExtras, ppHidden))
+import XMonad.Hooks.DynamicLog (PP (ppExtras, ppHidden), dynamicLogWithPP, ppCurrent, ppLayout, ppOutput, ppSep, ppSort, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, xmobarColor, xmobarPP, xmobarProp, xmobarStrip)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen, setEwmhActivateHook)
 import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Master), insertPosition)
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, checkDock, docks, manageDocks)
 import XMonad.Hooks.ManageHelpers
   ( doFullFloat,
     doLower,
-    isFullscreen,
+    isFullscreen, isInProperty,
   )
 import XMonad.Hooks.StatusBar
   ( defToggleStrutsKey,
@@ -148,6 +152,8 @@ import XMonad.Hooks.UrgencyHook
     withUrgencyHook,
   )
 import XMonad.Layout.Accordion ()
+import XMonad.Layout.CenteredIfSingle (centeredIfSingle)
+import XMonad.Layout.Grid (Grid (Grid))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MosaicAlt ()
 import XMonad.Layout.MultiToggle
@@ -178,10 +184,7 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.WorkspaceCompare (filterOutWs)
-import Text.Printf (printf)
-import Data.Maybe (isJust)
-import XMonad.Layout.CenteredIfSingle (centeredIfSingle)
-import XMonad.Layout.Grid (Grid(Grid))
+import XMonad.Util.XUtils
 
 -- import XMonad.Operations (killWindow)
 
@@ -191,50 +194,50 @@ main =
     docks $
       withUrgencyHook NoUrgencyHook $
         setEwmhActivateHook doAskUrgent . ewmh $
-            def
-              { borderWidth = myBorderWidth,
-                focusedBorderColor = myFocusedBorderColor,
-                handleEventHook = myEventHooks,
-                layoutHook =
-                  smartBorders . avoidStruts $
-                    mkToggle
-                      (NOBORDERS ?? FULL ?? EOT)
-                      myLayoutHook,
-                logHook = dynamicLogWithPP myPP <+> updatePointer (0.5, 0.5) (0, 0),
-                manageHook =
-                  manageDocks
-                    <+> insertPosition Master Newer
-                    <+> myManageHook
-                    <+> namedScratchpadManageHook scratchpads
-                    <+> manageHook def,
-                startupHook = do
-                  spawnOnce "eww daemon && eww open main",
-                modMask = superKey,
-                normalBorderColor = myNormalBorderColor,
-                terminal = myTerminal,
-                workspaces = myWorkspaces
-              }
-              `additionalKeys` myKeys
+          def
+            { borderWidth = myBorderWidth,
+              focusedBorderColor = myFocusedBorderColor,
+              handleEventHook = myEventHooks,
+              layoutHook =
+                smartBorders . avoidStruts $
+                  mkToggle
+                    (NOBORDERS ?? FULL ?? EOT)
+                    myLayoutHook,
+              logHook = dynamicLogWithPP myPP <+> updatePointer (0.5, 0.5) (0, 0),
+              manageHook =
+                manageDocks
+                  <+> insertPosition Master Newer
+                  <+> myManageHook
+                  <+> namedScratchpadManageHook scratchpads
+                  <+> manageHook def,
+              startupHook = do
+                spawnOnce "eww daemon && eww open main",
+              modMask = superKey,
+              normalBorderColor = myNormalBorderColor,
+              terminal = myTerminal,
+              workspaces = myWorkspaces
+            }
+            `additionalKeys` myKeys
 
 nspWorkspaces = ["NSP"]
+
 filterNSP = unwords . filter (`notElem` nspWorkspaces) . words
 
 appendToNamedPipe namedPipe str = do
-    let filteredStr = filterNSP str
-    appendFile namedPipe $ wrap "(box :spacing 10 :orientation \"h\" :class \"xmonad\" :halign \"center\" :valign \"center\" :vexpand \"true\" :hexpand \"true\" " ")" filteredStr
+  let filteredStr = filterNSP str
+  appendFile namedPipe $ wrap "(box :spacing 10 :orientation \"h\" :class \"xmonad\" :halign \"center\" :valign \"center\" :vexpand \"true\" :hexpand \"true\" " ")" filteredStr
 
 formatHiddenWs wsName =
   if wsName /= "NSP"
-  then buildWsButton "hidden" wsName
-  else wsName
+    then buildWsButton "hidden" wsName
+    else wsName
 
-wrapWithEventBox number label = "(eventbox :cursor \"pointer\" :onclick \"wmctrl -s "++ number ++ "\" "++ label ++")"
+wrapWithEventBox number label = "(eventbox :cursor \"pointer\" :onclick \"wmctrl -s " ++ number ++ "\" " ++ label ++ ")"
 
 buildWsButton className wsName =
   case getParts wsName of
-    [number, text] -> wrapWithEventBox number $ "(label :class \"workspace "++ className ++"\" :text \""++ text ++"\")"
+    [number, text] -> wrapWithEventBox number $ "(label :class \"workspace " ++ className ++ "\" :text \"" ++ text ++ "\")"
     _ -> ""
-
 
 getParts = splitString ':'
   where
@@ -243,22 +246,22 @@ getParts = splitString ':'
     splitString delimiter input = go input []
       where
         go "" acc = [reverse acc]
-        go (c:cs) acc
+        go (c : cs) acc
           | c == delimiter = reverse acc : go cs []
           | otherwise = go cs (c : acc)
 
 myPP =
   def
-    { ppOutput = appendToNamedPipe "/home/juboba/wsinfo"
-    , ppCurrent = buildWsButton "current"
-    , ppVisible = buildWsButton "visible"
-    -- , ppTitle = printf "(label :class \"window-title\" :text \"%s\")"
-    , ppTitle = const ""
-    , ppWsSep = " "
-    , ppUrgent = buildWsButton "urgent"
-    , ppLayout = printf "(label :class \"layout\" :text \"%s\")"
-    , ppHidden = formatHiddenWs
-    , ppSep = " "
+    { ppOutput = appendToNamedPipe "/home/juboba/wsinfo",
+      ppCurrent = buildWsButton "current",
+      ppVisible = buildWsButton "visible",
+      -- , ppTitle = printf "(label :class \"window-title\" :text \"%s\")"
+      ppTitle = const "",
+      ppWsSep = " ",
+      ppUrgent = buildWsButton "urgent",
+      ppLayout = printf "(label :class \"layout\" :text \"%s\")",
+      ppHidden = formatHiddenWs,
+      ppSep = " "
     }
 
 -- modMask lets you specify which modkey you want to use. The default
@@ -293,11 +296,16 @@ launchVim = spawn "rofivim"
 myBorderWidth :: Dimension
 myBorderWidth = 0
 
+isNormalWindow = stringProperty "_NET_WM_WINDOW_TYPE(ATOM)" =? "_NET_WM_WINDOW_TYPE_NORMAL"
+
 -- scratchPads
 scratchpads :: [NamedScratchpad]
-scratchpads = [ NS "terminal" "alacritty --class scratch-term -e jmux" (appName =? "scratch-term") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
-              , NS "gsh" "alacritty --class scratch-gsh -e gsh" (appName =? "scratch-gsh") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
-              ]
+scratchpads =
+  [ NS "terminal" "alacritty --class scratch-term -e jmux" (appName =? "scratch-term") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)),
+    NS "slack" "slack" (className =? "Slack" <&&> isNormalWindow) (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4)),
+
+    NS "gsh" "alacritty --class scratch-gsh -e gsh" (appName =? "scratch-gsh") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
+  ]
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -310,17 +318,19 @@ scratchpads = [ NS "terminal" "alacritty --class scratch-term -e jmux" (appName 
 --
 myWorkspaces :: [String]
 myWorkspaces =
-  addIndexes [ "\61728" -- 
-  , "\61508" -- 
-  , "\62038" -- 
-  , "\62056" -- 
-  , "\61574" -- 
-  , "\61477" -- ''
-  , "\61664" -- 
-  , "\61760" -- 
-  , "\62057" -- 
-  ]
-  where addIndexes ws = [show n ++ ":" ++ w | (index, w) <- zip [0..8] ws, let n = index]
+  addIndexes
+    [ "\61728", -- 
+      "\61508", -- 
+      "\62038", -- 
+      "\62056", -- 
+      "\61574", -- 
+      "\61477", -- ''
+      "\61664", -- 
+      "\61760", -- 
+      "\62057" -- 
+    ]
+  where
+    addIndexes ws = [show n ++ ":" ++ w | (index, w) <- zip [0 .. 8] ws, let n = index]
 
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor :: String
@@ -343,7 +353,7 @@ myEventHooks = Hacks.trayerAboveXmobarEventHook <> Hacks.windowedFullscreenFixEv
 -- myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 -- myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 --
-nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
+nonEmptyNonNSP = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 
 myKeys :: [((KeyMask, KeySym), X ())]
 myKeys =
@@ -379,7 +389,7 @@ myKeys =
     ((superKey .|. shiftMask, xK_z), spawn "slock"),
     -- Copy Emoji
     ((superKey .|. shiftMask, xK_i), spawn "rofiemoji"),
-    ((superKey, xK_m),
+    ( (superKey, xK_m),
       submap . M.fromList $
         [ ((0, xK_n), spawn "playerctl --player=spotify next"),
           ((shiftMask, xK_n), spawn "playerctl --player=spotify previous"),
@@ -391,14 +401,19 @@ myKeys =
     -- Launch color picker
     -- , ((superKey .|. shiftMask, xK_y), spawn "pick-colour-picker")
     -- Set slack status
-    ((superKey .|. shiftMask, xK_l), spawn "slack-do"),
+    ((superKey .|. shiftMask, xK_l), spawn "rofi -show slack-do -modes \"slack-do:slack-do\""),
     -- Select screen
     ((superKey, xK_p), spawn "rofi -show smod -modes \"smod:smod\""),
     -- Toggle terminal scratchpad
-    ((superKey .|. shiftMask, xK_t), namedScratchpadAction scratchpads "terminal"),
-    ((superKey .|. shiftMask, xK_g), namedScratchpadAction scratchpads "gsh"),
+    ( (superKey .|. shiftMask, xK_t),
+      submap . M.fromList $
+        [ ((0, xK_t), namedScratchpadAction scratchpads "terminal")
+        , ((0, xK_s), namedScratchpadAction scratchpads "slack")
+        , ((0, xK_g), namedScratchpadAction scratchpads "gsh")
+        ]
+    ),
     -- Launch Screenshot
-    ((0, xK_Print), spawn "flameshot gui"),
+    ((0, xK_Print), spawn "takeshot"),
     -- Media keys
     ((0, xF86XK_AudioMute), spawn "volume-control mute notify"),
     ((0, xF86XK_AudioRaiseVolume), spawn "volume-control up notify"),
@@ -443,35 +458,35 @@ myKeys =
 myManageHook :: Query (Endo WindowSet)
 myManageHook =
   composeAll
-    [ isFullscreen --> doFullFloat
-    , appName =? "chromium-browser (dev-profile)" --> takeTo 2
-    , appName =? "chromium-browser" --> takeTo 3
-    , appName =? "google-chrome" --> takeTo 3
-    , appName =? "plasmashell" --> doIgnore -- Plasma stuff
-    , appName =? "showmyself" --> doFloat -- Show me
-    , checkDock --> doLower
-    , className =? ".pick-colour-picker-wrapped" --> doFloat -- Color picker
-    , className =? "Cypress" --> takeTo 7
-    , className =? "Emacs" --> takeTo 1
-    , className =? "Gsimplecal" --> doFloat -- Calendar window
-    , className =? "KotatogramDesktop" --> takeTo 4
-    , className =? "Pavucontrol" --> doFloat
-    , className =? "Peek" --> doFloat
-    , className =? "Slack" --> takeTo 4
-    , className =? "Spotify" --> takeTo 5
-    , className =? "Xmessage" --> doFloat
-    , className =? "discord" --> takeTo 4
-    , className =? "firefox" --> takeTo 8
-    , className =? "flameshot" --> doIgnore
-    , className =? "qutebrowser" --> takeTo 8
-    , className =? "trayer" --> doIgnore
-    , stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore
-    , title =? "Copying Files" --> doFloat
-    , title =? "Media viewer" --> doFloat -- Telegram media
-    , title =? "Picture-in-Picture" --> doFloat -- Firefox videos
-    , title =? "meet.google.com is sharing your screen." --> takeTo 6
-    -- , resource  =? "desktop_window"                                     --> doIgnore
-    -- , title =? "Slack - Huddle"                                            --> killWindow
+    [ isFullscreen --> doFullFloat,
+      appName =? "chromium-browser (dev-profile)" --> takeTo 2,
+      appName =? "chromium-browser" --> takeTo 3,
+      appName =? "google-chrome" --> takeTo 3,
+      appName =? "plasmashell" --> doIgnore, -- Plasma stuff
+      appName =? "showmyself" --> doFloat, -- Show me
+      checkDock --> doLower,
+      className =? ".pick-colour-picker-wrapped" --> doFloat, -- Color picker
+      className =? "Cypress" --> takeTo 7,
+      className =? "Emacs" --> takeTo 1,
+      className =? "Gsimplecal" --> doFloat, -- Calendar window
+      className =? "KotatogramDesktop" --> takeTo 4,
+      className =? "Pavucontrol" --> doFloat,
+      className =? "Peek" --> doFloat,
+      className =? "Slack" --> takeTo 4,
+      className =? "Spotify" --> takeTo 5,
+      className =? "Xmessage" --> doFloat,
+      className =? "discord" --> takeTo 4,
+      className =? "firefox" --> takeTo 8,
+      className =? "flameshot" --> doIgnore,
+      className =? "qutebrowser" --> takeTo 8,
+      className =? "trayer" --> doIgnore,
+      stringProperty "_NET_WM_STATE(ATOM)" =? "_NET_WM_STATE_SKIP_TASKBAR" --> doIgnore,
+      title =? "Copying Files" --> doFloat,
+      title =? "Media viewer" --> doFloat, -- Telegram media
+      title =? "Picture-in-Picture" --> doFloat, -- Firefox videos
+      title =? "meet.google.com is sharing your screen." --> takeTo 6
+      -- , resource  =? "desktop_window"                                     --> doIgnore
+      -- , title =? "Slack - Huddle"                                            --> killWindow
     ]
   where
     takeTo n = doShift $ myWorkspaces !! n
@@ -502,13 +517,14 @@ messagingLayout = named "\61659" $ addGap $ Tall nmaster delta ratio
 
 threeColumns = named "3" $ addGap $ ThreeColMid 1 (3 / 100) (1 / 2)
 
-centeredOrGrid = centeredIfSingle 0.6 1 Grid
+centeredOrGrid = named "G" $ centeredIfSingle 0.6 1 Grid
 
 -- myLayoutHook :: ModifiedLayout ??
 myLayoutHook =
-  onWorkspace (myWorkspaces !! 4) messagingLayout
-  $ onWorkspace (myWorkspaces !! 8) centeredOrGrid
-    tallLayout
-    ||| wideLayout
-    ||| threeColumns
-    ||| centeredOrGrid
+  onWorkspace (myWorkspaces !! 4) messagingLayout $
+    onWorkspace
+      (myWorkspaces !! 8)
+      centeredOrGrid
+      tallLayout
+      ||| wideLayout
+      ||| centeredOrGrid

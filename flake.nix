@@ -7,20 +7,31 @@
       type = "github";
     };
 
-    homeManager = {
-      url = "github:nix-community/home-manager/release-23.11";
+    emacs-lsp-booster = {
+      url = "github:slotThe/emacs-lsp-booster-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    homeManager = {
+      url = "github:nix-community/home-manager/master";
+      #url = "github:nix-community/home-manager/release-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixvim = {
       url = "github:nix-community/nixvim/nixos-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = inputs @ { homeManager, nixpkgs, ... }:
+  outputs = inputs @ { homeManager, nixpkgs, nixpkgs-unstable, ... }:
     let
       system = "x86_64-linux";
     in
@@ -37,9 +48,9 @@
         modules = [
           homeManager.nixosModules.home-manager
           inputs.amd-controller.module
-          inputs.nixvim.nixosModules.nixvim
+          #inputs.nixvim.nixosModules.nixvim
           ./hardware-configuration.nix
-          (import ./configuration.nix { inherit nixpkgs; })
+          (import ./configuration.nix { inherit nixpkgs; inherit nixpkgs-unstable; })
           {
             nixpkgs = {
               config = {
@@ -51,6 +62,7 @@
               };
 
               overlays = [
+                inputs.emacs-lsp-booster.overlays.default
                 (self: super: {
                   juboba-bin = super.stdenv.mkDerivation {
                     name = "juboba-binaries";
@@ -87,6 +99,10 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.juboba = import ./home.nix;
+              users.guvova = import ./guvova.nix;
+              sharedModules = [
+                inputs.sops-nix.homeManagerModules.sops
+              ];
             };
           }
         ];

@@ -25,7 +25,11 @@
         highlightDefinitions.enable = true;
       };
 
-      treesitter-context.enable = true;
+      treesitter-context = {
+        enable = true;
+
+        maxLines = 5;
+      };
 
       treesitter-textobjects = {
         enable = true;

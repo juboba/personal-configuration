@@ -17,10 +17,10 @@ with pkgs; {
         };
       };
 
-      "doom" = {
-        recursive = true;
-        source = ./dotfiles/xdg-configs/doom;
-      };
+      # "doom" = {
+      #   recursive = true;
+      #   source = ./dotfiles/xdg-configs/doom;
+      # };
 
       "fusuma" = {
         recursive = true;
@@ -86,7 +86,7 @@ with pkgs; {
 
     desktopEntries = {
       browser = {
-        categories =  [ "Network" "WebBrowser" ];
+        categories = [ "Network" "WebBrowser" ];
         comment = "Pick to browse URL";
         exec = "pick-browser %U";
         genericName = "Browser";
@@ -119,7 +119,7 @@ with pkgs; {
       };
 
       jmux = {
-        comment= " My entry point to Tmux";
+        comment = " My entry point to Tmux";
         exec = "jmux";
         genericName = "JMux";
         icon = "tmux";
@@ -128,9 +128,18 @@ with pkgs; {
         type = "Application";
       };
 
+      slack-do = {
+        comment = "Set Slack status";
+        exec = "rofi -show slack-do -modes \"slack-do:slack-do\" -p \"Set Slack status to:\" -sort -levenshtein-sort";
+        icon = "slack";
+        name = "Slack do";
+        terminal = false;
+        type = "Application";
+      };
+
       smod = {
         comment = "Select screen configuration";
-        exec = "smod";
+        exec = "rofi -show smod -modes \"smod:smod\" -p \"Set screen config to:\" -sort -levenshtein-sort";
         icon = "screen";
         name = "Screen Mode";
         terminal = false;
@@ -151,7 +160,7 @@ with pkgs; {
         #startupWMClass = "spotify";
         #tryExec = "spotifywm";
         categories = [ "Audio" "Music" "Player" "AudioVideo" ];
-        exec = "spotifywm %U";
+        exec = "spotify %U";
         genericName = "Music Player";
         icon = "spotify-client";
         name = "Spotify";
@@ -172,7 +181,8 @@ with pkgs; {
           slack = "org.pwmt.zathura.desktop";
           sxiv = "sxiv.desktop";
           zathura = "org.pwmt.zathura.desktop";
-        in {
+        in
+        {
           "application/pdf" = zathura;
           "application/x-extension-htm" = browser;
           "application/x-extension-html" = browser;

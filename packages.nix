@@ -1,27 +1,28 @@
 { pkgs, ... }:
 
-let 
-  nodejs-16_13_1 = (import (fetchTarball {
-      name = "nixpkgs-node16_13_1";
-      url = "https://github.com/NixOS/nixpkgs/archive/c82b46413401efa740a0b994f52e9903a4f6dcd5.tar.gz";
-      sha256 = "13s8g6p0gzpa1q6mwc2fj2v451dsars67m4mwciimgfwhdlxx0bk";
-    }) {}).nodejs-16_x;
+let
+  node20_9_0 = (import
+    (fetchTarball {
+      name = "nixpkgs-node20_9_0";
+      url = "https://github.com/NixOS/nixpkgs/archive/a71323f68d4377d12c04a5410e214495ec598d4c.tar.gz";
+      sha256 = "1n6233gn8b66x252k8hvk5xygn6rxj2prnls2mh0d2hb8hnhypx6";
+    })
+    { }).nodejs_20;
 
-    yarnWithNode16 = pkgs.yarn.overrideAttrs (oldAttrs: rec {
-      buildInputs = with pkgs; [
-        nodejs-16_13_1
-      ];
-    });
+  yarn = pkgs.yarn.overrideAttrs (oldAttrs: rec { buildInputs = [ node20_9_0 ]; });
 
-    comma = with pkgs; callPackage (fetchFromGitHub {
+  comma = with pkgs; callPackage
+    (fetchFromGitHub {
       name = "comma";
       owner = "nix-community";
       repo = "comma";
       rev = "02e3e5545b0c62595a77f3d5de1223c536af0614";
       sha256 = "0qgg632ky6bnwkf9kh1z4f12dilkmdy0xgpal26g2vv416di04jq";
-    }) { inherit pkgs; };
+    })
+    { inherit pkgs; };
 
-in with pkgs; {
+in
+with pkgs; {
   home.packages = [
     # Utils
     bc
@@ -39,8 +40,9 @@ in with pkgs; {
     htop
     imagemagick
     ispell
+    luaPackages.jsregexp
     juboba-bin
-    nixfmt
+    nixfmt-classic
     procs
     qsudo
     ripgrep
@@ -90,14 +92,17 @@ in with pkgs; {
     # Communication
     discord
     slack
-    kotatogram-desktop
+    #kotatogram-desktop
     element-desktop
+    telegram-desktop
 
     # Development
     awscli2
+    cargo
     cypress
-    difftastic
+    delta
     docker-compose
+    emacs-lsp-booster
     gcc
     gnuplot
     gotty
@@ -108,15 +113,29 @@ in with pkgs; {
     kubectl
     lens
     ngrok
-    nodejs-16_13_1
-    yarnWithNode16
+    node20_9_0
+    yarn
     nodePackages.node2nix
     peek
     pick-colour-picker
     python3
     robo3t
+    typescript
     shellcheck
     pavucontrol
     haskell-language-server
+
+    # Security
+    sops
+
+    # lsp-bridge deps
+
+    python311Packages.epc
+    python311Packages.orjson
+    python311Packages.sexpdata
+    python311Packages.six
+    python311Packages.setuptools
+    python311Packages.paramiko
+    python311Packages.rapidfuzz
   ];
 }

@@ -2,7 +2,7 @@
 
 set_sink () {
   SINK_NAME=$(pactl -f json list sinks \
-    | jq ".[].properties | select(.[\"node.nick\"] == \"$1\") | .[\"node.name\"]" \
+    | jq ".[].properties | select(.[\"device.description\"] == \"$1\") | .[\"node.name\"]" \
     | tr -d \")
   
   if [ -n "$SINK_NAME" ]; then
@@ -14,7 +14,7 @@ set_sink () {
 list_sinks () {
   pactl -f json list sinks \
     | jq ".[].properties" \
-    | jq ".[\"node.nick\"]" \
+    | jq ".[\"device.description\"]" \
     | tr -d \"
 }
 

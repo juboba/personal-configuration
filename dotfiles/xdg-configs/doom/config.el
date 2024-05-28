@@ -76,6 +76,8 @@
 ;; Disable cursor movement when exiting insert mode
 (setq evil-move-cursor-back nil)
 
+(setq evil-v$-excludes-newline t)
+
 ;; Authinfo (forge)
 (setq auth-sources '("~/.authinfo"))
 
@@ -84,10 +86,10 @@
 
 ;; File associations
 (push '("\\.mdx\\'" . markdown-mode) auto-mode-alist)
-(push '("\\.js\\'" . js-ts-mode) auto-mode-alist)
+(push '("\\.js\\'" . jtsx-jsx-mode) auto-mode-alist)
 (push '("\\.jsx\\'" . jtsx-jsx-mode) auto-mode-alist)
 (push '("\\.yuck\\'" . lisp-mode) auto-mode-alist)
-(push '("\\.ts\\'" . typescript-ts-mode) auto-mode-alist)
+(push '("\\.ts\\'" . jtsx-typescript-mode) auto-mode-alist)
 (push '("\\.tsx\\'" . jtsx-tsx-mode) auto-mode-alist)
 
 ;; Doom's private directory
@@ -105,8 +107,8 @@
 ;(add-hook 'prog-mode-hook 'my/add-pretty-lambda)
 (add-hook 'prog-mode-hook 'nyan-mode)
 ;; (add-hook 'rjsx-mode-hook 'lsp)
-(add-hook 'prog-mode-hook 'visual-line-mode)
-(add-hook 'prog-mode-hook 'indent-bars-mode)
+;; (add-hook 'prog-mode-hook 'visual-line-mode)
+;; (add-hook 'prog-mode-hook 'indent-bars-mode)
 (add-hook 'typescript-ts-mode-hook #'lsp)
 (add-hook 'js-ts-mode-hook #'lsp)
 (add-hook 'jtsx-tsx-mode-hook #'lsp)
@@ -131,6 +133,12 @@
 (setq lsp-ui-sideline-enable nil)
 (setq flycheck-popup-tip-error-prefix "🛑 ")
 (setq indent-bars-width-frac 0.1)
+
+;; LSP Performance
+(setq read-process-output-max (* 1024 1024))
+(setq gc-cons-threshold 100000000)
+
+(add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
 
 ;; (use-package! tree-sitter
 ;;  :config
@@ -164,13 +172,49 @@
 
 (add-hook 'prog-mode-hook (lambda () (lsp-ui-mode -1)))
 
-(transient-define-prefix my/dispatch ()
+(transient-define-prefix my/yarn-dispatch ()
   "Invoke something"
-  ["Some commands"
-   [("a" "   Find org file" my/find-file-in-org-directory)]
-   [("b" "   Dragon drop" my/dragon-drop)]])
+  ["Yarn dispatch"
+   [("y" "   Install" my/yarn-install)]
+   [("b" "   Build deps" my/yarn-build-deps)]])
 
 (add-to-list 'default-frame-alist '(alpha-background . 95))
 ;; (set-frame-parameter nil 'alpha-background 95)
+
+
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+
+(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+
+(setq lsp-enable-file-watchers nil)
+
+(add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
 
 ;;; config.el ends here

@@ -1,4 +1,4 @@
-{ nixpkgs }: { config, pkgs, ... }:
+{ nixpkgs, nixpkgs-unstable }: { config, pkgs, ... }:
 
 {
   amd-controller = {
@@ -35,12 +35,15 @@
       timeout = 1;
     };
 
-    plymouth.enable = true;
+    plymouth.enable = false;
   };
+
+  environment.sessionVariables.FLAKE = "/home/juboba/repositories/personal-configuration";
 
   environment.systemPackages = with pkgs; [
     gnupg
     (ghc.withPackages (hpkgs: with hpkgs; [ xmonad xmonad-contrib X11 ]))
+    nh
     wget
     home-manager
   ];
@@ -51,7 +54,7 @@
   };
 
   imports = [
-    ./nvim
+    #./nvim
   ];
 
   networking = {
@@ -78,12 +81,16 @@
 
   nixpkgs.config = {
     allowUnfree = true;
+    permittedInsecurePackages = [
+      "nix-2.15.3"
+    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
     gnupg.agent.enable = true;
+    hyprland.enable = true;
   };
 
   # Select internationalisation properties.
@@ -98,6 +105,7 @@
     #avahi.nssmdns = true;
     blueman.enable = true;
     cron.enable = true;
+    displayManager.sddm.enable = false;
     geoclue2.enable = true;
     gpm.enable = true;
 
@@ -122,6 +130,24 @@
       drivers = [ pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper ];
     };
 
+    tlp.enable = false;
+    power-profiles-daemon.enable = true;
+
+    auto-cpufreq = {
+      enable = false;
+
+      settings = {
+        battery = {
+          governor = "powersave";
+          turbo = "never";
+        };
+        charger = {
+          governor = "performance";
+          turbo = "auto";
+        };
+      };
+    };
+
     xserver = {
       enable = true;
       autorun = true;
@@ -131,7 +157,7 @@
         background = ./lightdm-background.jpg;
       };
 
-      layout = "us";
+      desktopManager.plasma5.enable = false;
 
       libinput = {
         enable = true;
@@ -148,8 +174,12 @@
         enableContribAndExtras = true;
       };
 
-      xkbVariant = "altgr-intl";
-      xkbOptions = "caps:escape";
+      xkb = {
+        layout = "us";
+
+        variant = "altgr-intl";
+        options = "caps:escape";
+      };
     };
 
   };
@@ -185,6 +215,11 @@
     extraGroups.vboxusers.members = [ "juboba" ];
 
     users.juboba = {
+      extraGroups = [ "pulse-access" "docker" "input" "wheel" ];
+      isNormalUser = true;
+    };
+
+    users.guvova = {
       extraGroups = [ "pulse-access" "docker" "input" "wheel" ];
       isNormalUser = true;
     };

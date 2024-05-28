@@ -1,12 +1,5 @@
 ;;; my-functions.el -*- lexical-binding: t; -*-
 
-(defun my/eslint-autofix ()
-  "Fixes linting errors in the current buffer"
-    (interactive)
-    (save-buffer)
-    (shell-command (concat "eslint_d" " " buffer-file-name " --fix > /dev/null; echo 'done!'"))
-    (revert-buffer))
-
 (defun my/add-pretty-lambda ()
   "Make some word or string show as pretty Unicode symbols"
   (setq prettify-symbols-alist
@@ -143,3 +136,15 @@ If the error list is visible, hide it.  Otherwise, show it."
 (defun my/toggle-window-dedication-to-buffer ()
   (interactive)
   (set-window-dedicated-p (selected-window) (not (window-dedicated-p))))
+
+(defun my/yarn-install ()
+  "Run yarn"
+  (interactive)
+  (let ((default-directory "~/projects/genially/mono/"))
+    (async-shell-command "nix-shell --run \"yarn\"" "*yarn*")))
+
+(defun my/yarn-build-deps ()
+  "Run yarn b:deps"
+  (interactive)
+  (let ((default-directory "~/projects/genially/mono/"))
+    (async-shell-command "nix-shell --run \"yarn b:deps\"" "*yarn*")))

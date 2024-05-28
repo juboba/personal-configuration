@@ -99,6 +99,8 @@ with pkgs; {
     sessionVariables = {
       CM_LAUNCHER = "rofi";
       FZF_DEFAULT_COMMAND = "fd --hidden";
+      MANPAGER = "bat -l man -p";
+      PATH = "~/.bin:~/.config/emacs/bin:$PATH";
       ZELLIJ_AUTO_ATTACH = "true";
     };
 
@@ -113,6 +115,25 @@ with pkgs; {
     ./services.nix
     ./xdg.nix
   ];
+
+  qt = {
+    enable = true;
+    platformTheme.name = "adwaita";
+
+    style = {
+      name = "Adwaita-dark";
+      package = pkgs.adwaita-qt;
+    };
+  };
+
+  sops = {
+    defaultSymlinkPath = "/run/user/1000/secrets";
+    defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.keyFile = "${HOME_PATH}/.config/sops/age/keys.txt";
+
+    secrets.hm_secret = { };
+  };
 
   systemd.user = {
     services = {
@@ -170,8 +191,9 @@ with pkgs; {
     enable = true;
 
     windowManager.xmonad = {
-      config = ./dotfiles/xmonad.hs;
       enable = true;
+
+      config = ./dotfiles/xmonad.hs;
       enableContribAndExtras = true;
     };
 

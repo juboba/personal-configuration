@@ -38,6 +38,16 @@
 (package! catppuccin
   :recipe (:host github :repo "catppuccin/emacs"))
 (package! naga-theme)
+(package! tron-legacy-theme
+  :recipe (:host github :repo "ianyepan/tron-legacy-emacs-theme"))
+(package! sanityinc-tomorrow
+  :recipe (:host github :repo "purcell/color-theme-sanityinc-tomorrow"))
+
+;; (package! combobulate)
+(package! casual-dired
+  :recipe (:host github :repo "kickingvegas/casual-dired"))
+
+(package! dirvish)
 
 (unpin! org-roam)
 (package! websocket)
@@ -72,6 +82,9 @@
 (package! org-modern)
 (package! jtsx
   :recipe (:host github :repo "llemaitre19/jtsx"))
+
+(package! demap
+  :recipe (:host gitlab :repo "sawyerjgardner/demap.el"))
 ;; (package! gpt)
 ;; (package! sicp)
 ;; (package! indium)
@@ -79,7 +92,14 @@
 ;; (package! org-present)
 ;; (package! mini-modeline)
 ;; (package! smeargle)
-;; (package! magit-delta)
+(package! magit-delta)
+;; (package! codeium
+;;   :recipe (:host github :repo "Exafunction/codeium.el"))
+(package! git-link
+  :recipe (:host github :repo "sshaw/git-link"))
+
+(package! topsy
+  :recipe (:host github :repo "alphapapa/topsy.el"))
 
 ;; (package! exwm
 ;;   :recipe (:host github :repo "ch11ng/exwm"))

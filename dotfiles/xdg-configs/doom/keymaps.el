@@ -36,7 +36,8 @@
 
         (:prefix ("h" . "Home Manager")
          :desc "edit" "e" #'home-manager-edit
-         :desc "switch" "s" #'nixos-rebuild-switch)))
+         :desc "switch" "s" #'nixos-rebuild-switch)
+        :desc "yarn" "y" 'my/yarn-dispatch))
 
 (map! :leader :prefix "c"
       :desc "Jump to def other window" "D" 'go-to-definition-other-window
@@ -53,12 +54,14 @@
 (map! :leader :prefix "t"
       "i" 'imenu-list-smart-toggle
       :desc "Toggle aufo-fill" "f" 'auto-fill-mode
+      :desc "Toggle minimap" "m" 'demap-toggle
       :desc "Toggle breadcrumbs" "p" 'lsp-headerline-breadcrumb-mode
       :desc "Zen mode (fullscreen)" "z" '+zen/toggle-fullscreen
       :desc "Zoom mode" "Z" 'zoom-mode)
 
 (map! :leader :desc "Comment lines" "c l" 'evilnc-comment-or-uncomment-lines)
 (map! :leader :desc "Find Org file" "o o" 'my/find-file-in-org-directory)
+(map! :leader :desc "Casual dired menu" "o d" 'casual-dired-tmenu)
 
 ;; Flycheck
 (map! :leader :prefix ("e" . "errors")

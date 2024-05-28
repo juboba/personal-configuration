@@ -87,7 +87,7 @@
             };
           };
 
-          "4"= {
+          "4" = {
             left = {
               command = "xdotool key super+Right";
             };
@@ -98,57 +98,60 @@
         };
 
         pinch = {
-          "in"= {
-            command= "xdotool key ctrl+plus";
+          "in" = {
+            command = "xdotool key ctrl+plus";
           };
-          out= {
-            command= "xdotool key ctrl+minus";
+          out = {
+            command = "xdotool key ctrl+minus";
           };
         };
 
-        threshold= {
-          swipe= 0.4;
-          pinch= 0.4;
+        threshold = {
+          swipe = 0.4;
+          pinch = 0.4;
         };
 
-        interval= {
-          swipe= 0.8;
-          pinch= 0.1;
+        interval = {
+          swipe = 0.8;
+          pinch = 0.1;
         };
       };
     };
 
     grobi = {
       enable = false;
-      rules = let LAPTOP_SCREEN = "eDP";
-                  HOME_SCREEN = "HDMI-A-0";
-              in [
-                {
-                  name = "Solo";
-                  outputs_connected = [ LAPTOP_SCREEN ];
-                  #outputs_disconnected = [ "DP-1" "DP-2" ];
-                  outputs_disconnected = [ HOME_SCREEN ];
-                  configure_single = LAPTOP_SCREEN + "@1920x1080";
-                  primary = true;
-                  atomic = true;
+      rules =
+        let
+          LAPTOP_SCREEN = "eDP";
+          HOME_SCREEN = "HDMI-A-0";
+        in
+        [
+          {
+            name = "Solo";
+            outputs_connected = [ LAPTOP_SCREEN ];
+            #outputs_disconnected = [ "DP-1" "DP-2" ];
+            outputs_disconnected = [ HOME_SCREEN ];
+            configure_single = LAPTOP_SCREEN + "@1920x1080";
+            primary = true;
+            atomic = true;
 
-                  execute_after = [
-                    "~/.fehbg"
-                  ];
-                }
-                {
-                  name = "Home";
-                  outputs_connected = [ HOME_SCREEN ];
-                  #configure_column = [ HOME_SCREEN HOME_SCREEN ++ "@1920x1080" ];
-                  configure_single = HOME_SCREEN;
-                  primary = true;
-                  atomic = true;
+            execute_after = [
+              "~/.fehbg"
+            ];
+          }
+          {
+            name = "Home";
+            outputs_connected = [ HOME_SCREEN ];
+            #configure_column = [ HOME_SCREEN HOME_SCREEN ++ "@1920x1080" ];
+            configure_single = HOME_SCREEN;
+            primary = true;
+            atomic = true;
 
-                  execute_after = [
-                    "~/.fehbg"
-                  ];
-                }
-              ];
+            execute_after = [
+              "~/.fehbg"
+            ];
+          }
+        ];
     };
 
     network-manager-applet.enable = true;
@@ -162,7 +165,10 @@
       fade = false;
       fadeDelta = 5;
 
+      #package = pkgs.picom-allusive;
+
       settings = {
+        animations = false;
         corner-radius = 12;
 
         focus-exclude = [

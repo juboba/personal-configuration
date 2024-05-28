@@ -18,10 +18,6 @@
         };
       };
 
-      lsp.servers.rnix-lsp = {
-        enable = true;
-      };
-
       treesitter = {
         grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
           nix

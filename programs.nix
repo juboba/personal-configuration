@@ -2,7 +2,8 @@
 
 let
   HOME_PATH = builtins.getEnv "HOME";
-in with builtins; {
+in
+with builtins; {
   programs = {
     alacritty = {
       enable = true;
@@ -35,7 +36,6 @@ in with builtins; {
       enable = true;
 
       initExtra = ''
-        PATH=~/.bin:~/.config/emacs/bin:$PATH
         # Disable terminal suspension with Ctrl + s and Ctrl + q
         stty -ixon -ixoff
 
@@ -62,7 +62,7 @@ in with builtins; {
         setxkbmap -option caps:escape
       '';
 
-      shellOptions =  [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
+      shellOptions = [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" "autocd" ];
 
       shellAliases = import ./aliases;
     };
@@ -72,13 +72,13 @@ in with builtins; {
     emacs = {
       enable = true;
       package = pkgs.emacs29-gtk3;
-      extraPackages = epkgs: [ epkgs.emacsql-sqlite ] ;
+      extraPackages = epkgs: [ epkgs.emacsql-sqlite ];
     };
 
     eza = {
       enable = true;
 
-      enableAliases = true;
+      enableBashIntegration = true;
 
       extraOptions = [
         "--group-directories-first"
@@ -91,16 +91,29 @@ in with builtins; {
       userEmail = "juboba@genial.ly";
       userName = "Julio Borja Barra";
       extraConfig = {
+        branch = {
+          sort = "-committerdate";
+        };
+
+        core = {
+          untrackedcache = true;
+          fsmonitor = true;
+        };
+
         github = {
           oauth-token = readFile /home/juboba/.oauth-token;
           user = "juboba";
         };
+
+        gpg.format = "ssh";
 
         init.defaultBranch = "main";
 
         merge.conflictstyle = "diff3";
 
         ui.color = false;
+
+        user.signinkey = "~/.ssh/id_rsa.pub";
       };
 
       ignores = [
@@ -163,7 +176,7 @@ in with builtins; {
       enableBashIntegration = true;
 
       settings = {
-        add_newline = false;
+        add_newline = true;
 
         line_break = {
           disabled = true;
@@ -224,7 +237,7 @@ in with builtins; {
       enable = true;
 
       settings = {
-        default_mode = "locked";
+        #default_mode = "locked";
 
         keybinds = {
           unbind = "Ctrl b";
@@ -247,6 +260,8 @@ in with builtins; {
             orange = [ 255 184 108 ];
           };
         };
+
+        ui.pane_frames.rounded_corners = true;
       };
     };
   };
